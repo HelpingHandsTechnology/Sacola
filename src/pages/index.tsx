@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 
 import { ArticleList } from "../Components/Home/ArticleList";
-import { FixedTabOutlet } from "../Components/Home/FixedFooterTabOutlet";
+import { FixedTabOutlet } from "../Components/Home/FixedHomeTabOutlet";
 import { FixedHeaderHome } from "../Components/Home/FixedHeaderHome";
 
 import { trpc } from "../utils/trpc";
@@ -24,7 +24,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="min-h-screen  bg-slate-900 dark">
+      <main className="min-h-screen  ">
         <FixedHeaderHome />
         <ArticleList />
         <FixedTabOutlet />
