@@ -11,9 +11,9 @@ import "../styles/globals.css";
 const MyApp: AppType = ({ Component, pageProps: { session, ...pageProps } }) => {
   return (
     <SessionProvider session={session}>
-      <main className="min-h-screen  bg-slate-900 dark">
+      <div className="min-h-screen  bg-slate-900 dark">
         <Component {...pageProps} />
-      </main>
+      </div>
     </SessionProvider>
   );
 };
