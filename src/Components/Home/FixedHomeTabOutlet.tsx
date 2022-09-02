@@ -9,11 +9,6 @@ interface ITabOutletItemProps {
   icon: IconType;
   href: string;
 }
-
-/**
- * ################################
- * START FixedTabOutlet
- */
 export const FixedHomeTabOutlet = () => {
   return (
     <ul className="h-74 z-[1] border-t border-gray bg-slate-900  dark flex fixed bottom-0 left-0 right-0 px-8 py-5 justify-between text-sm font-medium text-center text-gray-500 ">
