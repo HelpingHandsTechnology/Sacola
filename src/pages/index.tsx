@@ -2,10 +2,9 @@ import type { NextPage } from "next";
 import Head from "next/head";
 
 import { ArticleList } from "../Components/Home/ArticleList";
-import {
-  FixedHeaderHome,
-  FixedTabOutlet,
-} from "../Components/Home/FixedHeaderHome";
+import { FixedTabOutlet } from "../Components/Home/FixedFooterTabOutlet";
+import { FixedHeaderHome } from "../Components/Home/FixedHeaderHome";
+
 import { trpc } from "../utils/trpc";
 
 type TechnologyCardProps = {
