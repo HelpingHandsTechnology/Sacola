@@ -1,17 +1,6 @@
 import { useState } from "react";
 import { clsx } from "clsx";
 
-import { AiFillHome, AiOutlineHeart, AiOutlineBell } from "react-icons/ai";
-import { IoPersonOutline } from "react-icons/io5";
-
-import type { IconType } from "react-icons";
-
-interface ITabOutletItemProps {
-  active: boolean;
-  icon: IconType;
-  href: string;
-}
-
 export const FixedHeaderHome = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
@@ -161,36 +150,3 @@ const MobileMenu = ({ isOpen }) => (
     </ul>
   </div>
 );
-
-/**
- * ################################
- * START FixedTabOutlet
- */
-export const FixedTabOutlet = () => {
-  return (
-    <ul className="z-[1] border-t border-gray bg-slate-900  dark flex fixed bottom-0 left-0 right-0 p-8 justify-between text-sm font-medium text-center text-gray-500 ">
-      <TabOutletItem active={true} icon={AiFillHome} href="#" />
-      <TabOutletItem active={false} icon={AiOutlineHeart} href="#" />
-      <TabOutletItem active={false} icon={AiOutlineBell} href="#" />
-      <TabOutletItem active={false} icon={IoPersonOutline} href="#" />
-    </ul>
-  );
-};
-
-/**
- * TODO: Adicionar label e icone como prop
- */
-function TabOutletItem({ active, icon: Icon, href }: ITabOutletItemProps) {
-  const classActive =
-    "flex text-blue-600 rounded-t-lg border-blue-600 active dark:text-blue-500 dark:border-blue-500 group bg-";
-  const classInactive =
-    "flex rounded-t-lg border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group";
-
-  return (
-    <li className="mr-2">
-      <a href={href}>
-        <Icon size={24} className={active ? classActive : classInactive} />
-      </a>
-    </li>
-  );
-}
