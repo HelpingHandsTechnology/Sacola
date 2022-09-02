@@ -1,5 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+
+import { ArticleList } from "../Components/Home/ArticleList";
 import {
   FixedHeaderHome,
   FixedTabOutlet,
@@ -25,9 +27,7 @@ const Home: NextPage = () => {
 
       <main className="min-h-screen  bg-slate-900 dark">
         <FixedHeaderHome />
-        <div>
-          <span className="text-4xl text-white">OI</span>
-        </div>
+        <ArticleList />
         <FixedTabOutlet />
       </main>
     </>
