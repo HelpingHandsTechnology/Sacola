@@ -24,11 +24,9 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="min-h-screen  ">
-        <FixedHeaderHome />
-        <ArticleList />
-        <FixedTabOutlet />
-      </main>
+      <FixedHeaderHome />
+      <ArticleList />
+      <FixedTabOutlet />
     </>
   );
 };
