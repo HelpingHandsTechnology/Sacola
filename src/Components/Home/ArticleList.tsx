@@ -1,4 +1,5 @@
 import Link from "next/link";
+import React from "react";
 import { FaStar } from "react-icons/fa";
 
 export const arrArticleList = [
@@ -38,10 +39,10 @@ export const ArticleList = () => {
     <>
       {arrArticleList.map((article, index) => {
         return (
-          <>
+          <React.Fragment key={index}>
             <ArticleItem {...article} />
             <Divider />
-          </>
+          </React.Fragment>
         );
       })}
     </>
@@ -58,16 +59,18 @@ const ArticleItem = ({ title, urlDomain, tags, id, isFavorite }) => {
               <h2 className="text-lg font-semibold text-slate-200 -900 -mt-1">{title}</h2>
             </div>
             <p className="text-slate-200 text-xs opacity-50">{urlDomain}</p>
-            <p className="mt-3 text-slate-200 text-sm flex flex-row items-center">
-              {tags.map((tag, index) => {
-                return <ArticleItemTag key={index} tag={tag} />;
-              })}
+            <div className="flex flex-row items-center mt-3 ">
+              <p className="text-slate-200 text-sm ">
+                {tags.map((tag, index) => {
+                  return <ArticleItemTag key={index} tag={tag} />;
+                })}
+              </p>
               {!!isFavorite && (
                 <div className="bg-yellow-500 p-1 rounded-md">
                   <FaStar className="text-white" />
                 </div>
               )}
-            </p>
+            </div>
           </div>
         </div>
       </a>
