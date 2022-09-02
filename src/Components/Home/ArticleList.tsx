@@ -47,7 +47,7 @@ export const ArticleList = () => {
 
 const ArticleItem = ({ title, urlDomain, tags, id }) => {
   return (
-    <Link href={`read/${id}`}>
+    <Link href={`read/${id}|`}>
       <a>
         <div className="flex items-start px-4 py-6">
           <div>
