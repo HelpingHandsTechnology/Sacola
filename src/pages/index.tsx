@@ -2,10 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 
 import { ArticleList } from "../Components/Home/ArticleList";
-import {
-  FixedHeaderHome,
-  FixedTabOutlet,
-} from "../Components/Home/FixedHeaderHome";
+import { FixedHeaderHome, FixedTabOutlet } from "../Components/Home/FixedHeaderHome";
 import { trpc } from "../utils/trpc";
 
 type TechnologyCardProps = {
@@ -25,11 +22,9 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="min-h-screen  bg-slate-900 dark">
-        <FixedHeaderHome />
-        <ArticleList />
-        <FixedTabOutlet />
-      </main>
+      <FixedHeaderHome />
+      <ArticleList />
+      <FixedTabOutlet />
     </>
   );
 };
