@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { FixedHeaderHome } from "../Components/Home/FixedHeaderHome";
+import { FixedHeaderHome, FixedTabOutlet } from "../Components/Home/FixedHeaderHome";
 import { trpc } from "../utils/trpc";
 
 type TechnologyCardProps = {
@@ -25,6 +25,7 @@ const Home: NextPage = () => {
         <div>
           <span className="text-4xl text-white">OI</span>
         </div>
+        <FixedTabOutlet />
       </main>
     </>
   );
