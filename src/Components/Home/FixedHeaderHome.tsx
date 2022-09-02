@@ -1,9 +1,17 @@
 import { useState } from "react";
 import { clsx } from "clsx";
 
+import { AiFillHome, AiOutlineHeart, AiOutlineBell } from "react-icons/ai";
+import { IoPersonOutline } from "react-icons/io5";
+
+import type { IconType } from "react-icons";
+
 interface ITabOutletItemProps {
   active: boolean;
+  icon: IconType;
+  href: string;
 }
+
 export const FixedHeaderHome = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
@@ -160,42 +168,28 @@ const MobileMenu = ({ isOpen }) => (
  */
 export const FixedTabOutlet = () => {
   return (
-    <div className="border-b border-gray-200 dark:border-gray-700">
-      <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
-        <TabOutletItem active={true} />
-        <TabOutletItem active={false} />
-        <TabOutletItem active={false} />
-      </ul>
-    </div>
+    <ul className="z-[1] border-t border-gray bg-slate-900  dark flex fixed bottom-0 left-0 right-0 p-8 justify-between text-sm font-medium text-center text-gray-500 ">
+      <TabOutletItem active={true} icon={AiFillHome} href="#" />
+      <TabOutletItem active={false} icon={AiOutlineHeart} href="#" />
+      <TabOutletItem active={false} icon={AiOutlineBell} href="#" />
+      <TabOutletItem active={false} icon={IoPersonOutline} href="#" />
+    </ul>
   );
 };
+
 /**
  * TODO: Adicionar label e icone como prop
  */
-function TabOutletItem({ active }: ITabOutletItemProps) {
+function TabOutletItem({ active, icon: Icon, href }: ITabOutletItemProps) {
   const classActive =
-    "inline-flex p-4 text-blue-600 rounded-t-lg border-b-2 border-blue-600 active dark:text-blue-500 dark:border-blue-500 group";
+    "flex text-blue-600 rounded-t-lg border-blue-600 active dark:text-blue-500 dark:border-blue-500 group bg-";
   const classInactive =
-    "nline-flex p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group";
+    "flex rounded-t-lg border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group";
+
   return (
     <li className="mr-2">
-      <a
-        href="#"
-        className="inline-flex p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
-      >
-        <svg
-          aria-hidden="true"
-          className={active ? classActive : classInactive}
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            fillRule="evenodd"
-            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z"
-            clipRule="evenodd"
-          />
-        </svg>
+      <a href={href}>
+        <Icon size={24} className={active ? classActive : classInactive} />
       </a>
     </li>
   );
