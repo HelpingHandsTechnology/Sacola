@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { FixedTabOutlet } from "../../Components/Home/FixedArticleTabOutlet";
+import { FixedArticleTabOutlet } from "../../Components/Home/FixedArticleTabOutlet";
 
 const Read = () => {
   const router = useRouter();
@@ -8,7 +8,7 @@ const Read = () => {
   return (
     <div>
       <p>Post: {id}</p>
-      <FixedTabOutlet />
+      <FixedArticleTabOutlet />
     </div>
   );
 };

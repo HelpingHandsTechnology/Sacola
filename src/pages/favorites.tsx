@@ -1,4 +1,4 @@
-import { FixedTabOutlet } from "../Components/Home/FixedFooterTabOutlet";
+import { FixedHomeTabOutlet } from "../Components/Home/FixedHomeTabOutlet";
 
 const Favorites = () => {
   return (
@@ -6,7 +6,7 @@ const Favorites = () => {
       <main>
         <h1 className="bg-slate-100">Favorites</h1>
       </main>
-      <FixedTabOutlet />
+      <FixedHomeTabOutlet />
     </>
   );
 };

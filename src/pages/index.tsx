@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 
 import { ArticleList } from "../Components/Home/ArticleList";
-import { FixedTabOutlet } from "../Components/Home/FixedHomeTabOutlet";
+import { FixedHomeTabOutlet } from "../Components/Home/FixedHomeTabOutlet";
 import { FixedHeaderHome } from "../Components/Home/FixedHeaderHome";
 
 import { trpc } from "../utils/trpc";
@@ -26,7 +26,7 @@ const Home: NextPage = () => {
 
       <FixedHeaderHome />
       <ArticleList />
-      <FixedTabOutlet />
+      <FixedHomeTabOutlet />
     </>
   );
 };
