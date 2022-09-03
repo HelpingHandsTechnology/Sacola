@@ -8,6 +8,7 @@ import { protectedExampleRouter } from "./protected-example-router";
 export const appRouter = createRouter()
   .transformer(superjson)
   .merge("example.", exampleRouter)
+  .merge("articles.", exampleRouter)
   .merge("auth.", protectedExampleRouter);
 
 // export type definition of API
