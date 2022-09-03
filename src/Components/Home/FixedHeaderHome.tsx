@@ -37,12 +37,10 @@ export const FixedHeaderHome = () => {
     ev.preventDefault();
 
     setSearchValue(inputValue);
-  };
-  const articleCreateMutation = trpc.useMutation("articles.create");
-  const onSearch = () => {
-    console.log({ inputValue });
     setIsSearchOpen(false);
   };
+  const articleCreateMutation = trpc.useMutation("articles.create");
+
   const onAddNewItem = () => {
     articleCreateMutation.mutate(
       { url: inputValueAddNewItem },
@@ -92,10 +90,13 @@ export const FixedHeaderHome = () => {
       />
 
       <ModalSearch
-        isSearchOpen={isSearchOpen}
-        setIsSearchOpen={setIsSearchOpen}
-        handleSubmit={handleSubmit}
-        setInputValue={setInputValue}
+        {...{
+          isSearchOpen,
+          setIsSearchOpen,
+          handleSubmit,
+          setInputValue,
+          inputValue,
+        }}
       />
 
       <DrawerFilter
@@ -109,16 +110,26 @@ export const FixedHeaderHome = () => {
   );
 };
 
-const ModalSearch = ({ isSearchOpen, setIsSearchOpen, handleSubmit, setInputValue }) => {
+const ModalSearch = ({
+  isSearchOpen,
+  setIsSearchOpen,
+  handleSubmit,
+  setInputValue,
+  inputValue,
+}) => {
   return (
     <Modal open={isSearchOpen} onClose={() => setIsSearchOpen(false)}>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="search" className="block text-sm font-medium text-white">
+        <label
+          htmlFor="search"
+          className="block text-sm font-medium text-white"
+        >
           Busca
         </label>
         <div className="relative mt-1 rounded-md shadow-sm">
           <input
             onChange={(e) => setInputValue(e.target.value)}
+            value={inputValue}
             type="text"
             name="search"
             id="search"
@@ -150,7 +161,10 @@ const ModalAddNewLink = ({
   return (
     <Modal open={isAddNewItemOpen} onClose={() => setIsAddNewItemOpen(false)}>
       <div>
-        <label htmlFor="search" className="block text-sm font-medium text-white">
+        <label
+          htmlFor="search"
+          className="block text-sm font-medium text-white"
+        >
           Adicione o link que você deseja salvar na sua lista
         </label>
         <div className="relative mt-1 rounded-md shadow-sm">
@@ -181,12 +195,21 @@ const ModalAddNewLink = ({
 
 const DrawerFilter = ({ isFilterOpen, setIsFilterOpen, handleSubmit }) => {
   return (
-    <Drawer direction="top" open={isFilterOpen} onClose={() => setIsFilterOpen(false)}>
-      <form onSubmit={handleSubmit} className="bg-white rounded-md text-sm text-white">
-        <label className="block text-sm font-normal text-black">Filtros</label>
+    <Drawer
+      direction="top"
+      open={isFilterOpen}
+      onClose={() => setIsFilterOpen(false)}
+    >
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white rounded-md text-sm text-white"
+      >
+        <label className="block text-sm font-bold text-black">Filtros</label>
 
-        <div className="relative mt-1 text-black">
-          <span>TAG</span>
+        <div className=" flex-col gap-4 flex-wrap relative mt-1 text-black">
+          <div>TAG 1</div>
+          <div>TAG 2</div>
+          <div>TAG 3</div>
         </div>
       </form>
     </Drawer>
