@@ -47,10 +47,13 @@ export const ArticleList = () => {
       </div>
     );
   }
+  if (articles.error) {
+    return <div>error</div>;
+  }
 
   return (
     <>
-      {arrArticleList.map((article, index) => {
+      {articles?.data?.map((article, index) => {
         return (
           <React.Fragment key={index}>
             <ArticleItem {...article} />

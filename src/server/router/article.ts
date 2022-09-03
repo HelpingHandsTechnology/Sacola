@@ -15,4 +15,18 @@ export const articleRouter = createRouter()
         },
       });
     },
+  })
+  .query("getFilteredByName", {
+    input: z.object({
+      name: z.string(),
+    }),
+    async resolve({ ctx, input }) {
+      return await ctx.prisma.article.findMany({
+        where: {
+          title: {
+            contains: input.name,
+          },
+        },
+      });
+    },
   });
