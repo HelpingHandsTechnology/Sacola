@@ -60,14 +60,16 @@ const Read = () => {
               {data.urlDomain}
             </a>
             <div
-              className="flex text-slate-200 flex-row items-center mt-3 "
+              className="flex justify-center text-slate-200 flex-row items-center mt-3 w-full "
               dangerouslySetInnerHTML={{ __html: readabilityData.content }}
             />
           </div>
         </React.Fragment>
       )}
 
-      <FixedArticleTabOutlet />
+      <FixedArticleTabOutlet
+        {...{ textHtml: readabilityData?.textContent ?? "" }}
+      />
     </div>
   );
 };

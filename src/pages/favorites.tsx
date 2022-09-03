@@ -1,5 +1,4 @@
 import { ArticleItem } from "../Components/Home/ArticleList";
-import { FixedHeaderHome } from "../Components/Home/FixedHeaderHome";
 import { FixedHomeTabOutlet } from "../Components/Home/FixedHomeTabOutlet";
 import { CommonHeaderContainer } from "../Components/shared/CommonHeaderContainer";
 import { trpc } from "../utils/trpc";

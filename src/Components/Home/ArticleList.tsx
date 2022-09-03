@@ -3,7 +3,6 @@ import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 
 import React, { useContext } from "react";
 import { FaStar } from "react-icons/fa";
-import { TbDotsVertical } from "react-icons/tb";
 import { homeContext } from "../../contexts/homeContext";
 import { trpc } from "../../utils/trpc";
 import { BsThreeDotsVertical } from "react-icons/bs";
@@ -112,7 +111,7 @@ const useMutationDeleteArticleById = () => {
           if (!old) {
             return [];
           }
-          const newArticles = old.filter((article) => article.id !== params.id);
+          // const newArticles = old.filter((article) => article.id !== params.id);
           return old.filter((article) => article.id !== params.id);
         });
         return {
@@ -132,7 +131,8 @@ const useMutationDeleteArticleById = () => {
             utils.setQueryData(
               ["articles.getAll"],
               prev.filter(
-                (article) => !!deletedArticle && article.id !== deletedArticle.id
+                (article) =>
+                  !!deletedArticle && article.id !== deletedArticle.id
               )
             );
             return prev;

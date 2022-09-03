@@ -1,11 +1,17 @@
 import { IoClose } from "react-icons/io5";
 import { BsArrowBarRight } from "react-icons/bs";
 import { AiOutlineArrowRight } from "react-icons/ai";
+import { useRouter } from "next/router";
 
 export default function Options() {
+  const router = useRouter();
+
   return (
     <div>
-      <div className="flex items-center justify-center p-12  text-gray-200">
+      <div
+        className="flex items-center justify-center p-12  text-gray-200"
+        onClick={() => router.back()}
+      >
         <h6 className="text-base">Opções</h6>
         {<IoClose size={20} className="ml-4" />}
       </div>
