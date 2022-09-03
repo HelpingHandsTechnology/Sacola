@@ -31,7 +31,7 @@ const Read = () => {
     <div>
       {article?.data && (
         <React.Fragment>
-          <ArticleItem {...article.data[0]} />
+          <ArticleItem {...article.data} />
           <Divider />
         </React.Fragment>
       )}

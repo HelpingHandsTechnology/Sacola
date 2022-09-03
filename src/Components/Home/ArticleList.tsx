@@ -88,7 +88,7 @@ export const ArticleItem = ({ title, urlDomain, tags, id, isFavorite }) => {
   return (
     <div className="flex items-start px-4 py-6">
       <Row className="text-slate-200 justify-between flex-1 w-full items-stretch">
-        <Link href={`read/${id}|`}>
+        <Link href={`read/${id}`}>
           <a>
             <div>
               <div className="w-full">
@@ -134,4 +134,6 @@ const ArticleItemTag = ({ tag }) => (
   </span>
 );
 
-const Divider = () => <div className="border-t border-slate-200 dark:border-slate-800" />;
+const Divider = () => (
+  <div className="border-t border-slate-200 dark:border-slate-800" />
+);
