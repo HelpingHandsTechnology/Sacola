@@ -2,6 +2,7 @@ import Link from "next/link";
 import React, { useContext } from "react";
 import { FaStar } from "react-icons/fa";
 import { homeContext } from "../../contexts/homeContext";
+import { trpc } from "../../utils/trpc";
 
 export const arrArticleList = [
   {
@@ -36,6 +37,8 @@ export const arrArticleList = [
   },
 ];
 export const ArticleList = () => {
+  const articles = trpc.useQuery(["articles.getAll"], { retry: false });
+
   const homeCtx = useContext(homeContext);
 
   if (!homeCtx) {
@@ -43,6 +46,19 @@ export const ArticleList = () => {
   }
 
   const { searchValue } = homeCtx;
+
+  if (articles.isLoading) {
+    return (
+      <div className="space-y-3">
+        <div className="flex items-start px-4 py-6 bg-slate-400 animate-pulse h-20" />
+        <div className="flex items-start px-4 py-6 bg-slate-400 animate-pulse h-20" />
+        <div className="flex items-start px-4 py-6 bg-slate-400 animate-pulse h-20" />
+      </div>
+    );
+  }
+  if (articles.error) {
+    return <div>error</div>;
+  }
 
   return (
     <div>
@@ -52,7 +68,7 @@ export const ArticleList = () => {
         </div>
       )}
 
-      {arrArticleList.map((article, index) => {
+      {articles?.data?.map((article, index) => {
         return (
           <React.Fragment key={index}>
             <ArticleItem {...article} />
