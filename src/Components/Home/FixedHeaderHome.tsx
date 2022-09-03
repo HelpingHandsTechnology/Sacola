@@ -83,19 +83,11 @@ export const FixedHeaderHome = () => {
   );
 };
 
-const ModalSearch = ({
-  isSearchOpen,
-  setIsSearchOpen,
-  handleSubmit,
-  setInputValue,
-}) => {
+const ModalSearch = ({ isSearchOpen, setIsSearchOpen, handleSubmit, setInputValue }) => {
   return (
     <Modal open={isSearchOpen} onClose={() => setIsSearchOpen(false)}>
       <form onSubmit={handleSubmit}>
-        <label
-          htmlFor="search"
-          className="block text-sm font-medium text-white"
-        >
+        <label htmlFor="search" className="block text-sm font-medium text-white">
           Busca
         </label>
         <div className="relative mt-1 rounded-md shadow-sm">
@@ -131,10 +123,7 @@ const ModalAddNewLink = ({
   return (
     <Modal open={isAddNewItemOpen} onClose={() => setIsAddNewItemOpen(false)}>
       <div>
-        <label
-          htmlFor="search"
-          className="block text-sm font-medium text-white"
-        >
+        <label htmlFor="search" className="block text-sm font-medium text-white">
           Adicione o link que você deseja salvar na sua lista
         </label>
         <div className="relative mt-1 rounded-md shadow-sm">
