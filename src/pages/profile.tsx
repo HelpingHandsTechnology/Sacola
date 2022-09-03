@@ -1,8 +1,10 @@
 import { FaTrophy, FaUserFriends, FaPen } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
+import { BsFillGearFill } from "react-icons/bs";
 import { MdFeedback } from "react-icons/md";
 import { FixedHomeTabOutlet } from "../Components/Home/FixedHomeTabOutlet";
 import * as AvatarPrimitive from "@radix-ui/react-avatar";
+import Link from "next/link";
 
 export default function Profile() {
   return (
@@ -33,6 +35,9 @@ export default function Profile() {
           <FaUserFriends size={30} />
           <MdFeedback size={30} />
           <FaPen size={30} />
+          <Link href="/options">
+            <BsFillGearFill size={30} href="/options" className="cursor-pointer" />
+          </Link>
         </div>
         <button>Edit Profile</button>
       </div>
