@@ -8,6 +8,7 @@ import { Row } from "../shared/Row";
 import { Modal } from "../shared/Modal";
 import { homeContext } from "../../contexts/homeContext";
 import { Drawer } from "../shared/Drawer";
+import { trpc } from "../../utils/trpc";
 
 export type ClassName = {
   className?: string;
@@ -36,11 +37,21 @@ export const FixedHeaderHome = () => {
     ev.preventDefault();
 
     setSearchValue(inputValue);
+  const articleCreateMutation = trpc.useMutation("articles.create");
+  const onSearch = () => {
+    console.log({ inputValue });
     setIsSearchOpen(false);
   };
   const onAddNewItem = () => {
-    setIsAddNewItemOpen(false);
-    setInputValueAddNewItem("");
+    articleCreateMutation.mutate(
+      { url: inputValueAddNewItem },
+      {
+        onSuccess: () => {
+          setIsAddNewItemOpen(false);
+          setInputValueAddNewItem("");
+        },
+      }
+    );
   };
 
   return (
@@ -188,6 +199,6 @@ const DrawerFilter = ({ isFilterOpen, setIsFilterOpen, handleSubmit }) => {
   );
 };
 
-export const PanelCommonHeader = ({ children, className = "" }) => {
-  return <div className={clsx("py-2", className)}>{children}</div>;
-};
+// export const PanelCommonHeader = ({ children, className = "" }) => {
+//   return <div className={clsx("py-2", className)}>{children}</div>;
+// };
