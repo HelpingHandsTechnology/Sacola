@@ -16,6 +16,7 @@ export const Drawer = ({
 }: IProps) => {
   return (
     <DrawerModern
+      className="rounded-b-3xl"
       {...{
         onClose,
         open,
@@ -23,7 +24,7 @@ export const Drawer = ({
         direction,
       }}
     >
-      {children}
+      <div className="p-8">{children}</div>
     </DrawerModern>
   );
 };
