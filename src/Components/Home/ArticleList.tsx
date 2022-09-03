@@ -90,7 +90,7 @@ export const ArticleItem = ({ title, urlDomain, tags, id, isFavorite }) => {
     <div className="flex items-start px-4 py-6">
       <Row className="text-slate-200 justify-between flex-1 w-full ">
         <ArticleItemCard {...{ title, urlDomain, tags, id, isFavorite }} />
-        <OptionsArticleItem id={id} isFavorite={isFavorite} />
+        <OptionsArticleItem id={id} isFavorite={isFavorite} url={urlDomain} />
       </Row>
     </div>
   );
@@ -131,8 +131,7 @@ const useMutationDeleteArticleById = () => {
             utils.setQueryData(
               ["articles.getAll"],
               prev.filter(
-                (article) =>
-                  !!deletedArticle && article.id !== deletedArticle.id
+                (article) => !!deletedArticle && article.id !== deletedArticle.id
               )
             );
             return prev;
@@ -173,7 +172,7 @@ const useUpdateArticleById = () => {
   );
 };
 
-export const OptionsArticleItem = ({ id, isFavorite }) => {
+export const OptionsArticleItem = ({ id, isFavorite, url }) => {
   const deleteMutation = useMutationDeleteArticleById();
   const favoriteMutation = useUpdateArticleById();
   const handleDelete = () => {
@@ -181,6 +180,9 @@ export const OptionsArticleItem = ({ id, isFavorite }) => {
   };
   const handleFavorite = (isFavorite) => {
     favoriteMutation.mutate({ id, isFavorite });
+  };
+  const handleCopyToClipboard = () => {
+    navigator.clipboard.writeText(id);
   };
   return (
     <div>
@@ -197,6 +199,7 @@ export const OptionsArticleItem = ({ id, isFavorite }) => {
             {isFavorite ? "Remover favorito" : "Marcar como favorito"}
           </DropdownMenu.Item>
           <DropdownMenu.Item
+            onClick={handleCopyToClipboard}
             className={`py-2 px-8 rounded cursor-default
           focus:outline-none focus:bg-slate-400 focus:text-white br-1`}
           >
