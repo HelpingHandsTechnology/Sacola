@@ -31,6 +31,26 @@ export const articleRouter = createRouter()
       });
     },
   })
+  .query("getReadabilityById", {
+    input: z.object({
+      id: z.string(),
+    }),
+    async resolve({ ctx, input }) {
+      const response = await ctx.prisma.article.findUnique({
+        where: {
+          id: input.id,
+        },
+      });
+
+      const url = await axios.get(response?.urlDomain ?? "");
+
+      const doc = new JSDOM(url.data);
+      const readabability = new Readability(doc.window.document);
+      const article = readabability.parse();
+
+      return article;
+    },
+  })
   .query("getFilteredByName", {
     input: z.object({
       name: z.string(),

@@ -65,7 +65,7 @@ export const ArticleList = () => {
   }
 
   return (
-    <div>
+    <div className="pb-16">
       {searchValue && (
         <div className="flex sticky top-0 items-center justify-center min-w-full align-middle bg-white pt-2 pb-2 text-lg font-semibold text-black">
           <h2 className="m-0">Filtrando por: {searchValue}</h2>
@@ -89,35 +89,33 @@ export const ArticleItem = ({ title, urlDomain, tags, id, isFavorite }) => {
     <div className="flex items-start px-4 py-6">
       <Row className="text-slate-200 justify-between flex-1 w-full items-stretch">
         <Link href={`read/${id}`}>
-          <a>
-            <div>
-              <div className="w-full">
-                <div className="flex items-center justify-between">
-                  <h2 className="text-lg font-semibold  mt-1 mr-8">{title}</h2>
-                </div>
-              </div>
-              <p className="text-slate-200 text-xs opacity-50">{urlDomain}</p>
-              <div className="flex flex-row items-center mt-3 ">
-                <p className="text-slate-200 text-sm ">
-                  {tags.map((tag, index) => {
-                    return <ArticleItemTag key={index} tag={tag} />;
-                  })}
-                </p>
-                {!!isFavorite && (
-                  <div className="bg-yellow-500 p-1 rounded-md">
-                    <FaStar className="text-white" />
-                  </div>
-                )}
+          <div>
+            <div className="w-full">
+              <div className="flex items-center justify-between">
+                <h2 className="text-lg font-semibold  mt-1 mr-8">{title}</h2>
               </div>
             </div>
-          </a>
+            <p className="text-slate-200 text-xs opacity-50">{urlDomain}</p>
+            <div className="flex flex-row items-center mt-3 ">
+              <p className="text-slate-200 text-sm ">
+                {tags.map((tag, index) => {
+                  return <ArticleItemTag key={index} tag={tag} />;
+                })}
+              </p>
+              {!!isFavorite && (
+                <div className="bg-yellow-500 p-1 rounded-md">
+                  <FaStar className="text-white" />
+                </div>
+              )}
+            </div>
+          </div>
         </Link>
       </Row>
     </div>
   );
 };
 
-const OptionsArticleItem = () => {
+export const OptionsArticleItem = () => {
   return (
     <button className="flex-shrink ">
       <TbDotsVertical size={24} />
@@ -125,7 +123,7 @@ const OptionsArticleItem = () => {
   );
 };
 
-const ArticleItemTag = ({ tag }) => (
+export const ArticleItemTag = ({ tag }) => (
   <span
     key={tag}
     className="inline-block px-2  mr-2 text-xs font-medium leading-6 text-slate-900  rounded-md bg-slate-400"
@@ -134,6 +132,6 @@ const ArticleItemTag = ({ tag }) => (
   </span>
 );
 
-const Divider = () => (
+export const Divider = () => (
   <div className="border-t border-slate-200 dark:border-slate-800" />
 );

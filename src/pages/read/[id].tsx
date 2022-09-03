@@ -1,6 +1,8 @@
+import Head from "next/head";
 import { useRouter } from "next/router";
 import React from "react";
-import { ArticleItem } from "../../Components/Home/ArticleList";
+import { FaStar } from "react-icons/fa";
+import { ArticleItem, ArticleItemTag } from "../../Components/Home/ArticleList";
 import { FixedArticleTabOutlet } from "../../Components/Home/FixedArticleTabOutlet";
 import { trpc } from "../../utils/trpc";
 
@@ -13,8 +15,12 @@ const Read = () => {
   }
 
   const article = trpc.useQuery(["articles.getById", { id }], { retry: false });
+  const articleReadability = trpc.useQuery(
+    ["articles.getReadabilityById", { id }],
+    { retry: false }
+  );
 
-  if (article.isLoading) {
+  if (article.isLoading || articleReadability.isLoading) {
     return (
       <div className="space-y-3">
         <div className="flex items-start px-4 py-6 bg-slate-400 animate-pulse h-20" />
@@ -23,16 +29,41 @@ const Read = () => {
       </div>
     );
   }
-  if (article.error) {
+  if (article.error || articleReadability.error) {
     return <div>error</div>;
   }
 
+  const data = article?.data;
+  const readabilityData = articleReadability?.data;
+
   return (
     <div>
-      {article?.data && (
+      {data && readabilityData && (
         <React.Fragment>
-          <ArticleItem {...article.data} />
-          <Divider />
+          <Head>
+            <title>Bolso | {data.title}</title>
+            <meta name="description" content={`Bolso | ${data.title}`} />
+          </Head>
+
+          <div className="px-4 py-2">
+            <div className="w-full">
+              <h2 className=" text-slate-200 text-lg text-center font-semibold  mt-1 mb-2">
+                {data.title}
+              </h2>
+            </div>
+            <a
+              href={data.urlDomain}
+              target="_blank"
+              rel="noreferrer"
+              className="text-slate-200 text-xs opacity-50"
+            >
+              {data.urlDomain}
+            </a>
+            <div
+              className="flex text-slate-200 flex-row items-center mt-3 "
+              dangerouslySetInnerHTML={{ __html: readabilityData.content }}
+            />
+          </div>
         </React.Fragment>
       )}
 
@@ -40,9 +71,5 @@ const Read = () => {
     </div>
   );
 };
-
-const Divider = () => (
-  <div className="border-t border-slate-200 dark:border-slate-800" />
-);
 
 export default Read;
