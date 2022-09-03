@@ -35,7 +35,9 @@ function TabOutletItem({ icon: Icon, href }: ITabOutletItemProps) {
   return (
     <li className="mr-2 cursor-pointer">
       <Link href={href}>
-        <Icon size={28} className={active ? classActive : classInactive} />
+        <a>
+          <Icon size={28} className={active ? classActive : classInactive} />
+        </a>
       </Link>
     </li>
   );

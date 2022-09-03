@@ -1,12 +1,11 @@
 import { ArticleItem } from "../Components/Home/ArticleList";
+import { FixedHeaderHome } from "../Components/Home/FixedHeaderHome";
 import { FixedHomeTabOutlet } from "../Components/Home/FixedHomeTabOutlet";
+import { CommonHeaderContainer } from "../Components/shared/CommonHeaderContainer";
 import { trpc } from "../utils/trpc";
 
 const Favorites = () => {
-  const articles = trpc.useQuery(["articles.getAll"], { retry: false });
-  const filteredArticles = articles?.data?.filter(
-    (article) => article.isFavorite === true
-  );
+  const articles = trpc.useQuery(["articles.getFavorite"], { retry: false });
 
   if (!articles.data) {
     return <div />;
@@ -15,9 +14,9 @@ const Favorites = () => {
   return (
     <>
       <main>
-        <h1 className="bg-slate-100">Favorites</h1>
+        <CommonHeaderContainer title={"Meus favoritos"} />
         <ul>
-          {filteredArticles?.map((article) => (
+          {articles.data?.map((article) => (
             <li key={article.id}>
               {
                 <ArticleItem

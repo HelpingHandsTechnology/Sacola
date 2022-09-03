@@ -61,12 +61,12 @@ export const FixedHeaderHome = () => {
         title="Minha lista"
         renderLeft={() => (
           <Link href={"/"}>
-            <button
-              className="space-x-4 text-gray-200 "
+            <a
+              className="space-x-4 text-gray-200 cursor-pointer"
               onClick={() => setIsAddNewItemOpen(true)}
             >
               <FaPlus stroke="1" />
-            </button>
+            </a>
           </Link>
         )}
         rendeRight={() => (

@@ -38,12 +38,14 @@ function TabOutletItem({ icon: Icon, href }: ITabOutletItemProps) {
     <li className="mr-2 cursor-pointer">
       {href ? (
         <Link href={href}>
-          <Icon
-            size={28}
-            className={
-              "flex rounded-t-lg border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
-            }
-          />
+          <a>
+            <Icon
+              size={28}
+              className={
+                "flex rounded-t-lg border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group"
+              }
+            />
+          </a>
         </Link>
       ) : (
         <button>

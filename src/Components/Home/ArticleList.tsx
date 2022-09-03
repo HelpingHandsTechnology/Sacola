@@ -112,6 +112,7 @@ const useMutationDeleteArticleById = () => {
           if (!old) {
             return [];
           }
+          const newArticles = old.filter((article) => article.id !== params.id);
           return old.filter((article) => article.id !== params.id);
         });
         return {
@@ -216,26 +217,28 @@ export const OptionsArticleItem = ({ id, isFavorite }) => {
 };
 const ArticleItemCard = ({ title, urlDomain, tags, id, isFavorite }) => (
   <Link href={`read/${id}`}>
-    <div>
-      <div className="w-full">
-        <div className="flex items-center justify-between">
-          <h2 className="text-lg font-semibold  mt-1 mr-8">{title}</h2>
+    <a>
+      <div>
+        <div className="w-full">
+          <div className="flex items-center justify-between">
+            <h2 className="text-lg font-semibold  mt-1 mr-8">{title}</h2>
+          </div>
+        </div>
+        <p className="text-slate-200 text-xs opacity-50">{urlDomain}</p>
+        <div className="flex flex-row items-center mt-3 ">
+          <p className="text-slate-200 text-sm ">
+            {tags.map((tag, index) => {
+              return <ArticleItemTag key={index} tag={tag} />;
+            })}
+          </p>
+          {!!isFavorite && (
+            <div className="bg-yellow-500 p-1 rounded-md">
+              <FaStar className="text-white" />
+            </div>
+          )}
         </div>
       </div>
-      <p className="text-slate-200 text-xs opacity-50">{urlDomain}</p>
-      <div className="flex flex-row items-center mt-3 ">
-        <p className="text-slate-200 text-sm ">
-          {tags.map((tag, index) => {
-            return <ArticleItemTag key={index} tag={tag} />;
-          })}
-        </p>
-        {!!isFavorite && (
-          <div className="bg-yellow-500 p-1 rounded-md">
-            <FaStar className="text-white" />
-          </div>
-        )}
-      </div>
-    </div>
+    </a>
   </Link>
 );
 
