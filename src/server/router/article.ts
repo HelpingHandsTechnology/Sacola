@@ -96,4 +96,23 @@ export const articleRouter = createRouter()
       });
       return deleted;
     },
+  })
+  .mutation("updateById", {
+    input: z.object({
+      id: z.string(),
+      isFavorite: z.boolean().optional(),
+      title: z.string().optional(),
+    }),
+    async resolve({ ctx, input }) {
+      const updated = await ctx.prisma.article.update({
+        where: {
+          id: input.id,
+        },
+        data: {
+          isFavorite: input.isFavorite,
+          title: input.title,
+        },
+      });
+      return updated;
+    },
   });

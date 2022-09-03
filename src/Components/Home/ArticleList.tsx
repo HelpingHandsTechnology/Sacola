@@ -91,7 +91,7 @@ export const ArticleItem = ({ title, urlDomain, tags, id, isFavorite }) => {
     <div className="flex items-start px-4 py-6">
       <Row className="text-slate-200 justify-between flex-1 w-full ">
         <ArticleItemCard {...{ title, urlDomain, tags, id, isFavorite }} />
-        <OptionsArticleItem id={id} />
+        <OptionsArticleItem id={id} isFavorite={isFavorite} />
       </Row>
     </div>
   );
@@ -142,11 +142,44 @@ const useMutationDeleteArticleById = () => {
     }
   );
 };
+const useUpdateArticleById = () => {
+  const utils = trpc.useContext();
+  return trpc.useMutation<"articles.updateById", { snapshot: Article[] }>(
+    ["articles.updateById"],
+    {
+      onMutate: async (params) => {
+        await utils.cancelQuery(["articles.getAll"]);
+        await utils.cancelQuery(["articles.getById"]);
+        await utils.cancelQuery(["articles.getFavorite"]);
+        await utils.cancelQuery(["articles.getReadabilityById"]);
+        const snapshot = utils.getQueryData(["articles.getAll"]);
+        utils.setQueryData(["articles.getAll"], (old) => {
+          if (!old) {
+            return [];
+          }
+          return old.map((article) => {
+            if (article.id === params.id) {
+              return { ...article, ...params };
+            }
+            return article;
+          });
+        });
+        return {
+          snapshot: snapshot || [],
+        };
+      },
+    }
+  );
+};
 
-export const OptionsArticleItem = ({ id }) => {
+export const OptionsArticleItem = ({ id, isFavorite }) => {
   const deleteMutation = useMutationDeleteArticleById();
+  const favoriteMutation = useUpdateArticleById();
   const handleDelete = () => {
     deleteMutation.mutate({ id });
+  };
+  const handleFavorite = (isFavorite) => {
+    favoriteMutation.mutate({ id, isFavorite });
   };
   return (
     <div>
@@ -158,8 +191,9 @@ export const OptionsArticleItem = ({ id }) => {
           <DropdownMenu.Item
             className={`py-2 px-8 rounded cursor-default
           focus:outline-none focus:bg-slate-400 focus:text-white br-1`}
+            onClick={() => handleFavorite(!isFavorite)}
           >
-            Marcar como favorito
+            {isFavorite ? "Remover favorito" : "Marcar como favorito"}
           </DropdownMenu.Item>
           <DropdownMenu.Item
             className={`py-2 px-8 rounded cursor-default
