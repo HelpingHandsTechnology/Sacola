@@ -8,6 +8,7 @@ import { homeContext } from "../../contexts/homeContext";
 import { trpc } from "../../utils/trpc";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { Row } from "../shared/Row";
+import { Article } from "@prisma/client";
 
 export const arrArticleList = [
   {
@@ -88,44 +89,90 @@ export const ArticleList = () => {
 export const ArticleItem = ({ title, urlDomain, tags, id, isFavorite }) => {
   return (
     <div className="flex items-start px-4 py-6">
-      <Row className="text-slate-200 justify-between flex-1 w-full">
+      <Row className="text-slate-200 justify-between flex-1 w-full ">
         <ArticleItemCard {...{ title, urlDomain, tags, id, isFavorite }} />
-        <OptionsArticleItem />
+        <OptionsArticleItem id={id} />
       </Row>
     </div>
   );
 };
 
-export const OptionsArticleItem = () => {
-  const [open, setOpen] = React.useState(true);
+const useMutationDeleteArticleById = () => {
+  const utils = trpc.useContext();
+  return trpc.useMutation<"articles.deleteById", { snapshot: Article[] }>(
+    ["articles.deleteById"],
+    {
+      onMutate: async (params) => {
+        await utils.cancelQuery(["articles.getAll"]);
+        await utils.cancelQuery(["articles.getById"]);
+        await utils.cancelQuery(["articles.getFavorite"]);
+        await utils.cancelQuery(["articles.getReadabilityById"]);
+        const snapshot = utils.getQueryData(["articles.getAll"]);
+        utils.setQueryData(["articles.getAll"], (old) => {
+          if (!old) {
+            return [];
+          }
+          return old.filter((article) => article.id !== params.id);
+        });
+        return {
+          snapshot: snapshot || [],
+        };
+      },
+      onError: (err, params, context) => {
+        utils.setQueryData(["articles.getAll"], context?.snapshot || []);
+      },
+      onSettled: (deletedArticle) => {
+        utils.invalidateQueries("articles.getAll");
+        utils.invalidateQueries("articles.getById");
+        utils.invalidateQueries("articles.getFavorite");
+        utils.invalidateQueries("articles.getReadabilityById");
+        utils.setQueryData(["articles.getAll"], (prev) => {
+          if (prev) {
+            utils.setQueryData(
+              ["articles.getAll"],
+              prev.filter(
+                (article) => !!deletedArticle && article.id !== deletedArticle.id
+              )
+            );
+            return prev;
+          }
+          return [];
+        });
+      },
+    }
+  );
+};
+
+export const OptionsArticleItem = ({ id }) => {
+  const deleteMutation = useMutationDeleteArticleById();
+  const handleDelete = () => {
+    deleteMutation.mutate({ id });
+  };
   return (
     <div>
       <DropdownMenu.Root>
         <DropdownMenu.Trigger className={` py-2 px-8 rounded cursor-default`}>
-          <BsThreeDotsVertical
-            size={24}
-            className="fill-transparent"
-            fill="transparent"
-          />
+          <BsThreeDotsVertical size={24} />
         </DropdownMenu.Trigger>
         <DropdownMenu.Content className={`p-1 shadow-xl rounded bg-slate-800`}>
           <DropdownMenu.Item
             className={`py-2 px-8 rounded cursor-default
-          focus:outline-none focus:bg-indigo-400 focus:text-white br-1`}
+          focus:outline-none focus:bg-slate-400 focus:text-white br-1`}
           >
-            Cut
+            Marcar como favorito
           </DropdownMenu.Item>
           <DropdownMenu.Item
             className={`py-2 px-8 rounded cursor-default
-          focus:outline-none focus:bg-indigo-400 focus:text-white br-1`}
+          focus:outline-none focus:bg-slate-400 focus:text-white br-1`}
           >
-            Copy
+            Copiar link
           </DropdownMenu.Item>
           <DropdownMenu.Item
             className={`py-2 px-8 rounded cursor-default
-          focus:outline-none focus:bg-indigo-400 focus:text-white br-1`}
+          focus:outline-none focus:bg-red-400 focus:text-white br-1`}
+            onClick={handleDelete}
           >
-            Paste
+            Apagar
           </DropdownMenu.Item>
           <DropdownMenu.Arrow className="text-white" fill="currentColor" />
         </DropdownMenu.Content>

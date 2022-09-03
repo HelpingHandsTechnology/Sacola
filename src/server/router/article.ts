@@ -83,4 +83,17 @@ export const articleRouter = createRouter()
         },
       });
     },
+  })
+  .mutation("deleteById", {
+    input: z.object({
+      id: z.string(),
+    }),
+    async resolve({ ctx, input }) {
+      const deleted = await ctx.prisma.article.delete({
+        where: {
+          id: input.id,
+        },
+      });
+      return deleted;
+    },
   });
