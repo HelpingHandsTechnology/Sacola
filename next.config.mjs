@@ -13,6 +13,9 @@ function defineNextConfig(config) {
 }
 
 export default defineNextConfig({
+  compiler: {
+    styledComponents: true,
+  },
   reactStrictMode: true,
   swcMinify: true,
 });

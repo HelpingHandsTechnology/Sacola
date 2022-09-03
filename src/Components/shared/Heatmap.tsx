@@ -2,12 +2,9 @@
 // @ts-nocheck
 import styled from "styled-components";
 
-const getRandomInt = (min: number, max: number): number => {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  const randomInt: number = Math.floor(Math.random() * (max - min + 1)) + min;
-  return randomInt;
-};
+export function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
 
 const getRandomCount = (squares: number) => {
   const randomCount: number[] = [];
@@ -36,23 +33,6 @@ const transformPixelsToNumber = (pixel: string) => {
   // @ts-ignore
   return parseInt(exp.exec(pixel.toString())[0]);
 };
-
-const MONTHS: string[] = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-];
-
-const WEEK_DAYS: string[] = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 const DAYS_IN_YEAR = 365;
 
@@ -112,56 +92,13 @@ export const Heatmap: React.FC<IProps> = (props: IProps) => {
     String(transformPixelsToNumber(squareGap) + transformPixelsToNumber(squareSize)) +
     "px";
   // styles (inspired by https://bitsofco.de/github-contribution-graph-css-grid/)
-  const Wrapper = styled.div`
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
-      sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    font-size: ${fontSize};
-    box-sizing: border-box;
-    ul {
-      padding-inline-start: 0;
-      list-style: none;
-    }
-  `;
   const Graph = styled.div`
-    padding: 20px;
-    border: 1px #e1e4e8 solid;
-    margin: 20px;
     display: inline-grid;
     grid-template-areas:
       "empty months"
       "days squares";
     grid-template-columns: auto 1fr;
     grid-gap: 10px;
-  `;
-  const Months = styled.ul`
-    padding-inline-start: 0;
-    grid-area: months;
-    margin-bottom: 0;
-    display: grid;
-    grid-template-columns:
-      calc(${weekWidth} * 4) /* jan */
-      calc(${weekWidth} * 4) /* feb */
-      calc(${weekWidth} * 4) /* mar */
-      calc(${weekWidth} * 5) /* apr */
-      calc(${weekWidth} * 4) /* may */
-      calc(${weekWidth} * 4) /* jun */
-      calc(${weekWidth} * 5) /* jul */
-      calc(${weekWidth} * 4) /* aug */
-      calc(${weekWidth} * 4) /* sep */
-      calc(${weekWidth} * 5) /* oct */
-      calc(${weekWidth} * 4) /* nov */
-      calc(${weekWidth} * 5) /* dec */;
-  `;
-  const Days = styled.ul`
-    margin-block-end: 0;
-    margin-block-start: 0;
-    grid-area: days;
-    display: grid;
-    grid-gap: ${squareGap};
-    grid-template-rows: repeat(7, ${squareSize});
-    li:nth-child(odd) {
-      visibility: hidden;
-    }
   `;
   const SquaresList = styled.ul`
     margin-top: 0;
@@ -245,18 +182,8 @@ export const Heatmap: React.FC<IProps> = (props: IProps) => {
     }
   `;
   return (
-    <Wrapper>
+    <>
       <Graph>
-        <Months>
-          {MONTHS.map((MONTHS, i) => (
-            <li key={i}>{MONTHS}</li>
-          ))}
-        </Months>
-        <Days>
-          {WEEK_DAYS.map((WEEK_DAYS, i) => (
-            <li key={i}>{WEEK_DAYS}</li>
-          ))}
-        </Days>
         <SquaresList>
           {[...Array(squareNumber)].map((key: React.Key, i) => (
             <SquareListItem
@@ -270,6 +197,6 @@ export const Heatmap: React.FC<IProps> = (props: IProps) => {
           ))}
         </SquaresList>
       </Graph>
-    </Wrapper>
+    </>
   );
 };
