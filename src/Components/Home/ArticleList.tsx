@@ -6,6 +6,7 @@ import { FaStar } from "react-icons/fa";
 import { TbDotsVertical } from "react-icons/tb";
 import { homeContext } from "../../contexts/homeContext";
 import { trpc } from "../../utils/trpc";
+import { BsThreeDotsVertical } from "react-icons/bs";
 import { Row } from "../shared/Row";
 
 export const arrArticleList = [
@@ -87,41 +88,75 @@ export const ArticleList = () => {
 export const ArticleItem = ({ title, urlDomain, tags, id, isFavorite }) => {
   return (
     <div className="flex items-start px-4 py-6">
-      <Row className="text-slate-200 justify-between flex-1 w-full items-stretch">
-        <Link href={`read/${id}`}>
-          <div>
-            <div className="w-full">
-              <div className="flex items-center justify-between">
-                <h2 className="text-lg font-semibold  mt-1 mr-8">{title}</h2>
-              </div>
-            </div>
-            <p className="text-slate-200 text-xs opacity-50">{urlDomain}</p>
-            <div className="flex flex-row items-center mt-3 ">
-              <p className="text-slate-200 text-sm ">
-                {tags.map((tag, index) => {
-                  return <ArticleItemTag key={index} tag={tag} />;
-                })}
-              </p>
-              {!!isFavorite && (
-                <div className="bg-yellow-500 p-1 rounded-md">
-                  <FaStar className="text-white" />
-                </div>
-              )}
-            </div>
-          </div>
-        </Link>
+      <Row className="text-slate-200 justify-between flex-1 w-full">
+        <ArticleItemCard {...{ title, urlDomain, tags, id, isFavorite }} />
+        <OptionsArticleItem />
       </Row>
     </div>
   );
 };
 
 export const OptionsArticleItem = () => {
+  const [open, setOpen] = React.useState(true);
   return (
-    <button className="flex-shrink ">
-      <TbDotsVertical size={24} />
-    </button>
+    <div>
+      <DropdownMenu.Root>
+        <DropdownMenu.Trigger className={` py-2 px-8 rounded cursor-default`}>
+          <BsThreeDotsVertical
+            size={24}
+            className="fill-transparent"
+            fill="transparent"
+          />
+        </DropdownMenu.Trigger>
+        <DropdownMenu.Content className={`p-1 shadow-xl rounded bg-slate-800`}>
+          <DropdownMenu.Item
+            className={`py-2 px-8 rounded cursor-default
+          focus:outline-none focus:bg-indigo-400 focus:text-white br-1`}
+          >
+            Cut
+          </DropdownMenu.Item>
+          <DropdownMenu.Item
+            className={`py-2 px-8 rounded cursor-default
+          focus:outline-none focus:bg-indigo-400 focus:text-white br-1`}
+          >
+            Copy
+          </DropdownMenu.Item>
+          <DropdownMenu.Item
+            className={`py-2 px-8 rounded cursor-default
+          focus:outline-none focus:bg-indigo-400 focus:text-white br-1`}
+          >
+            Paste
+          </DropdownMenu.Item>
+          <DropdownMenu.Arrow className="text-white" fill="currentColor" />
+        </DropdownMenu.Content>
+      </DropdownMenu.Root>
+    </div>
   );
 };
+const ArticleItemCard = ({ title, urlDomain, tags, id, isFavorite }) => (
+  <Link href={`read/${id}`}>
+    <div>
+      <div className="w-full">
+        <div className="flex items-center justify-between">
+          <h2 className="text-lg font-semibold  mt-1 mr-8">{title}</h2>
+        </div>
+      </div>
+      <p className="text-slate-200 text-xs opacity-50">{urlDomain}</p>
+      <div className="flex flex-row items-center mt-3 ">
+        <p className="text-slate-200 text-sm ">
+          {tags.map((tag, index) => {
+            return <ArticleItemTag key={index} tag={tag} />;
+          })}
+        </p>
+        {!!isFavorite && (
+          <div className="bg-yellow-500 p-1 rounded-md">
+            <FaStar className="text-white" />
+          </div>
+        )}
+      </div>
+    </div>
+  </Link>
+);
 
 export const ArticleItemTag = ({ tag }) => (
   <span
