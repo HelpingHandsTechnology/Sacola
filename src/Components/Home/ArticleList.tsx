@@ -1,6 +1,8 @@
+import { Article } from "@prisma/client";
 import Link from "next/link";
-import React from "react";
+import React, { Suspense } from "react";
 import { FaStar } from "react-icons/fa";
+import { trpc } from "../../utils/trpc";
 
 export const arrArticleList = [
   {
@@ -35,6 +37,17 @@ export const arrArticleList = [
   },
 ];
 export const ArticleList = () => {
+  const articles = trpc.useQuery(["articles.getAll"], { retry: false });
+  if (articles.isLoading) {
+    return (
+      <div className="space-y-3">
+        <div className="flex items-start px-4 py-6 bg-slate-400 animate-pulse h-20" />
+        <div className="flex items-start px-4 py-6 bg-slate-400 animate-pulse h-20" />
+        <div className="flex items-start px-4 py-6 bg-slate-400 animate-pulse h-20" />
+      </div>
+    );
+  }
+
   return (
     <>
       {arrArticleList.map((article, index) => {

@@ -5,17 +5,7 @@ import { ArticleList } from "../Components/Home/ArticleList";
 import { FixedHomeTabOutlet } from "../Components/Home/FixedHomeTabOutlet";
 import { FixedHeaderHome } from "../Components/Home/FixedHeaderHome";
 
-import { trpc } from "../utils/trpc";
-
-type TechnologyCardProps = {
-  name: string;
-  description: string;
-  documentation: string;
-};
-
 const Home: NextPage = () => {
-  const hello = trpc.useQuery(["example.hello", { text: "from tRPC" }]);
-
   return (
     <>
       <Head>
