@@ -4,38 +4,38 @@ import { AiOutlineArrowRight } from "react-icons/ai";
 
 export default function Options() {
   return (
-    <>
-      <div className="flex items-center">
-        {<IoClose className="self-start" />}
-        <h6>Opções</h6>
+    <div>
+      <div className="flex items-center justify-center p-12  text-gray-200">
+        <h6 className="text-base">Opções</h6>
+        {<IoClose size={20} className="ml-4" />}
       </div>
       <hr />
-      <div className="flex flex-col">
-        <div>
-          <p>Sua conta</p>
-          {<AiOutlineArrowRight />}
+      <div className="flex flex-col justify-evenly  text-gray-200">
+        <div className="flex items-center justify-center p-12">
+          <p className="text-base">Sua conta</p>
+          {<AiOutlineArrowRight size={20} className="ml-4 s" />}
         </div>
         <hr />
-        <div>
-          <p>Seja Premium</p>
-          {<AiOutlineArrowRight />}
+        <div className="flex items-center justify-center p-12">
+          <p className="text-base">Seja Premium</p>
+          {<AiOutlineArrowRight size={20} className="ml-4" />}
         </div>
         <hr />
-        <div>
-          <p>Restaurar assinatura existente</p>
-          {<AiOutlineArrowRight />}
+        <div className="flex items-center justify-center p-12">
+          <p className="text-base">Restaurar assinatura existente</p>
+          {<AiOutlineArrowRight size={20} className="ml-4" />}
         </div>
         <hr />
-        <div>
-          <p>Ajuda</p>
-          {<AiOutlineArrowRight />}
+        <div className="flex items-center justify-center p-12">
+          <p className="text-base">Ajuda</p>
+          {<AiOutlineArrowRight size={20} className="ml-4" />}
         </div>
         <hr />
-        <button>
-          <p>Sair</p>
-          {<BsArrowBarRight />}
+        <button className="flex items-center justify-center p-12">
+          <p className="text-base">Sair</p>
+          {<BsArrowBarRight size={20} className="ml-4" />}
         </button>
       </div>
-    </>
+    </div>
   );
 }
