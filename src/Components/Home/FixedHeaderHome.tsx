@@ -37,6 +37,7 @@ export const FixedHeaderHome = () => {
     ev.preventDefault();
 
     setSearchValue(inputValue);
+  };
   const articleCreateMutation = trpc.useMutation("articles.create");
   const onSearch = () => {
     console.log({ inputValue });
@@ -180,15 +181,8 @@ const ModalAddNewLink = ({
 
 const DrawerFilter = ({ isFilterOpen, setIsFilterOpen, handleSubmit }) => {
   return (
-    <Drawer
-      direction="top"
-      open={isFilterOpen}
-      onClose={() => setIsFilterOpen(false)}
-    >
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white rounded-md text-sm text-white"
-      >
+    <Drawer direction="top" open={isFilterOpen} onClose={() => setIsFilterOpen(false)}>
+      <form onSubmit={handleSubmit} className="bg-white rounded-md text-sm text-white">
         <label className="block text-sm font-normal text-black">Filtros</label>
 
         <div className="relative mt-1 text-black">
@@ -199,6 +193,6 @@ const DrawerFilter = ({ isFilterOpen, setIsFilterOpen, handleSubmit }) => {
   );
 };
 
-// export const PanelCommonHeader = ({ children, className = "" }) => {
-//   return <div className={clsx("py-2", className)}>{children}</div>;
-// };
+export const PanelCommonHeader = ({ children, className = "" }) => {
+  return <div className={clsx("py-2", className)}>{children}</div>;
+};
