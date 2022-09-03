@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FormEvent, useContext, useState } from "react";
 import { clsx } from "clsx";
 import { FaSearch, FaFilter } from "react-icons/fa";
 import { AiOutlineSearch } from "react-icons/ai";
@@ -6,6 +6,7 @@ import Link from "next/link";
 import { CommonHeaderContainer } from "../shared/CommonHeaderContainer";
 import { Row } from "../shared/Row";
 import { Modal } from "../shared/Modal";
+import { homeContext } from "../../contexts/homeContext";
 
 export type ClassName = {
   className?: string;
@@ -16,10 +17,19 @@ export type ReactWithChildren = {
 
 export const FixedHeaderHome = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [inputValue, setInputValue] = useState("");
 
-  const onSearch = () => {
-    console.log({ inputValue });
+  const homeCtx = useContext(homeContext);
+
+  if (!homeCtx) {
+    return <div />;
+  }
+
+  const { setSearchValue, inputValue, setInputValue } = homeCtx;
+
+  const handleSubmit = (ev: FormEvent<HTMLFormElement>) => {
+    ev.preventDefault();
+
+    setSearchValue(inputValue);
     setIsSearchOpen(false);
   };
 
@@ -49,7 +59,7 @@ export const FixedHeaderHome = () => {
         )}
       />
       <Modal open={isSearchOpen} onClose={() => setIsSearchOpen(false)}>
-        <div>
+        <form onSubmit={handleSubmit}>
           <label
             htmlFor="search"
             className="block text-sm font-medium text-white"
@@ -59,6 +69,7 @@ export const FixedHeaderHome = () => {
           <div className="relative mt-1 rounded-md shadow-sm">
             <input
               onChange={(e) => setInputValue(e.target.value)}
+              value={inputValue}
               type="text"
               name="search"
               id="search"
@@ -67,7 +78,6 @@ export const FixedHeaderHome = () => {
             />
             <div className="absolute inset-y-0 right-0 flex items-center">
               <button
-                onClick={onSearch}
                 id="search-button"
                 name="search-button"
                 className="bg-white overflow-hidden h-11 rounded-md border-transparent bg-transparent py-0 pl-4 pr-4 text-gray-500 sm:text-sm"
@@ -76,7 +86,7 @@ export const FixedHeaderHome = () => {
               </button>
             </div>
           </div>
-        </div>
+        </form>
       </Modal>
     </>
   );

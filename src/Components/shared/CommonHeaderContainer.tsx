@@ -7,7 +7,7 @@ export const CommonHeaderContainer = ({
   rendeRight: renderRight = () => <span />,
 }) => {
   return (
-    <nav className="px-2 border-gray-200 bg-gradient-to-b from-blue-900 to-slate-900 border-b border-b-slate-800">
+    <nav className="sticky top-0 px-2 border-gray-200 z-10 bg-gradient-to-b from-blue-900 to-slate-900 border-b border-b-slate-800">
       <div className="container flex flex-wrap justify-center items-center mx-auto relative">
         <div className="absolute left-0">{renderLeft()}</div>
         <PanelCommonHeader>

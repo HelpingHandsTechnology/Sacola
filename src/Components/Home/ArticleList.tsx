@@ -1,6 +1,7 @@
 import Link from "next/link";
-import React from "react";
+import React, { useContext } from "react";
 import { FaStar } from "react-icons/fa";
+import { homeContext } from "../../contexts/homeContext";
 
 export const arrArticleList = [
   {
@@ -35,8 +36,22 @@ export const arrArticleList = [
   },
 ];
 export const ArticleList = () => {
+  const homeCtx = useContext(homeContext);
+
+  if (!homeCtx) {
+    return <div />;
+  }
+
+  const { searchValue } = homeCtx;
+
   return (
-    <>
+    <div>
+      {searchValue && (
+        <div className="flex sticky top-0 items-center justify-center min-w-full align-middle bg-white pt-2 pb-2 text-lg font-semibold text-black">
+          <h2 className="m-0">Filtrando por: {searchValue}</h2>
+        </div>
+      )}
+
       {arrArticleList.map((article, index) => {
         return (
           <React.Fragment key={index}>
@@ -45,7 +60,7 @@ export const ArticleList = () => {
           </React.Fragment>
         );
       })}
-    </>
+    </div>
   );
 };
 
@@ -56,7 +71,9 @@ const ArticleItem = ({ title, urlDomain, tags, id, isFavorite }) => {
         <div className="flex items-start px-4 py-6">
           <div>
             <div className="flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-slate-200 -900 -mt-1">{title}</h2>
+              <h2 className="text-lg font-semibold text-slate-200 -900 -mt-1">
+                {title}
+              </h2>
             </div>
             <p className="text-slate-200 text-xs opacity-50">{urlDomain}</p>
             <div className="flex flex-row items-center mt-3 ">
@@ -87,4 +104,6 @@ const ArticleItemTag = ({ tag }) => (
   </span>
 );
 
-const Divider = () => <div className="border-t border-slate-200 dark:border-slate-800" />;
+const Divider = () => (
+  <div className="border-t border-slate-200 dark:border-slate-800" />
+);
