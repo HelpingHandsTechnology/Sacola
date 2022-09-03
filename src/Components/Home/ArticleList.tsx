@@ -1,4 +1,6 @@
 import Link from "next/link";
+import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+
 import React, { useContext } from "react";
 import { FaStar } from "react-icons/fa";
 import { TbDotsVertical } from "react-icons/tb";
@@ -110,11 +112,16 @@ export const ArticleItem = ({ title, urlDomain, tags, id, isFavorite }) => {
             </div>
           </a>
         </Link>
-        <button className="flex-shrink ">
-          <TbDotsVertical size={24} />
-        </button>
       </Row>
     </div>
+  );
+};
+
+const OptionsArticleItem = () => {
+  return (
+    <button className="flex-shrink ">
+      <TbDotsVertical size={24} />
+    </button>
   );
 };
 
