@@ -1,14 +1,16 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+// @ts-nocheck
 import styled from "styled-components";
 
 const getRandomInt = (min: number, max: number): number => {
   min = Math.ceil(min);
   max = Math.floor(max);
-  let randomInt: number = Math.floor(Math.random() * (max - min + 1)) + min;
+  const randomInt: number = Math.floor(Math.random() * (max - min + 1)) + min;
   return randomInt;
 };
 
 const getRandomCount = (squares: number) => {
-  let randomCount: number[] = [];
+  const randomCount: number[] = [];
   for (let i = 0; i < squares; i++) {
     randomCount.push(getRandomInt(0, 25));
   }
@@ -30,7 +32,7 @@ const transformCount = (count: number) => {
 };
 
 const transformPixelsToNumber = (pixel: string) => {
-  let exp = /-?\d+/g;
+  const exp = /-?\d+/g;
   // @ts-ignore
   return parseInt(exp.exec(pixel.toString())[0]);
 };
@@ -52,11 +54,11 @@ const MONTHS: string[] = [
 
 const WEEK_DAYS: string[] = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-const DAYS_IN_YEAR: number = 365;
+const DAYS_IN_YEAR = 365;
 
-const DEFAULT_SQUARE_GAP: string = "4px";
+const DEFAULT_SQUARE_GAP = "4px";
 
-const DEFAULT_SQUARE_SIZE: string = "15px";
+const DEFAULT_SQUARE_SIZE = "15px";
 
 interface IProps {
   /**
@@ -99,14 +101,14 @@ interface IProps {
 
 export const Heatmap: React.FC<IProps> = (props: IProps) => {
   // variables
-  let colour = props.colour || ["#ebedf0", "#c6e48b", "#40c463", "#30a14e", "#216e39"];
-  let squareNumber: number = props.squareNumber || DAYS_IN_YEAR;
-  let count: number[] = props.count || getRandomCount(squareNumber);
-  let level: number[] = count.map((i: number) => transformCount(i));
-  let squareGap: string = props.squareGap || DEFAULT_SQUARE_GAP;
-  let squareSize: string = props.squareSize || DEFAULT_SQUARE_SIZE;
-  let fontSize: string = props.fontSize || "12px";
-  let weekWidth: string =
+  const colour = props.colour || ["#ebedf0", "#c6e48b", "#40c463", "#30a14e", "#216e39"];
+  const squareNumber: number = props.squareNumber || DAYS_IN_YEAR;
+  const count: number[] = props.count || getRandomCount(squareNumber);
+  const level: number[] = count.map((i: number) => transformCount(i));
+  const squareGap: string = props.squareGap || DEFAULT_SQUARE_GAP;
+  const squareSize: string = props.squareSize || DEFAULT_SQUARE_SIZE;
+  const fontSize: string = props.fontSize || "12px";
+  const weekWidth: string =
     String(transformPixelsToNumber(squareGap) + transformPixelsToNumber(squareSize)) +
     "px";
   // styles (inspired by https://bitsofco.de/github-contribution-graph-css-grid/)
