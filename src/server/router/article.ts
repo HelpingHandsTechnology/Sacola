@@ -16,6 +16,18 @@ export const articleRouter = createRouter()
       });
     },
   })
+  .query("getById", {
+    input: z.object({
+      id: z.string(),
+    }),
+    async resolve({ ctx, input }) {
+      return await ctx.prisma.article.findUnique({
+        where: {
+          id: input.id,
+        },
+      });
+    },
+  })
   .query("getFilteredByName", {
     input: z.object({
       name: z.string(),
