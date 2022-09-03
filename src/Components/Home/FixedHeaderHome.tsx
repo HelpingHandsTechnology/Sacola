@@ -37,12 +37,10 @@ export const FixedHeaderHome = () => {
     ev.preventDefault();
 
     setSearchValue(inputValue);
-  };
-  const articleCreateMutation = trpc.useMutation("articles.create");
-  const onSearch = () => {
-    console.log({ inputValue });
     setIsSearchOpen(false);
   };
+  const articleCreateMutation = trpc.useMutation("articles.create");
+
   const onAddNewItem = () => {
     articleCreateMutation.mutate(
       { url: inputValueAddNewItem },
@@ -92,10 +90,13 @@ export const FixedHeaderHome = () => {
       />
 
       <ModalSearch
-        isSearchOpen={isSearchOpen}
-        setIsSearchOpen={setIsSearchOpen}
-        handleSubmit={handleSubmit}
-        setInputValue={setInputValue}
+        {...{
+          isSearchOpen,
+          setIsSearchOpen,
+          handleSubmit,
+          setInputValue,
+          inputValue,
+        }}
       />
 
       <DrawerFilter
@@ -114,6 +115,7 @@ const ModalSearch = ({
   setIsSearchOpen,
   handleSubmit,
   setInputValue,
+  inputValue,
 }) => {
   return (
     <Modal open={isSearchOpen} onClose={() => setIsSearchOpen(false)}>
@@ -127,6 +129,7 @@ const ModalSearch = ({
         <div className="relative mt-1 rounded-md shadow-sm">
           <input
             onChange={(e) => setInputValue(e.target.value)}
+            value={inputValue}
             type="text"
             name="search"
             id="search"
