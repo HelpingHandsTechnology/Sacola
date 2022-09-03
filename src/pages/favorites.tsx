@@ -8,19 +8,22 @@ const Favorites = () => {
 
   if (articles.isLoading) {
     return (
-      <div className="space-y-3">
-        <div className="flex items-start px-4 py-6 bg-slate-400 animate-pulse h-20" />
-        <div className="flex items-start px-4 py-6 bg-slate-400 animate-pulse h-20" />
-        <div className="flex items-start px-4 py-6 bg-slate-400 animate-pulse h-20" />
+      <>
+        <CommonHeaderContainer title={"Meus favoritos"} />
+        <div className="space-y-3 ">
+          <div className="flex items-start px-4 py-6 bg-slate-400 animate-pulse h-20" />
+          <div className="flex items-start px-4 py-6 bg-slate-400 animate-pulse h-20" />
+          <div className="flex items-start px-4 py-6 bg-slate-400 animate-pulse h-20" />
+        </div>
         <FixedHomeTabOutlet />
-      </div>
+      </>
     );
   }
 
   return (
     <>
+      <CommonHeaderContainer title={"Meus favoritos"} />
       <main>
-        <CommonHeaderContainer title={"Meus favoritos"} />
         <ul>
           {articles.data?.map((article) => (
             <li key={article.id}>

@@ -9,14 +9,18 @@ export default function Notifications() {
   return (
     <>
       <CommonHeaderContainer title={"Notificações"} />
-      <main className="p-4">
+      <main className="p-4 ">
         <div className="space-y-2">
           <NotificationInfoItem
-            title={'Novo artigo de "Smashing Magazine": Scroll Bouncing On Your Websites'}
+            title={
+              'Novo artigo de "Smashing Magazine": Scroll Bouncing On Your Websites'
+            }
             description="Understanding the scroll bouncing effect and how to implement it on your websites."
           />
           <NotificationSocialItem
-            title={'Novo artigo de "Smashing Magazine": Scroll Bouncing On Your Websites'}
+            title={
+              'Novo artigo de "Smashing Magazine": Scroll Bouncing On Your Websites'
+            }
             description="Understanding the scroll bouncing effect and how to implement it on your websites."
           />
         </div>
@@ -33,7 +37,9 @@ const NotificationInfoItem = ({ title, description }) => {
         <div className="flex items-center space-x-3">
           <FaInfoCircle size={32} className=" text-blue-400 flex-shrink" />
           <div className="flex flex-col">
-            <div className="font-medium leading-none text-xs text-gray-100">{title}</div>
+            <div className="font-medium leading-none text-xs text-gray-100">
+              {title}
+            </div>
             <p className="text-xs text-gray-500 font-light leading-none mt-1">
               {description}
             </p>
@@ -57,8 +63,8 @@ const NotificationSocialItem = ({ title, description }) => {
           />
           <div className="flex flex-row">
             <h2 className="text-gray-300 cursor-pointer text-xs">
-              <b className="font-semibold">Luis Felipe</b> compartilhou com você o artigo:
-              Advice for Developers
+              <b className="font-semibold">Luis Felipe</b> compartilhou com você
+              o artigo: Advice for Developers
             </h2>
           </div>
           <MdOutlineSaveAlt size={24} className="text-gray-200" />

@@ -43,7 +43,9 @@ const Home: NextPage = () => {
       </Head>
 
       <FixedHeaderHome />
+
       <ArticleList />
+
       <FixedHomeTabOutlet />
     </HomeContextProvider>
   );

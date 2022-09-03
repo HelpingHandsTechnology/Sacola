@@ -22,11 +22,14 @@ const Read = () => {
 
   if (article.isLoading || articleReadability.isLoading) {
     return (
-      <div className="space-y-3">
-        <div className="flex items-start px-4 py-6 bg-slate-400 animate-pulse h-20" />
-        <div className="flex items-start px-4 py-6 bg-slate-400 animate-pulse h-20" />
-        <div className="flex items-start px-4 py-6 bg-slate-400 animate-pulse h-20" />
-      </div>
+      <>
+        <div className="space-y-3">
+          <div className="flex items-start px-4 py-6 bg-slate-400 animate-pulse h-20" />
+          <div className="flex items-start px-4 py-6 bg-slate-400 animate-pulse h-20" />
+          <div className="flex items-start px-4 py-6 bg-slate-400 animate-pulse h-20" />
+        </div>
+        <FixedArticleTabOutlet {...{ textHtml: "" }} />
+      </>
     );
   }
   if (article.error || articleReadability.error) {
@@ -60,7 +63,7 @@ const Read = () => {
               {data.urlDomain}
             </a>
             <div
-              className="flex justify-center text-slate-200 flex-row items-center mt-3 w-full "
+              className="flex  text-slate-200 flex-row items-center mt-3 w-full [&>*]:overflow-auto"
               dangerouslySetInnerHTML={{ __html: readabilityData.content }}
             />
           </div>
