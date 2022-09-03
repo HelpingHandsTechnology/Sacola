@@ -185,7 +185,7 @@ export const OptionsArticleItem = ({ id, isFavorite }) => {
   return (
     <div>
       <DropdownMenu.Root>
-        <DropdownMenu.Trigger className={` py-2 px-8 rounded cursor-default`}>
+        <DropdownMenu.Trigger className={` py-2  rounded cursor-default`}>
           <BsThreeDotsVertical size={24} />
         </DropdownMenu.Trigger>
         <DropdownMenu.Content className={`p-1 shadow-xl rounded bg-slate-800`}>

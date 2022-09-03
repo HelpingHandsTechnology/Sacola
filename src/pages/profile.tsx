@@ -2,15 +2,26 @@ import { FaTrophy, FaUserFriends, FaPen } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { MdFeedback } from "react-icons/md";
 import { FixedHomeTabOutlet } from "../Components/Home/FixedHomeTabOutlet";
+import * as AvatarPrimitive from "@radix-ui/react-avatar";
 
 export default function Profile() {
   return (
     <div className="flex flex-col justify-center items-center text-white ">
-      <div className="w-[90%] h-32 top-0 left-0 absolute rounded-md bg-gradient-to-br from-blue-900 to-slate-800 opacity-90" />
+      <div className=" h-20 top-0 left-4 right-4 absolute rounded-lg bg-gradient-to-br from-blue-900 via-slate-900 to-slate-800 opacity-90 border border-slate-800" />
 
       <div className="w-full flex flex-col justify-center p-6 z-10 space-y-10">
         <div className="items-center flex justify-center w-full">
-          <CgProfile size={120} />
+          <AvatarPrimitive.Avatar>
+            <AvatarPrimitive.Fallback
+              className={`items-center flex justify-center 
+              bg-gray-400 font-medium rounded-full
+              h-20 w-20 text-white
+              p-4 
+              `}
+            >
+              LF
+            </AvatarPrimitive.Fallback>
+          </AvatarPrimitive.Avatar>
         </div>
         <div className="flex flex-row justify-between">
           <StatsProfile statLabel="+500" label="Conexões" />
