@@ -7,6 +7,7 @@ import { CommonHeaderContainer } from "../shared/CommonHeaderContainer";
 import { Row } from "../shared/Row";
 import { Modal } from "../shared/Modal";
 import { homeContext } from "../../contexts/homeContext";
+import { Drawer } from "../shared/Drawer";
 
 export type ClassName = {
   className?: string;
@@ -17,8 +18,11 @@ export type ReactWithChildren = {
 
 export const FixedHeaderHome = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+
   const [isAddNewItemOpen, setIsAddNewItemOpen] = useState(false);
   const [inputValueAddNewItem, setInputValueAddNewItem] = useState("");
+
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const homeCtx = useContext(homeContext);
 
@@ -47,9 +51,9 @@ export const FixedHeaderHome = () => {
           <Link href={"/"}>
             <button
               className="space-x-4 text-gray-200 "
-              onClick={() => console.log("TODO")}
+              onClick={() => setIsAddNewItemOpen(true)}
             >
-              <FaPlus stroke="1" onClick={() => setIsAddNewItemOpen(true)} />
+              <FaPlus stroke="1" />
             </button>
           </Link>
         )}
@@ -58,18 +62,13 @@ export const FixedHeaderHome = () => {
             <button onClick={() => setIsSearchOpen(true)}>
               <FaSearch stroke="1" />
             </button>
-            <button onClick={() => console.log("TODO")}>
+            <button onClick={() => setIsFilterOpen(true)}>
               <FaFilter stroke="1" />
             </button>
           </Row>
         )}
       />
-      <ModalSearch
-        isSearchOpen={isSearchOpen}
-        setIsSearchOpen={setIsSearchOpen}
-        handleSubmit={handleSubmit}
-        setInputValue={setInputValue}
-      />
+
       <ModalAddNewLink
         {...{
           inputValueAddNewItem,
@@ -77,6 +76,21 @@ export const FixedHeaderHome = () => {
           onAddNewItem,
           setInputValueAddNewItem,
           setIsAddNewItemOpen,
+        }}
+      />
+
+      <ModalSearch
+        isSearchOpen={isSearchOpen}
+        setIsSearchOpen={setIsSearchOpen}
+        handleSubmit={handleSubmit}
+        setInputValue={setInputValue}
+      />
+
+      <DrawerFilter
+        {...{
+          isFilterOpen,
+          setIsFilterOpen,
+          handleSubmit,
         }}
       />
     </>
@@ -121,6 +135,7 @@ const ModalSearch = ({
     </Modal>
   );
 };
+
 const ModalAddNewLink = ({
   isAddNewItemOpen,
   setIsAddNewItemOpen,
@@ -145,7 +160,7 @@ const ModalAddNewLink = ({
             id="search"
             value={inputValueAddNewItem}
             className="block w-full rounded-md border outline-none h-11  pl-2 pr-2 py-0 sm:text-sm"
-            placeholder="Pesquise por itens"
+            placeholder="Adicionar link"
           />
           <div className="absolute inset-y-0 right-0 flex items-center">
             <button
@@ -162,6 +177,28 @@ const ModalAddNewLink = ({
     </Modal>
   );
 };
+
+const DrawerFilter = ({ isFilterOpen, setIsFilterOpen, handleSubmit }) => {
+  return (
+    <Drawer
+      direction="top"
+      open={isFilterOpen}
+      onClose={() => setIsFilterOpen(false)}
+    >
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white rounded-md text-sm text-white"
+      >
+        <label className="block text-sm font-normal text-black">Filtros</label>
+
+        <div className="relative mt-1 text-black">
+          <span>TAG</span>
+        </div>
+      </form>
+    </Drawer>
+  );
+};
+
 export const PanelCommonHeader = ({ children, className = "" }) => {
   return <div className={clsx("py-2", className)}>{children}</div>;
 };
