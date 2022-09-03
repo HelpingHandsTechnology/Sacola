@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { clsx } from "clsx";
-import { FaSearch, FaFilter } from "react-icons/fa";
+import { FaSearch, FaFilter, FaPlus } from "react-icons/fa";
 import { AiOutlineSearch } from "react-icons/ai";
 import Link from "next/link";
 import { CommonHeaderContainer } from "../shared/CommonHeaderContainer";
@@ -17,10 +17,16 @@ export type ReactWithChildren = {
 export const FixedHeaderHome = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const [isAddNewItemOpen, setIsAddNewItemOpen] = useState(false);
+  const [inputValueAddNewItem, setInputValueAddNewItem] = useState("");
 
   const onSearch = () => {
     console.log({ inputValue });
     setIsSearchOpen(false);
+  };
+  const onAddNewItem = () => {
+    setIsAddNewItemOpen(false);
+    setInputValueAddNewItem("");
   };
 
   return (
@@ -29,12 +35,12 @@ export const FixedHeaderHome = () => {
         title="Minha lista"
         renderLeft={() => (
           <Link href={"/"}>
-            <a
-              href="#"
-              className="self-center text-xl font-semibold whitespace-nowrap dark:text-white "
+            <button
+              className="space-x-4 text-gray-200 "
+              onClick={() => console.log("TODO")}
             >
-              📕
-            </a>
+              <FaPlus stroke="1" onClick={() => setIsAddNewItemOpen(true)} />
+            </button>
           </Link>
         )}
         rendeRight={() => (
@@ -48,37 +54,92 @@ export const FixedHeaderHome = () => {
           </Row>
         )}
       />
-      <Modal open={isSearchOpen} onClose={() => setIsSearchOpen(false)}>
-        <div>
-          <label
-            htmlFor="search"
-            className="block text-sm font-medium text-white"
-          >
-            Busca
-          </label>
-          <div className="relative mt-1 rounded-md shadow-sm">
-            <input
-              onChange={(e) => setInputValue(e.target.value)}
-              type="text"
-              name="search"
-              id="search"
-              className="block w-full rounded-md border outline-none h-11  pl-2 pr-2 py-0 sm:text-sm"
-              placeholder="Pesquise por itens"
-            />
-            <div className="absolute inset-y-0 right-0 flex items-center">
-              <button
-                onClick={onSearch}
-                id="search-button"
-                name="search-button"
-                className="bg-white overflow-hidden h-11 rounded-md border-transparent bg-transparent py-0 pl-4 pr-4 text-gray-500 sm:text-sm"
-              >
-                <AiOutlineSearch size={24} />
-              </button>
-            </div>
+      <ModalSearch
+        isSearchOpen={isSearchOpen}
+        setIsSearchOpen={setIsSearchOpen}
+        onSearch={onSearch}
+        setInputValue={setInputValue}
+      />
+      <ModalAddNewLink
+        {...{
+          inputValueAddNewItem,
+          isAddNewItemOpen,
+          onAddNewItem,
+          setInputValueAddNewItem,
+          setIsAddNewItemOpen,
+        }}
+      />
+    </>
+  );
+};
+
+const ModalSearch = ({ isSearchOpen, setIsSearchOpen, onSearch, setInputValue }) => {
+  return (
+    <Modal open={isSearchOpen} onClose={() => setIsSearchOpen(false)}>
+      <div>
+        <label htmlFor="search" className="block text-sm font-medium text-white">
+          Busca
+        </label>
+        <div className="relative mt-1 rounded-md shadow-sm">
+          <input
+            onChange={(e) => setInputValue(e.target.value)}
+            type="text"
+            name="search"
+            id="search"
+            className="block w-full rounded-md border outline-none h-11  pl-2 pr-2 py-0 sm:text-sm"
+            placeholder="Pesquise por itens"
+          />
+          <div className="absolute inset-y-0 right-0 flex items-center">
+            <button
+              onClick={onSearch}
+              id="search-button"
+              name="search-button"
+              className="bg-white overflow-hidden h-11 rounded-md border-transparent bg-transparent py-0 pl-4 pr-4 text-gray-500 sm:text-sm"
+            >
+              <AiOutlineSearch size={24} />
+            </button>
           </div>
         </div>
-      </Modal>
-    </>
+      </div>
+    </Modal>
+  );
+};
+const ModalAddNewLink = ({
+  isAddNewItemOpen,
+  setIsAddNewItemOpen,
+  onAddNewItem,
+  inputValueAddNewItem,
+  setInputValueAddNewItem,
+}) => {
+  return (
+    <Modal open={isAddNewItemOpen} onClose={() => setIsAddNewItemOpen(false)}>
+      <div>
+        <label htmlFor="search" className="block text-sm font-medium text-white">
+          Adicione o link que você deseja salvar na sua lista
+        </label>
+        <div className="relative mt-1 rounded-md shadow-sm">
+          <input
+            onChange={(e) => setInputValueAddNewItem(e.target.value)}
+            type="text"
+            name="search"
+            id="search"
+            value={inputValueAddNewItem}
+            className="block w-full rounded-md border outline-none h-11  pl-2 pr-2 py-0 sm:text-sm"
+            placeholder="Pesquise por itens"
+          />
+          <div className="absolute inset-y-0 right-0 flex items-center">
+            <button
+              onClick={onAddNewItem}
+              id="search-button"
+              name="search-button"
+              className="bg-white overflow-hidden h-11 rounded-md border-transparent bg-transparent py-0 pl-4 pr-4 text-gray-500 sm:text-sm"
+            >
+              <AiOutlineSearch size={24} />
+            </button>
+          </div>
+        </div>
+      </div>
+    </Modal>
   );
 };
 export const PanelCommonHeader = ({ children, className = "" }) => {
