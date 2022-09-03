@@ -6,8 +6,14 @@ import { trpc } from "../utils/trpc";
 const Favorites = () => {
   const articles = trpc.useQuery(["articles.getFavorite"], { retry: false });
 
-  if (!articles.data) {
-    return <div />;
+  if (articles.isLoading) {
+    return (
+      <div className="space-y-3">
+        <div className="flex items-start px-4 py-6 bg-slate-400 animate-pulse h-20" />
+        <div className="flex items-start px-4 py-6 bg-slate-400 animate-pulse h-20" />
+        <div className="flex items-start px-4 py-6 bg-slate-400 animate-pulse h-20" />
+      </div>
+    );
   }
 
   return (
