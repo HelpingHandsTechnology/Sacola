@@ -9,38 +9,6 @@ import { BsThreeDotsVertical } from 'react-icons/bs';
 import { Row } from '../shared/Row';
 import { Article } from '@prisma/client';
 
-export const arrArticleList = [
-  {
-    id: '4ba21484-6386-4c49-8801-61b25c336c34',
-    title: "There ain't no such thing as a free tier",
-    urlDomain: 'youtube.com',
-    tags: ['nextjs', 'trpc'],
-    isFavorite: false,
-  },
-  {
-    id: 'e7d8d50a-69ed-4643-908e-41d11fe66816',
-    title: 'How to build a hacker news clone',
-    urlDomain: 'youtube.com',
-    tags: ['React', 'development'],
-    isFavorite: false,
-  },
-  {
-    id: '99e723e8-498f-4446-bec2-b99d39315535',
-
-    title: 'How I Got Good at Coding Interviews',
-    urlDomain: 'youtube.com',
-    tags: ['React', 'development'],
-    isFavorite: false,
-  },
-  {
-    id: '5869aca0-d17f-4a44-b426-f4d11a645007',
-    title:
-      'MBAK】Navigation | Hamburger and Navigation Transition Effects | CSS& JavaScript #OnlineTutorials',
-    urlDomain: 'reddit.com',
-    tags: ['product', 'development'],
-    isFavorite: true,
-  },
-];
 export const ArticleList = () => {
   const articles = trpc.useQuery(['articles.getAll'], { retry: false });
 
