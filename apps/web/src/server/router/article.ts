@@ -7,7 +7,7 @@ import { JSDOM } from 'jsdom';
 export const articleRouter = createRouter()
   .query('getAll', {
     async resolve({ ctx }) {
-      return await ctx.prisma.article.findMany();
+      return await ctx.prisma.article.findMany({ include: { tags: true } });
     },
   })
   .query('getFavorite', {
@@ -79,7 +79,6 @@ export const articleRouter = createRouter()
           title: article?.title || doc.window.document.title,
           urlDomain: input.url,
           isFavorite: false,
-          tags: [],
         },
       });
     },
