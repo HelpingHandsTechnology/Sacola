@@ -8,10 +8,13 @@ import superjson from "superjson";
 import type { AppRouter } from "../server/router";
 import "../styles/globals.css";
 
-const MyApp: AppType = ({ Component, pageProps: { session, ...pageProps } }) => {
+const MyApp: AppType = ({
+  Component,
+  pageProps: { session, ...pageProps },
+}) => {
   return (
     <SessionProvider session={session}>
-      <div className="min-h-screen  bg-slate-900 dark">
+      <div className="min-h-screen bg-slate-900 dark flex flex-col">
         <Component {...pageProps} />
       </div>
     </SessionProvider>

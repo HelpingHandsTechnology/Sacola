@@ -8,27 +8,29 @@ import Link from "next/link";
 import { getRandomInt, Heatmap } from "../Components/shared/Heatmap";
 
 const hardCoded100ItemsOfHeatMap = [
-  0, 1, 0, 0, 0, 0, 1, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 4, 6, 0, 2, 4, 6, 0,
-  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 4, 6, 0, 0, 1, 0, 4, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-  0, 0, 2, 4, 6, 0, 0, 1, 0, 4, 6, 0, 4, 6, 0, 0, 1, 0, 4, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 2, 4, 6, 0, 0, 1, 0, 4, 6, 0, 4, 3, 5, 6, 10,
-  0, 3, 5, 6, 6, 0,
+  0, 1, 0, 0, 0, 0, 1, 3, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 4, 6, 0, 2,
+  4, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 4, 6, 0, 0, 1, 0, 4, 6, 0, 0, 0,
+  0, 0, 0, 0, 0, 0, 0, 0, 2, 4, 6, 0, 0, 1, 0, 4, 6, 0, 4, 6, 0, 0, 1, 0, 4, 6,
+  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 2, 4, 6,
+  0, 0, 1, 0, 4, 6, 0, 4, 3, 5, 6, 10, 0, 3, 5, 6, 6, 0,
 ];
 
 export default function Profile() {
   return (
-    <div className="flex flex-col justify-center items-center text-white ">
-      <div className="w-full flex flex-col justify-center p-6 z-10 space-y-10">
-        <HeaderProfile />
-        <Stats />
-        <div>
-          <h4 className="text-lg font-semibold">Sua atividade</h4>
-          <Heatmap count={hardCoded100ItemsOfHeatMap} squareNumber={120} />
+    <>
+      <div className="flex flex-col justify-center items-center text-white">
+        <div className="w-full flex flex-col justify-center p-6 z-10 space-y-10 ">
+          <HeaderProfile />
+          <Stats />
+          <div>
+            <h4 className="text-lg font-semibold">Sua atividade</h4>
+            <Heatmap count={hardCoded100ItemsOfHeatMap} squareNumber={120} />
+          </div>
+          <IconsOptions />
         </div>
-        <IconsOptions />
       </div>
       <FixedHomeTabOutlet />
-    </div>
+    </>
   );
 }
 
@@ -71,7 +73,11 @@ const IconsOptions = () => (
       <FaPen size={30} />
       <Link href="/options">
         <a>
-          <BsFillGearFill size={30} href="/options" className="cursor-pointer" />
+          <BsFillGearFill
+            size={30}
+            href="/options"
+            className="cursor-pointer"
+          />
         </a>
       </Link>
     </div>

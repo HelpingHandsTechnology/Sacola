@@ -81,7 +81,13 @@ interface IProps {
 
 export const Heatmap: React.FC<IProps> = (props: IProps) => {
   // variables
-  const colour = props.colour || ["#ebedf0", "#c6e48b", "#40c463", "#30a14e", "#216e39"];
+  const colour = props.colour || [
+    "#ebedf0",
+    "#c6e48b",
+    "#40c463",
+    "#30a14e",
+    "#216e39",
+  ];
   const squareNumber: number = props.squareNumber || DAYS_IN_YEAR;
   const count: number[] = props.count || getRandomCount(squareNumber);
   const level: number[] = count.map((i: number) => transformCount(i));
@@ -89,8 +95,9 @@ export const Heatmap: React.FC<IProps> = (props: IProps) => {
   const squareSize: string = props.squareSize || DEFAULT_SQUARE_SIZE;
   const fontSize: string = props.fontSize || "12px";
   const weekWidth: string =
-    String(transformPixelsToNumber(squareGap) + transformPixelsToNumber(squareSize)) +
-    "px";
+    String(
+      transformPixelsToNumber(squareGap) + transformPixelsToNumber(squareSize)
+    ) + "px";
   // styles (inspired by https://bitsofco.de/github-contribution-graph-css-grid/)
   const Graph = styled.div`
     display: inline-grid;
@@ -107,6 +114,7 @@ export const Heatmap: React.FC<IProps> = (props: IProps) => {
     display: grid;
     grid-gap: ${squareGap};
     grid-template-rows: repeat(7, ${squareSize});
+    overflow: auto;
     z-index: 1;
     grid-auto-flow: column;
     grid-auto-columns: ${squareSize};
