@@ -14,7 +14,10 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@sacola/react-query": ["libs/react-query/src/index.ts"],
+      "@sacola/trpc": ["libs/trpc/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

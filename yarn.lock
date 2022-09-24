@@ -1716,6 +1716,20 @@
     url-loader "^4.1.1"
     webpack-merge "^5.8.0"
 
+"@nrwl/node@^14.7.13":
+  version "14.7.13"
+  resolved "https://registry.yarnpkg.com/@nrwl/node/-/node-14.7.13.tgz#835ffd98252319dd6ab8760b8e0daca64a97a643"
+  integrity sha512-4KLN+UypDPEcjxcTDfqYgz83363G/j89xVrVeeNUI7tXhLUCMBfGy0moDUGbQFMn/RQROgeNhJMvK+zCOjZVAg==
+  dependencies:
+    "@nrwl/devkit" "14.7.13"
+    "@nrwl/jest" "14.7.13"
+    "@nrwl/js" "14.7.13"
+    "@nrwl/linter" "14.7.13"
+    "@nrwl/webpack" "14.7.13"
+    "@nrwl/workspace" "14.7.13"
+    chalk "4.1.0"
+    tslib "^2.3.0"
+
 "@nrwl/nx-cloud@latest":
   version "14.6.2"
   resolved "https://registry.yarnpkg.com/@nrwl/nx-cloud/-/nx-cloud-14.6.2.tgz#2eef39b790ba93a7003042c4045981327a64af0c"

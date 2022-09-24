@@ -2,7 +2,9 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
+    "react-query": "libs/react-query",
     "sacola-e2e": "apps/sacola-e2e",
+    "trpc": "libs/trpc",
     "web": "apps/web"
   }
 }
