@@ -8,6 +8,7 @@ import { trpc } from '../../utils/trpc';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { Row } from '../shared/Row';
 import { Article } from '@prisma/client';
+import { ArticleWithTags } from '@sacola/shared-types';
 
 export const ArticleList = () => {
   const articles = trpc.useQuery(['articles.getAll'], { retry: false });
@@ -66,50 +67,49 @@ export const ArticleItem = ({ title, urlDomain, tags, id, isFavorite }) => {
 
 const useMutationDeleteArticleById = () => {
   const utils = trpc.useContext();
-  return trpc.useMutation<'articles.deleteById', { snapshot: Article[] }>(
-    ['articles.deleteById'],
-    {
-      onMutate: async (params) => {
-        await utils.cancelQuery(['articles.getAll']);
-        await utils.cancelQuery(['articles.getById']);
-        await utils.cancelQuery(['articles.getFavorite']);
-        await utils.cancelQuery(['articles.getReadabilityById']);
-        const snapshot = utils.getQueryData(['articles.getAll']);
-        utils.setQueryData(['articles.getAll'], (old) => {
-          if (!old) {
-            return [];
-          }
-          // const newArticles = old.filter((article) => article.id !== params.id);
-          return old.filter((article) => article.id !== params.id);
-        });
-        return {
-          snapshot: snapshot || [],
-        };
-      },
-      onError: (err, params, context) => {
-        utils.setQueryData(['articles.getAll'], context?.snapshot || []);
-      },
-      onSettled: (deletedArticle) => {
-        utils.invalidateQueries('articles.getAll');
-        utils.invalidateQueries('articles.getById');
-        utils.invalidateQueries('articles.getFavorite');
-        utils.invalidateQueries('articles.getReadabilityById');
-        utils.setQueryData(['articles.getAll'], (prev) => {
-          if (prev) {
-            utils.setQueryData(
-              ['articles.getAll'],
-              prev.filter(
-                (article) =>
-                  !!deletedArticle && article.id !== deletedArticle.id
-              )
-            );
-            return prev;
-          }
+  return trpc.useMutation<
+    'articles.deleteById',
+    { snapshot: ArticleWithTags[] }
+  >(['articles.deleteById'], {
+    onMutate: async (params) => {
+      await utils.cancelQuery(['articles.getAll']);
+      await utils.cancelQuery(['articles.getById']);
+      await utils.cancelQuery(['articles.getFavorite']);
+      await utils.cancelQuery(['articles.getReadabilityById']);
+      const snapshot = utils.getQueryData(['articles.getAll']);
+      utils.setQueryData(['articles.getAll'], (old) => {
+        if (!old) {
           return [];
-        });
-      },
-    }
-  );
+        }
+        // const newArticles = old.filter((article) => article.id !== params.id);
+        return old.filter((article) => article.id !== params.id);
+      });
+      return {
+        snapshot: snapshot || [],
+      };
+    },
+    onError: (_, __, context) => {
+      utils.setQueryData(['articles.getAll'], context?.snapshot || []);
+    },
+    onSettled: (deletedArticle) => {
+      utils.invalidateQueries('articles.getAll');
+      utils.invalidateQueries('articles.getById');
+      utils.invalidateQueries('articles.getFavorite');
+      utils.invalidateQueries('articles.getReadabilityById');
+      utils.setQueryData(['articles.getAll'], (prev) => {
+        if (prev) {
+          utils.setQueryData(
+            ['articles.getAll'],
+            prev.filter(
+              (article) => !!deletedArticle && article.id !== deletedArticle.id
+            )
+          );
+          return prev;
+        }
+        return [];
+      });
+    },
+  });
 };
 const useUpdateArticleById = () => {
   const utils = trpc.useContext();

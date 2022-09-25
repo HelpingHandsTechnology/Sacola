@@ -5,6 +5,7 @@
     "db": "libs/db",
     "react-query": "libs/react-query",
     "sacola-e2e": "apps/sacola-e2e",
+    "shared-types": "libs/shared-types",
     "trpc": "libs/trpc",
     "web": "apps/web"
   }
