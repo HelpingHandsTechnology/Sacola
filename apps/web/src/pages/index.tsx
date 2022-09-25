@@ -6,10 +6,9 @@ import Head from 'next/head';
 import { ArticleList } from '../Components/Home/ArticleList';
 import { FixedHomeTabOutlet } from '../Components/Home/FixedHomeTabOutlet';
 import { FixedHeaderHome } from '../Components/Home/FixedHeaderHome';
-import { createContext } from '../server/router/context';
+import { createContext, appRouter } from '@sacola/trpc';
 import { useState } from 'react';
 import { HomeContextProvider } from '../contexts/homeContext';
-import { appRouter } from '../server/router';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { req, res } = context;
