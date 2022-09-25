@@ -16,6 +16,7 @@ export const articleRouter = createRouter()
         where: {
           isFavorite: true,
         },
+        include: { tags: true },
       });
     },
   })

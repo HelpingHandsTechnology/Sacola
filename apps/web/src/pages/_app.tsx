@@ -5,11 +5,13 @@ import { withTRPC } from '@trpc/next';
 import { SessionProvider } from 'next-auth/react';
 import type { AppType } from 'next/dist/shared/lib/utils';
 import superjson from 'superjson';
-import type { AppRouter } from '../server/router';
+import type { AppRouter } from '@sacola/trpc';
 import '../styles/globals.css';
 
 const MyApp: AppType = ({
   Component,
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   pageProps: { session, ...pageProps },
 }) => {
   return (
