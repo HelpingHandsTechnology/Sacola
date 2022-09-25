@@ -79,6 +79,6 @@
     "typescript": "~4.8.2"
   },
   "prisma": {
-    "schema": "./apps/web/prisma/schema.prisma"
+    "schema": "./libs/db/prisma/schema.prisma"
   }
 }

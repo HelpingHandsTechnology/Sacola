@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@sacola/db": ["libs/db/src/index.ts"],
       "@sacola/react-query": ["libs/react-query/src/index.ts"],
       "@sacola/trpc": ["libs/trpc/src/index.ts"]
     }
