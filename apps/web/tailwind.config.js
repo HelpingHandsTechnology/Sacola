@@ -5,7 +5,11 @@ module.exports = {
   content: [join(__dirname, 'src/**/*.{js,ts,jsx,tsx}')],
   darkMode: 'class',
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: '#274BF2',
+      },
+    },
   },
   plugins: [],
 };
