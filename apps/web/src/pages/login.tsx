@@ -1,7 +1,11 @@
+import { useState } from 'react';
 import { Col, Row } from '../Components/Layout';
 import clxs from 'clsx';
 import Typography from '../Components/Typography';
 import { SwitchToggle } from '../Components/SwitchToggle';
+import { Magic } from 'magic-sdk';
+import { useRouter } from 'next/router';
+
 
 const LogoWithTitle = ({ className = '' }) => {
   return (
@@ -13,17 +17,42 @@ const LogoWithTitle = ({ className = '' }) => {
 };
 
 const Login = () => {
+  const router = useRouter();
+  const handleSubmit = async (email: string) => {
+    console.log(email)
+
+    // the Magic code
+    const did = await new Magic(
+      process.env.NEXT_PUBLIC_MAGIC_PUB_KEY!,
+    ).auth.loginWithMagicLink({ email });
+
+    // Once we have the token from magic,
+    // update our own database
+    const authRequest = await fetch('/api/login', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${did}` },
+    })
+
+    if (authRequest.ok) {
+    // We successfully logged in, our API
+    // set authorization cookies and now we
+    // can redirect to the dashboard!
+    router.push('/')
+    } else { /* handle errors */ }
+  };
+
   return (
     <Row className="w-full min-h-screen ">
       <Row className={clxs(['px-4 w-full bg-primary basis-2/3 hidden'])}>
         Sacola
       </Row>
-      <RightBanner />
+      <Form handleSubmit={handleSubmit}/>
     </Row>
   );
 };
 
-const RightBanner = () => {
+const Form = ({ handleSubmit }) => {
+  const [email, setEmail] = useState('');
   return (
     <Col
       className={clxs([
@@ -37,23 +66,47 @@ const RightBanner = () => {
       </Typography>
       {/* TODO: Input de email */}
       <div>
-        <Input />
-        <Row className={clxs(['justify-between items-center pt-2'])}>
-          {/* TODO: Forgot Password feature */}
-          <SwitchToggle />
-          <Typography variant="small">forgot password?</Typography>
-        </Row>
+        <form action="">
+          <Input value={email} onChange={(e) => { setEmail(e.target.value) }} />
+          <Button onClick={() => handleSubmit(email)}/>
+
+          <Row className={clxs(['justify-between items-center pt-2'])}>
+            {/* TODO: Forgot Password feature */}
+            <SwitchToggle />
+            <Typography variant="small">forgot password?</Typography>
+          </Row>
+        </form>
       </div>
     </Col>
   );
+
 };
+const Button = ({onClick}) => {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={
+        clxs([
+          'bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300',
+          'text-white font-medium rounded-lg text-sm',
+          'px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'
+        ])
+      }
+    >
+      Default
+    </button>
+  )
+}
 
 // TODO: remove default props
 const Input = ({
   isError = false,
   errorText = 'Error message',
-  label = 'label',
-  placeholder = 'placeholder',
+  label = '',
+  placeholder = '',
+  value,
+  onChange
 }) => {
   return (
     <div className="w-full">
@@ -72,6 +125,8 @@ const Input = ({
         id="grid-first-name"
         type="text"
         placeholder={placeholder}
+        value={value}
+        onChange={onChange}
       />
       <p className="text-red-500 text-xs italic invisible">{errorText}</p>
     </div>
