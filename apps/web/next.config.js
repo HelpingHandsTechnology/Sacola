@@ -1,17 +1,8 @@
-//@ts-check
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const { withNx } = require('@nrwl/next/plugins/with-nx');
+const withTM = require('next-transpile-modules')(['@sacola/db']); // pass the modules you would like to see transpiled
 
 /**
- * @type {import('@nrwl/next/plugins/with-nx').WithNxOptions}
- **/
+ * @type {import('next').NextConfig} */
 const nextConfig = {
-  nx: {
-    // Set this to true if you would like to to use SVGR
-    // See: https://github.com/gregberge/svgr
-    svgr: false,
-  },
   compiler: {
     styledComponents: true,
   },
@@ -19,4 +10,4 @@ const nextConfig = {
   swcMinify: true,
 };
 
-module.exports = withNx(nextConfig);
+module.exports = withTM(nextConfig);

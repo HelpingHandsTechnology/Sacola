@@ -1,0 +1,7 @@
+[35msacola:build[0m: cache hit, replaying output [2m12f0ddcee37083be[0m
+[35msacola:build: [0m
+[35msacola:build: [0m> sacola@0.0.0 build /Users/antonielmagalhaes/d/opn/sacola/apps/web
+[35msacola:build: [0m> nx build
+[35msacola:build: [0m
+[35msacola:build: [0msh: nx: command not found
+[35msacola:build: [0m ELIFECYCLE  Command failed.

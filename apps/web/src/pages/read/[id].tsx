@@ -1,8 +1,6 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { FaStar } from 'react-icons/fa';
-import { ArticleItem, ArticleItemTag } from '../../Components/Home/ArticleList';
 import { FixedArticleTabOutlet } from '../../Components/Home/FixedArticleTabOutlet';
 import { trpc } from '../../utils/trpc';
 

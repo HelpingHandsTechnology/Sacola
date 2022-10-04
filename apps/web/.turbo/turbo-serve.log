@@ -1,0 +1,41 @@
+[35m@sacola/web:serve[0m: cache hit, replaying output [2mf93c5cfa5832b9e8[0m
+[35m@sacola/web:serve: [0m
+[35m@sacola/web:serve: [0m> @sacola/web@0.0.0 serve /Users/antonielmagalhaes/d/opn/sacola/apps/web
+[35m@sacola/web:serve: [0m> next dev -p 3000
+[35m@sacola/web:serve: [0m
+[35m@sacola/web:serve: [0mready - started server on 0.0.0.0:3000, url: http://localhost:3000
+[35m@sacola/web:serve: [0minfo  - automatically enabled Fast Refresh for 1 custom loader
+[35m@sacola/web:serve: [0mevent - compiled client and server successfully in 1528 ms (323 modules)
+[35m@sacola/web:serve: [0mwait  - compiling /src/middleware (client and server)...
+[35m@sacola/web:serve: [0mevent - compiled successfully in 335 ms (147 modules)
+[35m@sacola/web:serve: [0m[next-auth][error][NO_SECRET] 
+[35m@sacola/web:serve: [0mhttps://next-auth.js.org/errors#no_secret
+[35m@sacola/web:serve: [0mwait  - compiling /api/auth/[...nextauth] (client and server)...
+[35m@sacola/web:serve: [0mevent - compiled successfully in 47 ms (63 modules)
+[35m@sacola/web:serve: [0m[next-auth][warn][NEXTAUTH_URL] 
+[35m@sacola/web:serve: [0mhttps://next-auth.js.org/warnings#nextauth_url
+[35m@sacola/web:serve: [0m[next-auth][warn][NO_SECRET] 
+[35m@sacola/web:serve: [0mhttps://next-auth.js.org/warnings#no_secret
+[35m@sacola/web:serve: [0mwait  - compiling /_error (client and server)...
+[35m@sacola/web:serve: [0mevent - compiled client and server successfully in 126 ms (338 modules)
+[35m@sacola/web:serve: [0mwait  - compiling...
+[35m@sacola/web:serve: [0mevent - compiled successfully in 23 ms (49 modules)
+[35m@sacola/web:serve: [0mwait  - compiling /login (client and server)...
+[35m@sacola/web:serve: [0mevent - compiled client and server successfully in 258 ms (346 modules)
+[35m@sacola/web:serve: [0mwait  - compiling /api/auth/[...nextauth] (client and server)...
+[35m@sacola/web:serve: [0mevent - compiled successfully in 21 ms (72 modules)
+[35m@sacola/web:serve: [0m[next-auth][error][SIGNIN_OAUTH_ERROR] 
+[35m@sacola/web:serve: [0mhttps://next-auth.js.org/errors#signin_oauth_error client_id is required {
+[35m@sacola/web:serve: [0m  error: {
+[35m@sacola/web:serve: [0m    message: 'client_id is required',
+[35m@sacola/web:serve: [0m    stack: 'TypeError: client_id is required\n' +
+[35m@sacola/web:serve: [0m      '    at new BaseClient (/Users/antonielmagalhaes/d/opn/sacola/node_modules/.pnpm/openid-client@5.1.9/node_modules/openid-client/lib/client.js:178:13)\n' +
+[35m@sacola/web:serve: [0m      '    at new Client (/Users/antonielmagalhaes/d/opn/sacola/node_modules/.pnpm/openid-client@5.1.9/node_modules/openid-client/lib/client.js:1808:7)\n' +
+[35m@sacola/web:serve: [0m      '    at openidClient (/Users/antonielmagalhaes/d/opn/sacola/node_modules/.pnpm/next-auth@4.10.3_biqbaboplfbrettd7655fr4n2y/node_modules/next-auth/core/lib/oauth/client.js:28:18)\n' +
+[35m@sacola/web:serve: [0m      '    at runMicrotasks (<anonymous>)\n' +
+[35m@sacola/web:serve: [0m      '    at processTicksAndRejections (node:internal/process/task_queues:96:5)\n' +
+[35m@sacola/web:serve: [0m      '    at async getAuthorizationUrl (/Users/antonielmagalhaes/d/opn/sacola/node_modules/.pnpm/next-auth@4.10.3_biqbaboplfbrettd7655fr4n2y/node_modules/next-auth/core/lib/oauth/authorization-url.js:65:18)\n' +
+[35m@sacola/web:serve: [0m      '    at async Object.signin (/Users/antonielmagalhaes/d/opn/sacola/node_modules/.pnpm/next-auth@4.10.3_biqbaboplfbrettd7655fr4n2y/node_modules/next-auth/core/routes/signin.js:37:24)\n' +
+[35m@sacola/web:serve: [0m      '    at async NextAuthHandler (/Users/antonielmagalhaes/d/opn/sacola/node_modules/.pnpm/next-auth@4.10.3_biqbaboplfbrettd7655fr4n2y/node_modules/next-auth/core/index.js:238:26)\n' +
+[35m@sacola/web:serve: [0m      '    at async NextAuthNextHandler (/Users/antonielmagalhaes/d/opn/sacola/node_modules/.pnpm/next-auth@4.10.3_biqbaboplfbrettd7655fr4n2y/node_modules/next-auth/next/index.js:23:19)\n' +
+[35m@sacola/web:serve: [0m      '    at async /Users/antonielmagalhaes/d/opn/sacola/node_modules/.p
