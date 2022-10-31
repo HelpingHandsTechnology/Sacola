@@ -7,9 +7,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies": {
-    "@sacola/db": "workspace:*"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC"

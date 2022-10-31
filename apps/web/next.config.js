@@ -1,4 +1,4 @@
-const withTM = require('next-transpile-modules')(['@sacola/db']); // pass the modules you would like to see transpiled
+const withTM = require('next-transpile-modules')(['@sacola/trpc']);
 
 /**
  * @type {import('next').NextConfig} */

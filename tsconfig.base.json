@@ -24,8 +24,6 @@
     "target": "es2015",
     "baseUrl": ".",
     "paths": {
-      "@sacola/db": ["libs/db/src/index.ts"],
-      "@sacola/react-query": ["libs/react-query/src/index.ts"],
       "@sacola/shared-types": ["libs/shared-types/src/index.ts"],
       "@sacola/trpc": ["libs/trpc/src/index.ts"]
     }

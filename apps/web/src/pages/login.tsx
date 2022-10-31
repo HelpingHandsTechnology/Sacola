@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Col, Row } from '../Components/Layout';
 import clxs from 'clsx';
 import Typography from '../Components/Typography';
 import { SwitchToggle } from '../Components/SwitchToggle';
 import { Magic } from 'magic-sdk';
 import { useRouter } from 'next/router';
-import { getProviders, signIn } from 'next-auth/react';
+import { getProviders, signIn, useSession } from 'next-auth/react';
 
 const LogoWithTitle = ({ className = '' }) => {
   return (
@@ -18,6 +18,7 @@ const LogoWithTitle = ({ className = '' }) => {
 
 const Login = ({ providers }) => {
   const router = useRouter();
+
   const handleSubmit = async (email: string) => {
     console.log(email);
 
@@ -55,6 +56,7 @@ const Login = ({ providers }) => {
 
 const Form = ({ handleSubmit }) => {
   const [email, setEmail] = useState('');
+
   return (
     <Col
       className={clxs([
@@ -84,7 +86,7 @@ const Form = ({ handleSubmit }) => {
           </Row>
         </form>
         <button
-          onClick={() => signIn('google')}
+          onClick={() => signIn('google', { redirect: true })}
           className="px-6 py-3 mt-4 font-semibold text-gray-900 bg-white border-2 border-gray-500 rounded-md shadow outline-none hover:bg-blue-50 hover:border-blue-400 focus:outline-none"
         >
           <svg
