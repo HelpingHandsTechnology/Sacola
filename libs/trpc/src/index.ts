@@ -12,3 +12,7 @@ export const appRouter = createRouter()
 export type AppRouter = typeof appRouter;
 
 export { createContext } from './context';
+
+export { prisma } from './prisma';
+
+export { authOptions } from './authOptions';

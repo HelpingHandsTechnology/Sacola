@@ -2,6 +2,7 @@ import { IoClose } from 'react-icons/io5';
 import { BsArrowBarRight } from 'react-icons/bs';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import { useRouter } from 'next/router';
+import { signOut } from 'next-auth/react';
 
 export default function Options() {
   const router = useRouter();
@@ -37,7 +38,10 @@ export default function Options() {
           {<AiOutlineArrowRight size={20} className="ml-4" />}
         </div>
         <hr />
-        <button className="flex items-center justify-center p-12">
+        <button
+          className="flex items-center justify-center p-12"
+          onClick={() => signOut()}
+        >
           <p className="text-base">Sair</p>
           {<BsArrowBarRight size={20} className="ml-4" />}
         </button>

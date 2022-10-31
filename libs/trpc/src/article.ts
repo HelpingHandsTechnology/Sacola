@@ -3,11 +3,15 @@ import { z } from 'zod';
 import { Readability } from '@mozilla/readability';
 import axios from 'axios';
 import { JSDOM } from 'jsdom';
+import { TRPCError } from '@trpc/server';
 
 export const articleRouter = createRouter()
   .query('getAll', {
     async resolve({ ctx }) {
-      return await ctx.prisma.article.findMany({ include: { tags: true } });
+      return await ctx.prisma.article.findMany({
+        include: { tags: true },
+        where: { userId: ctx.session?.user?.id },
+      });
     },
   })
   .query('getFavorite', {
@@ -15,6 +19,7 @@ export const articleRouter = createRouter()
       return await ctx.prisma.article.findMany({
         where: {
           isFavorite: true,
+          userId: ctx.session?.user?.id,
         },
         include: { tags: true },
       });
@@ -75,11 +80,20 @@ export const articleRouter = createRouter()
       const doc = new JSDOM(response.data);
       const reader = new Readability(doc.window.document);
       const article = reader.parse();
+
+      if (!ctx.session?.user?.id) {
+        throw new TRPCError({
+          code: 'UNAUTHORIZED',
+          message: 'Missing userId',
+        });
+      }
+
       return await ctx.prisma.article.create({
         data: {
           title: article?.title || doc.window.document.title,
           urlDomain: input.url,
           isFavorite: false,
+          userId: ctx.session.user.id,
         },
       });
     },

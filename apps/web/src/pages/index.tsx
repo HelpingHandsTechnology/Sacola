@@ -12,18 +12,22 @@ import { HomeContextProvider } from '../contexts/homeContext';
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { req, res } = context;
+
   const ssg = createSSGHelpers({
     router: appRouter,
     ctx: await createContext({ req: req as any, res: res as any }),
     transformer: superjson,
   });
+
   await ssg.prefetchQuery('articles.getAll');
+
   return {
     props: {
       trpcState: ssg.dehydrate(),
     },
   };
 }
+
 const Home: NextPage = () => {
   const [searchValue, setSearchValue] = useState('');
   const [inputValue, setInputValue] = useState('');
