@@ -1,4 +1,4 @@
-import { createRouter } from './context';
+import { createRouter } from '../context';
 import { z } from 'zod';
 import { Readability } from '@mozilla/readability';
 import axios from 'axios';

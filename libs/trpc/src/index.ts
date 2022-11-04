@@ -1,8 +1,7 @@
 import { createRouter } from './context';
 import superjson from 'superjson';
 
-import { protectedExampleRouter } from './protected-example-router';
-import { articleRouter } from './article';
+import { articleRouter, protectedExampleRouter } from './controllers/index';
 
 export const appRouter = createRouter()
   .transformer(superjson)
