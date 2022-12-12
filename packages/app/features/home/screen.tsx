@@ -23,7 +23,7 @@ export function HomeScreen() {
   })
 
   return (
-    <ScrollView flex={1} backgroundColor={'white'}>
+    <ScrollView flex={1} backgroundColor={'whitesmoke'}>
       <HomeScreenHeadline p="$4" mb="$6" />
       <HomeWhatIsSacola p="$4" />
       <HomeScreenFAQ />
@@ -32,13 +32,13 @@ export function HomeScreen() {
 }
 const HomeScreenHeadline = (props: YStackProps) => (
   <YStack space="$4" maxWidth={600} {...props}>
-    <H2 textTransform="uppercase" textAlign="left">
+    <H2 textTransform="uppercase" textAlign="left" color={'black'}>
       Save and Organize Your Favorite Content with Sacola
     </H2>
     <Button
-      color="black"
+      color="white"
       alignSelf="baseline"
-      backgroundColor={'$orange3Light'}
+      backgroundColor={'black'}
       borderRadius={'$10'}
       iconAfter={ArrowRight}
     >
@@ -52,14 +52,14 @@ const HomeWhatIsSacola = (props: YStackProps) => (
       Experience the Power of Sacola: The Ultimate Content-Saving Tool
     </H3>
 
-    <XStack bg="$orange3Light" mt="$4" p="$4" alignItems="center" w="100%">
+    <XStack mt="$4" p="$4" alignItems="center" w="100%">
       <Paragraph>
-        Sacola is a popular website and app that allows users to save articles, videos, and other
-        content for later viewing. It is often used as a bookmarking tool for users to save
-        interesting or useful content that they want to read or watch at a later time. Sacola can be
-        used on a variety of devices, including computers, smartphones, and tablets, and it offers a
-        range of features such as tagging, offline access, and recommendation algorithms to help
-        users discover new content
+        Sacola is a website and app that allows users to save articles, videos, and other content
+        for later viewing. It is often used as a bookmarking tool for users to save interesting or
+        useful content that they want to read or watch at a later time. Sacola can be used on a
+        variety of devices, including computers, smartphones, and tablets, and it offers a range of
+        features such as tagging, offline access, and recommendation algorithms to help users
+        discover new content
       </Paragraph>
     </XStack>
   </YStack>
@@ -72,15 +72,15 @@ const HomeScreenFAQ = (props: YStackProps) => (
       borderTopWidth={'$4'}
       borderTopLeftRadius="$12"
       space="$1"
-      bg={'$gray8Light'}
-      borderTopColor={'$gray8Light'}
+      bg={'whitesmoke'}
+      borderTopColor={'whitesmoke'}
       borderTopRightRadius="$12"
     >
-      <YStack>
-        <H4 textAlign="left" w="100%">
+      <YStack mb="$4">
+        <H4 textAlign="left" w="100%" color={'black'}>
           FAQ
         </H4>
-        <H2>Getting Started with Sacola</H2>
+        <H2 color={'black'}>Getting Started with Sacola</H2>
       </YStack>
 
       <Accordion title="How does Sacola work?">
@@ -158,7 +158,7 @@ const Accordion = ({ children, title, ...props }: { title: string } & ButtonProp
   return (
     <>
       <XStack space="$1" jc={'space-between'} width="100%" alignItems="center" onPress={toggle}>
-        <Paragraph textDecorationLine={open ? 'underline' : 'none'} flexShrink={1}>
+        <Paragraph textDecorationLine={open ? 'underline' : 'none'} flexShrink={1} color={'black'}>
           {title}
         </Paragraph>
         {open ? <ChevronDown /> : <ChevronRight />}
@@ -166,7 +166,7 @@ const Accordion = ({ children, title, ...props }: { title: string } & ButtonProp
 
       {open && (
         <XStack mt={'$2'} mb="$4" onPress={toggle} {...props}>
-          <Paragraph flex={1} color={'$gray11Light'}>
+          <Paragraph flex={1} color={'black'}>
             {children}
           </Paragraph>
         </XStack>

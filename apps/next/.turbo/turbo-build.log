@@ -1,0 +1,66 @@
+$ next build
+
+
+Welcome to Tamagui!
+
+We've set up a few things for you. Note the "excludeReactNativeWebExports" setting
+in next.config.js which omits these from the bundle:
+
+- Switch, ProgressBar, Picker, CheckBox, Touchable
+
+Add these to save more, if you don't need them:
+
+- AnimatedFlatList, FlatList, SectionList, VirtualizedList, VirtualizedSectionList
+
+Even better, enable "useReactNativeWebLite" to avoid excludeReactNativeWebExports and
+get tree-shaking and concurrent mode support.
+
+🐤
+
+You can remove this log in next.config.js.
+
+
+warn  - You have enabled experimental features (scrollRestoration, transpilePackages) in next.config.js.
+warn  - Experimental features are not covered by semver, and may cause unexpected or broken application behavior. Use at your own risk.
+
+info  - Skipping validation of types
+info  - Linting...
+info  - Creating an optimized production build...
+[33m
+Tamagui built config and components:[0m
+[2m
+  Config     ./.tamagui/tamagui.config.js
+  Components ./.tamagui/tamagui-components.config.js
+             ./.tamagui/myui-components.config.js
+[0m
+ web  |             detail-screen    3 ·   2 ·   1 ·   0   217ms 
+ web  |                    screen   27 ·  24 ·  19 ·   0   220ms 
+ web  |                  ListItem    3 ·   1 ·   0 ·   0    24ms 
+ web  |             detail-screen    3 ·   2 ·   1 ·   0    48ms 
+ web  |                    screen   27 ·  24 ·  19 ·   0    53ms 
+ web  |                  ListItem    3 ·   1 ·   0 ·   0    19ms 
+info  - Compiled successfully
+info  - Collecting page data...
+info  - Generating static pages (0/4)
+info  - Generating static pages (1/4)
+info  - Generating static pages (2/4)
+info  - Generating static pages (3/4)
+info  - Generating static pages (4/4)
+info  - Finalizing page optimization...
+
+Route (pages)                              Size     First Load JS
+┌ ○ / (628 ms)                             2.75 kB         169 kB
+├   └ css/6343b70af88b31eb.css             895 B
+├   /_app                                  0 B             146 kB
+├ ○ /404                                   181 B           146 kB
+└ ○ /user/[id] (609 ms)                    1.52 kB         167 kB
+    └ css/9e015c08f84f4fe6.css             301 B
++ First Load JS shared by all              352 kB
+  ├ chunks/framework-95e654c50294ba5f.js   45.4 kB
+  ├ chunks/main-ed2f52179aad2ae3.js        26.9 kB
+  ├ chunks/pages/_app-4a89597523845034.js  72.7 kB
+  ├ chunks/webpack-59c5c889f52620d6.js     819 B
+  └ css/90518eefff6b10f6.css               207 kB
+
+○  (Static)  automatically rendered as static HTML (uses no initial props)
+
