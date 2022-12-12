@@ -1,0 +1,21 @@
+{
+  "name": "sacola-trpc",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@prisma/client": "^4.7.1",
+    "@tanstack/react-query": "^4.19.1",
+    "@trpc/client": "^10.5.0",
+    "@trpc/next": "^10.5.0",
+    "@trpc/react-query": "^10.4.3",
+    "@trpc/server": "^10.4.3",
+    "prisma": "^4.7.1",
+    "superjson": "^1.12.0",
+    "zod": "^3.19.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.13",
+    "typescript": "^4.9.4"
+  }
+}

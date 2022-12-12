@@ -1,6 +1,0 @@
-{
-  "root": true,
-  "ignorePatterns": ["**/*"],
-  "parser": "@typescript-eslint/parser",
-  "plugins": []
-}
