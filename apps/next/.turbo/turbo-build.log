@@ -33,30 +33,30 @@ Tamagui built config and components:[0m
   Components ./.tamagui/tamagui-components.config.js
              ./.tamagui/myui-components.config.js
 [0m
- web  |                    screen   14 ·  12 ·   9 ·   0    90ms 
- web  |             detail-screen    3 ·   2 ·   1 ·   0     9ms 
+ web  |                    screen   27 ·  26 ·  19 ·   0   121ms 
+ web  |             detail-screen    3 ·   2 ·   1 ·   0   114ms 
  web  |                  ListItem    3 ·   1 ·   0 ·   0    23ms 
- web  |                    screen   14 ·  12 ·   9 ·   0    25ms 
- web  |             detail-screen    3 ·   2 ·   1 ·   0    23ms 
- web  |                  ListItem    3 ·   1 ·   0 ·   0    17ms 
+ web  |                    screen   27 ·  26 ·  19 ·   0    37ms 
+ web  |             detail-screen    3 ·   2 ·   1 ·   0    36ms 
+ web  |                  ListItem    3 ·   1 ·   0 ·   0    15ms 
 info  - Compiled successfully
 info  - Collecting page data...
 Warning: You have opted-out of Automatic Static Optimization due to `getInitialProps` in `pages/_app`. This does not opt-out pages with `getStaticProps`
 Read more: https://nextjs.org/docs/messages/opt-out-auto-static-optimization
 
 Route (pages)                              Size     First Load JS
-┌ λ /                                      10.5 kB         200 kB
-├   └ css/a787f3a676b94a98.css             693 B
-├   /_app                                  0 B             185 kB
-├ λ /404                                   181 B           186 kB
-├ λ /api/trpc/[trpc]                       0 B             185 kB
-└ λ /user/[id]                             1.51 kB         191 kB
+┌ λ /                                      2.73 kB         191 kB
+├   └ css/530e18bc9820d916.css             891 B
+├   /_app                                  0 B             169 kB
+├ λ /404                                   181 B           169 kB
+├ λ /api/trpc/[trpc]                       0 B             169 kB
+└ λ /user/[id]                             1.52 kB         190 kB
     └ css/9e015c08f84f4fe6.css             301 B
-+ First Load JS shared by all              392 kB
++ First Load JS shared by all              375 kB
   ├ chunks/framework-95e654c50294ba5f.js   45.4 kB
   ├ chunks/main-ed2f52179aad2ae3.js        26.9 kB
-  ├ chunks/pages/_app-ef37fe86400ce60b.js  112 kB
-  ├ chunks/webpack-f164db4954bac6ec.js     826 B
+  ├ chunks/pages/_app-9710c68e827c3bfb.js  95.5 kB
+  ├ chunks/webpack-59c5c889f52620d6.js     819 B
   └ css/90518eefff6b10f6.css               207 kB
 
 λ  (Server)  server-side renders at runtime (uses getInitialProps or getServerSideProps)
