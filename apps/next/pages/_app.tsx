@@ -7,7 +7,8 @@ import { Provider } from 'app/provider'
 import Head from 'next/head'
 import React, { useMemo } from 'react'
 import type { SolitoAppProps } from 'solito'
-import 'raf/polyfill'
+import 'raf/polyfill';
+import { trpc } from '../utils/trpc'
 
 function MyApp({ Component, pageProps }: SolitoAppProps) {
   const [theme, setTheme] = useRootTheme()
@@ -15,7 +16,7 @@ function MyApp({ Component, pageProps }: SolitoAppProps) {
   const contents = useMemo(() => {
     // @ts-ignore
     return <Component {...pageProps} />
-  }, [Component, pageProps])
+  }, [Component, pageProps]);
 
   return (
     <>
@@ -33,4 +34,4 @@ function MyApp({ Component, pageProps }: SolitoAppProps) {
   )
 }
 
-export default MyApp
+export default trpc.withTRPC(MyApp);
