@@ -1,13 +1,8 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
-import { trpcClient } from '../utils/trpc';
 
 export default function Home() {
-  const articles = trpcClient.articles.getAll.useQuery();
-
-  console.log(articles);
-
   return (
     <div className={styles.container}>
       <Head>

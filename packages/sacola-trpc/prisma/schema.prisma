@@ -13,7 +13,7 @@ model User {
   name          String
   email         String   @unique
   emailVerified Boolean
-  password      String   @db.VarChar(255)
+  lastCode      String?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
