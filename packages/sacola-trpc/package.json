@@ -1,7 +1,7 @@
 {
   "name": "sacola-trpc",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/server.ts",
   "license": "MIT",
   "scripts": {
     "test:server": "ts-node src/test-server.ts"
