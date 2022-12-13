@@ -9,15 +9,20 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@types/react-native": "~0.70.6",
     "expo": "~47.0.8",
     "expo-splash-screen": "~0.17.5",
     "expo-status-bar": "~1.4.2",
+    "nativewind": "^2.0.11",
     "react": "18.1.0",
     "react-native": "0.70.5"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
-    "react-native-codegen": "^0.71.3"
+    "add": "^2.0.6",
+    "react-native-codegen": "^0.71.3",
+    "tailwindcss": "^3.2.4",
+    "yarn": "^1.22.19"
   },
   "private": true
 }
