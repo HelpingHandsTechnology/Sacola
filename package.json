@@ -6,10 +6,15 @@
   "repository": "git@github.com:antoniel/Sacola.git",
   "author": "Guilherme775 <guilhermereis28122002@gmail.com>",
   "license": "MIT",
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "apps/*",
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/react-native-codegen"
+    ]
+  },
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
@@ -18,6 +23,7 @@
     "test": "turbo run test",
     "clean": "sh clean.sh",
     "dev:web": "cd apps/web && yarn dev",
+    "dev:expo": "cd apps/mobile && yarn dev",
     "postinstall": "cd packages/sacola-trpc && prisma generate"
   },
   "devDependencies": {
