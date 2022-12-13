@@ -9,10 +9,6 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "@tanstack/react-query": "^4.19.1",
-    "@trpc/client": "^10.5.0",
-    "@trpc/react-query": "^10.5.0",
-    "@trpc/server": "^10.5.0",
     "@types/react-native": "~0.70.6",
     "expo": "~47.0.8",
     "expo-splash-screen": "~0.17.5",

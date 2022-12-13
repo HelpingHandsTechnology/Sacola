@@ -26,6 +26,13 @@
     "dev:expo": "cd apps/mobile && yarn dev",
     "postinstall": "cd packages/sacola-trpc && prisma generate"
   },
+  "dependencies": {
+    "@tanstack/react-query": "^4.19.1",
+    "@trpc/client": "^10.5.0",
+    "@trpc/next": "^10.5.0",
+    "@trpc/react-query": "^10.5.0",
+    "@trpc/server": "^10.5.0"
+  },
   "devDependencies": {
     "prettier": "^2.8.1",
     "turbo": "^1.6.3",
