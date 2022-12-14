@@ -1,4 +1,4 @@
-import { httpBatchLink, loggerLink } from '@trpc/client';
+import { httpBatchLink, HTTPHeaders, loggerLink } from '@trpc/client';
 import { createTRPCNext } from '@trpc/next';
 import { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
 import { NextPageContext } from 'next';
@@ -66,19 +66,11 @@ export const trpcClient = createTRPCNext<AppRouter, SSRContext>({
            * @link https://trpc.io/docs/ssr
            */
           headers() {
-            if (ctx?.req) {
-              // To use SSR properly, you need to forward the client's headers to the server
-              // This is so you can pass through things like cookies when we're server-side rendering
+            const token = window.localStorage.getItem("token");
 
-              // If you're using Node 18, omit the "connection" header
-              const { connection: _connection, ...headers } = ctx.req.headers;
-              return {
-                ...headers,
-                // Optional: inform server that it's an SSR request
-                'x-ssr': '1',
-              };
-            }
-            return {};
+            const httpHeaders: HTTPHeaders = { authorization: token || undefined };
+
+            return httpHeaders;
           },
         }),
       ],
