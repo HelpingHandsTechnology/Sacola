@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import { getWeightClassname, getSizeClassname, getTextAlignClassname } from './utils';
-import { Text as TextRNW } from 'react-native-web';
+import { Text as TextRNW } from 'react-native';
 
 export interface TextProps {
   children: React.ReactNode;
@@ -16,7 +16,11 @@ const Text = ({ children, as = 'p', weight = 'normal', size = 'md', textAlign = 
   const sizeClassname = getSizeClassname(size);
   const textAlignClassname = getTextAlignClassname(textAlign);
   // return React.createElement(as, { className: clsx(weightClassname, sizeClassname, textAlignClassname) }, children);
-  return <TextRNW className={clsx(weightClassname, sizeClassname, textAlignClassname)}>{children}</TextRNW>;
+  return (
+    <TextRNW accessibilityRole="header" className={clsx(weightClassname, sizeClassname, textAlignClassname)}>
+      {children}
+    </TextRNW>
+  );
 };
 
 export default Text;
