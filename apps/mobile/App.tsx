@@ -15,10 +15,7 @@ export default function App() {
 }
 
 const Content = () => {
-  const a = trpc.user.verifyCode.useMutation();
-  React.useEffect(() => {
-    a.mutate({});
-  }, []);
+  const a = trpc.articles.getAll.useQuery();
   console.log({ isLoading: a.isLoading, error: a.error, data: a.data });
   return (
     <View className="bg-slate-600 flex-1 items-center justify-center">
