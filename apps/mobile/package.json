@@ -11,6 +11,7 @@
   "dependencies": {
     "@types/react-native": "~0.70.6",
     "expo": "~47.0.8",
+    "design": "*",
     "expo-splash-screen": "~0.17.5",
     "expo-status-bar": "~1.4.2",
     "nativewind": "^2.0.11",

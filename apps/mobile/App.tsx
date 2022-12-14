@@ -3,6 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { Text, View } from 'react-native';
 import { queryClient, trpc, trpcClient } from './src/lib/trpc';
+import TextRN from 'design';
 
 export default function App() {
   return (
@@ -19,7 +20,9 @@ const Content = () => {
   console.log({ isLoading: a.isLoading, error: a.error, data: a.data });
   return (
     <View className="bg-slate-600 flex-1 items-center justify-center">
-      <Text className="bg-slate-100 p-8">Open up App.js to start working on your app!</Text>
+      <TextRN xClassName="text-white" size="xl">
+        Just works bro, thats too easy
+      </TextRN>
       <StatusBar style="auto" />
     </View>
   );

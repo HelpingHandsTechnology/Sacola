@@ -9,7 +9,7 @@ const config: Meta = {
 };
 export default config;
 
-const Box = ({ children }): JSX.Element => {
+const Box = ({ children }: any): JSX.Element => {
   return <div className="flex flex-col gap-y-4">{children}</div>;
 };
 
