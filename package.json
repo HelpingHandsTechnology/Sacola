@@ -32,7 +32,9 @@
     "@trpc/client": "^10.5.0",
     "@trpc/next": "^10.5.0",
     "@trpc/react-query": "^10.5.0",
-    "@trpc/server": "^10.5.0"
+    "@trpc/server": "^10.5.0",
+    "react-dom": "^18.2.0",
+    "react-native-web": "^0.18.10"
   },
   "devDependencies": {
     "prettier": "^2.8.1",

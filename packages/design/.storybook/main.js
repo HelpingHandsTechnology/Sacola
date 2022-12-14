@@ -18,6 +18,13 @@ module.exports = {
         },
       },
     },
+    {
+      name: '@storybook/addon-react-native-web',
+      options: {
+        babelPlugins: [['nativewind/babel', { mode: 'transformOnly' }]],
+        modulesToTranspile: [],
+      },
+    },
   ],
   framework: '@storybook/react',
   core: {
