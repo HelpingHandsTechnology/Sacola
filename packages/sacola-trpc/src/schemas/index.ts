@@ -15,7 +15,6 @@ export const articleSchema = z.lazy(() => z.object({
     title: z.string(),
     urlDomain: z.string(),
     isFavorite: z.string(),
-    user: userSchema.optional(),
     userId: z.string(),
     tags: z.array(tagSchema).optional()
 }));
@@ -24,5 +23,12 @@ export const tagSchema = z.object({
     id: z.string().uuid(),
     name: z.string(),
     article: articleSchema.optional(),
-    articleId: z.string()
+    articleId: z.string().uuid()
+});
+
+export const articleUserSchema = z.object({
+    userId: z.string().uuid(),
+    articleId: z.string().uuid(),
+    articles: z.array(articleSchema).optional(),
+    users: z.array(userSchema).optional()
 });

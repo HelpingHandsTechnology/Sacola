@@ -9,7 +9,7 @@ datasource db {
 }
 
 model User {
-  id            String   @id @default(cuid())
+  id            String   @id @unique @default(cuid())
   name          String
   email         String   @unique
   emailVerified Boolean
@@ -17,18 +17,28 @@ model User {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
-  Article Article[]
+  articleUser   ArticleUser[]
 }
 
 model Article {
-  id         String  @id @default(cuid())
+  id         String  @id @unique @default(cuid())
   title      String
-  urlDomain  String
-  isFavorite Boolean
-  user       User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId     String
+  urlDomain  String  @unique
   tags       Tags[]
 
+  articleUser  ArticleUser[]
+}
+
+model ArticleUser {
+  user       User @relation(fields: [userId], references: [id])
+  userId     String
+  article    Article @relation(fields: [articleId], references: [id])
+  articleId  String
+  isFavorite Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  @@id([userId, articleId])
+  @@index([articleId])
   @@index([userId])
 }
 
