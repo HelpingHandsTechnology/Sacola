@@ -33,7 +33,9 @@
     "@trpc/next": "^10.5.0",
     "@trpc/react-query": "^10.5.0",
     "@trpc/server": "^10.5.0",
-    "react-dom": "^18.2.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-native": "0.70.5",
     "react-native-web": "^0.18.10",
     "ts-pattern": "^4.0.6"
   },
