@@ -1,5 +1,4 @@
-const withTM = require('next-transpile-modules')(['sacola-trpc', 'design']);
-
+const withTM = require('next-transpile-modules')(['sacola-trpc', 'design', 'nativewind']);
 /**
  * @type {import('next').NextConfig} */
 const nextConfig = {
