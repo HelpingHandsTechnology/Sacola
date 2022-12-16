@@ -1,8 +1,9 @@
 import { QueryClientProvider } from '@tanstack/react-query';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { SafeAreaView, Safe, Text, View } from 'react-native';
 import { queryClient, trpc, trpcClient } from './src/lib/trpc';
+import clsx from 'clsx';
 import TextRN from 'design';
 
 export default function App() {
@@ -16,14 +17,22 @@ export default function App() {
 }
 
 const Content = () => {
-  const a = trpc.articles.getAll.useQuery();
-  console.log({ isLoading: a.isLoading, error: a.error, data: a.data });
   return (
-    <View className="bg-slate-600 flex-1 items-center justify-center">
-      <TextRN xClassName="text-white" size="xl">
-        Just works bro, thats too easy
-      </TextRN>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={{ backgroundColor: '#000' }} forceInset={{ top: 'always', bottom: 'always' }}>
+      <View className="p-8 bg-app-pink text-red-50 h-full">
+        <View className="">
+          <Text className="text-4xl font-light text-app-marrom">Just works bro, thats too easy</Text>
+        </View>
+        <StatusBar style="auto" />
+      </View>
+    </SafeAreaView>
+  );
+};
+
+const AppLayout = ({ children, className }) => {
+  return (
+    <SafeAreaView>
+      <View className={clsx(['p-6 flex-1', className])}>{children}</View>
+    </SafeAreaView>
   );
 };
