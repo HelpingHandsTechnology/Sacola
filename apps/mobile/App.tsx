@@ -1,38 +1,42 @@
 import { QueryClientProvider } from '@tanstack/react-query';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { SafeAreaView, Safe, Text, View } from 'react-native';
+import { SafeAreaView, Text, View } from 'react-native';
+import { useSafeAreaInsets, SafeAreaProvider } from 'react-native-safe-area-context';
 import { queryClient, trpc, trpcClient } from './src/lib/trpc';
 import clsx from 'clsx';
-import TextRN from 'design';
 
 export default function App() {
   return (
-    <trpc.Provider client={trpcClient} queryClient={queryClient}>
-      <QueryClientProvider client={queryClient}>
-        <Content />
-      </QueryClientProvider>
-    </trpc.Provider>
+    <SafeAreaProvider>
+      <trpc.Provider client={trpcClient} queryClient={queryClient}>
+        <QueryClientProvider client={queryClient}>
+          <Content />
+        </QueryClientProvider>
+      </trpc.Provider>
+    </SafeAreaProvider>
   );
 }
 
 const Content = () => {
+  const num = 40;
   return (
-    <SafeAreaView style={{ backgroundColor: '#000' }} forceInset={{ top: 'always', bottom: 'always' }}>
-      <View className="p-8 bg-app-pink text-red-50 h-full">
-        <View className="">
-          <Text className="text-4xl font-light text-app-marrom">Just works bro, thats too easy</Text>
-        </View>
+    <AppLayout>
+      <View className="p-8 bg-app-pink text-red-50 flex-grow bg-app-rosa ">
+        <Text className="text-4xl font-light text-app-marrom">Just works bro, thats too easy</Text>
         <StatusBar style="auto" />
       </View>
-    </SafeAreaView>
+    </AppLayout>
   );
 };
 
-const AppLayout = ({ children, className }) => {
+const AppLayout = ({ children, insetTopClassName = '', insetBottomClassName = '' }: any) => {
+  const inset = useSafeAreaInsets();
   return (
-    <SafeAreaView>
-      <View className={clsx(['p-6 flex-1', className])}>{children}</View>
-    </SafeAreaView>
+    <View className={clsx('flex-grow')}>
+      <View style={{ paddingTop: inset.top }} className={clsx(insetTopClassName)} />
+      <>{children}</>
+      <View style={{ paddingBottom: inset.top }} className={clsx(insetBottomClassName)} />
+    </View>
   );
 };

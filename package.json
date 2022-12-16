@@ -10,9 +10,6 @@
     "packages": [
       "apps/*",
       "packages/*"
-    ],
-    "nohoist": [
-      "**/react-native-codegen"
     ]
   },
   "scripts": {
