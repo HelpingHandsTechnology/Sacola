@@ -11,17 +11,18 @@
   "dependencies": {
     "@types/node": "18.11.13",
     "@types/react": "18.0.26",
+    "design": "*",
     "eslint": "8.29.0",
     "eslint-config-next": "13.0.6",
     "next": "13.0.6",
     "next-transpile-modules": "^10.0.0",
     "sacola-trpc": "*",
-    "design": "*",
     "superjson": "^1.12.0",
     "typescript": "4.9.4",
     "zod": "^3.20.0"
   },
   "devDependencies": {
+    "@types/nodemailer": "^6.4.6",
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.20",
     "tailwindcss": "^3.2.4"
