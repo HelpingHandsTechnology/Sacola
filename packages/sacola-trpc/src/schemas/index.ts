@@ -1,12 +1,12 @@
 import { z, ZodLazy, ZodType } from 'zod';
-import { Article, Tags } from 'prisma/prisma-client';
+import { Article, Tags, ArticleUser, User } from 'prisma/prisma-client';
 
-export const userSchema = z.object({
+export const userSchema: ZodType<User> = z.object({
   id: z.string().uuid(),
   name: z.string(),
   email: z.string(),
   emailVerified: z.boolean(),
-  password: z.string(),
+  lastCode: z.string().nullable(),
   createdAt: z.date(),
   updatedAt: z.date(),
 });
@@ -16,8 +16,6 @@ export const articleSchema: ZodLazy<ZodType<Article>> = z.lazy(() =>
     id: z.string().uuid(),
     title: z.string(),
     urlDomain: z.string(),
-    isFavorite: z.string(),
-    userId: z.string(),
     tags: z.array(tagSchema).optional(),
   }),
 );
@@ -29,9 +27,11 @@ export const tagSchema: ZodType<Tags> = z.object({
   articleId: z.string().uuid(),
 });
 
-export const articleUserSchema = z.object({
+export const articleUserSchema: ZodType<ArticleUser> = z.object({
   userId: z.string().uuid(),
   articleId: z.string().uuid(),
-  articles: z.array(articleSchema).optional(),
-  users: z.array(userSchema).optional(),
+  article: articleSchema.optional(),
+  user: userSchema.optional(),
+  isFavorite: z.boolean(),
+  createdAt: z.date(),
 });
