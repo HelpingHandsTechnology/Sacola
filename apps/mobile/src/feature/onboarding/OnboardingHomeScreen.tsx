@@ -1,5 +1,6 @@
 import React from 'react';
-import { Image, Text, View } from 'react-native';
+import clsx from 'clsx';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { AppLayout } from '../../shared/components/AppLayout';
 
 export const OnboardingHomeScreen = () => {
@@ -11,7 +12,8 @@ export const OnboardingHomeScreen = () => {
         </View>
         <View className="p-8 bg-app-pink flex-grow bg-app-rosa relative">
           <AbsoluteSubtractElement />
-          <Image source={require('../../assets/🛍️.png')} />
+          <Image source={require('../../assets/🛍️.png')} className="flex-grow" />
+          <Button />
         </View>
       </View>
     </AppLayout>
@@ -28,5 +30,13 @@ const AbsoluteSubtractElement = () => {
         />
       </View>
     </View>
+  );
+};
+// Write a button with circular radius
+const Button = () => {
+  return (
+    <TouchableOpacity className={clsx('bg-app-bege w-full rounded-full h-16 justify-center items-center')}>
+      <Text className="text-2xl text-black">Clica aqui+</Text>
+    </TouchableOpacity>
   );
 };
