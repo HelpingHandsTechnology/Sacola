@@ -128,7 +128,7 @@ export const articleRouter = trpc.router({
     }),
   create: articleProcedure
     .input(z.object({ url: z.string() }))
-    .output(z.object({ message: z.string(), articleId: z.string().uuid() }))
+    .output(z.object({ message: z.string(), articleId: z.string() }))
     .query(async ({ ctx, input }) => {
       const url = input.url;
 
@@ -139,6 +139,22 @@ export const articleRouter = trpc.router({
       });
 
       if (article) {
+        const userAlreadySavedArticle = await prisma.articleUser.findUnique({
+          where: {
+            userId_articleId: {
+              userId: ctx.user.id,
+              articleId: article.id,
+            },
+          },
+        });
+
+        if (userAlreadySavedArticle) {
+          return {
+            message: 'Article already have saved this article',
+            articleId: article.id,
+          };
+        }
+
         await prisma.articleUser.create({
           data: {
             articleId: article.id,
@@ -147,39 +163,40 @@ export const articleRouter = trpc.router({
         });
 
         return {
-          message: 'Article created with success!',
+          message: 'Article saved with success!',
           articleId: article.id,
         };
-      } else {
-        const response = await axios.get(url);
-        const doc = new JSDOM(response.data);
-        const reader = new Readability(doc.window.document);
-        const article = reader.parse();
-
-        const newArticle = await prisma.article.create({
-          data: {
-            title: article?.title || doc.window.document.title,
-            urlDomain: url,
-            articleUser: {
-              create: [
-                {
-                  userId: ctx.user.id,
-                },
-              ],
-            },
-          },
-        });
-
-        return {
-          message: 'Article created with success!',
-          articleId: newArticle.id,
-        };
       }
+
+      const { data } = await axios.get(url);
+
+      const doc = new JSDOM(data);
+      const readability = new Readability(doc.window.document);
+      const reader = readability.parse();
+
+      const newArticle = await prisma.article.create({
+        data: {
+          title: reader?.title || doc.window.document.title,
+          urlDomain: url,
+          articleUser: {
+            create: [
+              {
+                userId: ctx.user.id,
+              },
+            ],
+          },
+        },
+      });
+
+      return {
+        message: 'Article saved with success!',
+        articleId: newArticle.id,
+      };
     }),
   deleteById: articleProcedure
     .input(
       z.object({
-        id: z.string().uuid(),
+        id: z.string(),
       }),
     )
     .output(z.object({ message: z.string() }))
@@ -199,7 +216,7 @@ export const articleRouter = trpc.router({
   updateById: articleProcedure
     .input(
       z.object({
-        id: z.string().uuid(),
+        id: z.string(),
         isFavorite: z.boolean().optional(),
       }),
     )

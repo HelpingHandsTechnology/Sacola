@@ -17,22 +17,22 @@ model User {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
-  articleUser   ArticleUser[]
+  articleUser ArticleUser[]
 }
 
 model Article {
-  id         String  @id @unique @default(cuid())
-  title      String
-  urlDomain  String  @unique
-  tags       Tags[]
+  id        String @id @unique @default(cuid())
+  title     String
+  urlDomain String @unique
+  tags      Tags[]
 
-  articleUser  ArticleUser[]
+  articleUser ArticleUser[]
 }
 
 model ArticleUser {
-  user       User @relation(fields: [userId], references: [id])
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId     String
-  article    Article @relation(fields: [articleId], references: [id])
+  article    Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
   articleId  String
   isFavorite Boolean  @default(false)
   createdAt  DateTime @default(now())

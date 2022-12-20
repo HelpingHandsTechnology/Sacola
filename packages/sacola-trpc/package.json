@@ -1,10 +1,11 @@
 {
   "name": "sacola-trpc",
   "version": "1.0.0",
-  "main": "src/server.ts",
+  "main": "index.ts",
   "license": "MIT",
   "scripts": {
-    "test:server": "ts-node src/test-server.ts"
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@mozilla/readability": "^0.4.2",
@@ -12,7 +13,7 @@
     "axios": "^1.2.1",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "jsdom": "^20.0.3",
+    "jsdom": "^20.0.0",
     "jsonwebtoken": "^8.5.1",
     "nodemailer": "^6.8.0",
     "prisma": "^4.7.1",
@@ -24,7 +25,9 @@
     "@types/jsdom": "^20.0.1",
     "@types/jsonwebtoken": "^8.5.9",
     "@types/node": "^18.11.13",
+    "@vitest/coverage-c8": "^0.26.0",
     "ts-node": "^10.9.1",
-    "typescript": "^4.9.4"
+    "typescript": "^4.9.4",
+    "vitest": "^0.25.3"
   }
 }
