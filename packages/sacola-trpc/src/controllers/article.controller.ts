@@ -20,15 +20,6 @@ export const articleRouter = trpc.router({
       include: { article: { include: { tags: true } } },
     });
   }),
-  getFavorite: articleProcedure.output(z.array(articleUserSchema)).query(async ({ ctx }) => {
-    return await prisma.articleUser.findMany({
-      where: {
-        userId: ctx.user.id,
-        isFavorite: true,
-      },
-      include: { article: { include: { tags: true } } },
-    });
-  }),
   getById: articleProcedure
     .input(z.object({ id: z.string() }))
     .output(articleSchema.nullable())
