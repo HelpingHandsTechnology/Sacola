@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model User {
+  id            String   @id @unique @default(cuid())
+  name          String
+  email         String   @unique
+  emailVerified Boolean
+  lastCode      String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  articleUser ArticleUser[]
+}
+
+model Article {
+  id        String @id @unique @default(cuid())
+  title     String
+  urlDomain String @unique
+  tags      Tags[]
+
+  articleUser ArticleUser[]
+}
+
+model ArticleUser {
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String
+  article    Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  articleId  String
+  isFavorite Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  @@id([userId, articleId])
+  @@index([articleId])
+  @@index([userId])
+}
+
+model Tags {
+  id        String  @id @default(cuid())
+  name      String
+  articles  Article @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  articleId String
+
+  @@index([articleId])
+}

@@ -1,10 +1,15 @@
-const withTM = require('next-transpile-modules')(['@sacola/trpc']);
-
+const withTM = require('next-transpile-modules')(['sacola-trpc', 'design', 'nativewind']);
 /**
  * @type {import('next').NextConfig} */
 const nextConfig = {
-  compiler: {
-    styledComponents: true,
+  webpack: (config) => {
+    config.resolve.alias = {
+      ...(config.resolve.alias || {}),
+      // Transform all direct `react-native` imports to `react-native-web`
+      'react-native$': 'react-native-web',
+    };
+    config.resolve.extensions = ['.web.js', '.web.jsx', '.web.ts', '.web.tsx', ...config.resolve.extensions];
+    return config;
   },
   reactStrictMode: true,
   swcMinify: true,

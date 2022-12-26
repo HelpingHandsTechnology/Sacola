@@ -1,15 +1,13 @@
-const { join } = require('path');
-
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [join(__dirname, 'src/**/*.{js,ts,jsx,tsx}')],
-  darkMode: 'class',
+  content: [
+    './pages/**/*.{js,ts,jsx,tsx}',
+    './components/**/*.{js,ts,jsx,tsx}',
+    '../../packages/design/src/**/*.{js,ts,jsx,tsx}',
+  ],
   theme: {
-    extend: {
-      colors: {
-        primary: '#274BF2',
-      },
-    },
+    extend: {},
   },
-  plugins: [],
+  plugins: [require('nativewind/tailwind/css')],
+  important: 'html',
 };

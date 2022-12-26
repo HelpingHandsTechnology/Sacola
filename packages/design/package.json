@@ -1,0 +1,31 @@
+{
+  "name": "design",
+  "version": "0.0.1",
+  "private": true,
+  "main": "src/Text/index.tsx",
+  "scripts": {
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "dependencies": {
+    "@storybook/addon-react-native-web": "^0.0.19",
+    "clsx": "^1.2.1",
+    "tailwindcss-classnames": "^3.0.7"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.5",
+    "@storybook/addon-actions": "^6.5.14",
+    "@storybook/addon-essentials": "^6.5.14",
+    "@storybook/addon-interactions": "^6.5.14",
+    "@storybook/addon-links": "^6.5.14",
+    "@storybook/addon-postcss": "^2.0.0",
+    "@storybook/builder-webpack5": "^6.5.14",
+    "@storybook/manager-webpack5": "^6.5.14",
+    "@storybook/react": "^6.5.14",
+    "@storybook/testing-library": "^0.0.13",
+    "autoprefixer": "^10.4.13",
+    "babel-loader": "^8.3.0",
+    "postcss": "^8.4.20",
+    "tailwindcss": "^3.2.4"
+  }
+}
