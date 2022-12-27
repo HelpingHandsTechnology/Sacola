@@ -1,5 +1,3 @@
-# How to run ?
-
 > You probably will need a .env file with the following variables:
 
 ```.env
@@ -13,6 +11,10 @@ JWT_SECRET=
 ```
 
 ### Mobile
+
+The mobile package is a React Native app that uses Expo with the bare workflow. you can find more details about it on the [README](apps/mobile/README.md) file.
+
+#### How to run ?
 
 ```bash
 # Install dependencies
