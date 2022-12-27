@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 
-import Text, { TextProps } from '.';
+import { Text, TextProps } from '.';
 
 const config: Meta = {
   title: 'Design System/Text',

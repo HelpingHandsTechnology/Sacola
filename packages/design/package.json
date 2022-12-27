@@ -2,7 +2,7 @@
   "name": "design",
   "version": "0.0.1",
   "private": true,
-  "main": "src/Text/index.tsx",
+  "main": "src/index.ts",
   "scripts": {
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"

@@ -13,7 +13,7 @@ export interface TextProps {
   xClassName?: string;
 }
 
-const Text = ({
+export const Text = ({
   children,
   as = 'p',
   weight = 'normal',
@@ -45,5 +45,3 @@ const Text = ({
     </TextRNW>
   );
 };
-
-export default Text;

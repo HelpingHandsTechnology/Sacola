@@ -1,4 +1,4 @@
-import Text from 'design';
+import { Text } from 'design';
 
 export default function Home() {
   return (

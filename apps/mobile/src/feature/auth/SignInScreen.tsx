@@ -1,6 +1,7 @@
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { Image, Text, TextInput, TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
+import { Image, Text, TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
+import { TextInput } from 'design';
 import { MainStackNavigationP } from '../../../App';
 import { AppButton } from '../../shared/components/AppButton';
 import { AppLayout } from '../../shared/components/AppLayout';
@@ -25,7 +26,6 @@ export const SignInScreen = () => {
             placeholder="abcd@xyz.com"
             placeholderTextColor={'#333'}
             keyboardType="email-address"
-            className="bg-slate-400 rounded-sm px-2 py-4"
           ></TextInput>
           <AppButton onPress={navigator.toConfirmCodeScreen}>Send code</AppButton>
           <SignUpText onPress={navigator.toSignUpScreen} />
