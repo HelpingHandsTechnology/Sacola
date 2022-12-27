@@ -20,7 +20,7 @@ export const OnboardingHomeScreen = () => {
         <View className="p-8 bg-app-pink flex-grow bg-gray-500 relative">
           <AbsoluteSubtractElement />
           <Image source={require('../../assets/🛍️.png')} className="flex-grow" />
-          <Button onPress={navigator.toSignInScreen} />
+          <AppButton onPress={navigator.toSignInScreen} />
         </View>
       </View>
     </AppLayout>
@@ -42,12 +42,11 @@ const AbsoluteSubtractElement = () => {
 };
 // Write a button with circular radius
 
-const Button = (p: ButtonP) => {
+type AppButtonP = {} & TouchableOpacityProps;
+export const AppButton = (p: AppButtonP) => {
   return (
-    <TouchableOpacity className={clsx('bg-gray-400 w-full rounded-full h-16 justify-center items-center')} {...p}>
+    <TouchableOpacity className={clsx('bg-gray-400 w-full rounded-xl h-16 justify-center items-center')} {...p}>
       <Text className="text-2xl text-black">Clica aqui+</Text>
     </TouchableOpacity>
   );
 };
-
-type ButtonP = {} & TouchableOpacityProps;

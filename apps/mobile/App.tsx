@@ -9,7 +9,7 @@ import { SignInScreen } from './src/feature/onboarding/SignInScreen';
 
 export type ComponentBaseP = {
   children?: React.ReactNode;
-  className?: string;
+  xClassName?: string;
 };
 export type MainStackNavigationP = {
   OnboardingHomeScreen: undefined;
