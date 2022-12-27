@@ -1,43 +1,48 @@
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 import React from 'react';
-import clsx from 'clsx';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { Image, Text, TextInput, TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
+import { MainStackNavigationP } from '../../../App';
+import { AppButton } from '../../shared/components/AppButton';
 import { AppLayout } from '../../shared/components/AppLayout';
+import { SpaceY } from '../../shared/components/SpaceY';
 
+const navigateFactory = (n: NavigationProp<MainStackNavigationP>) => ({
+  toSignUpScreen: () => n.navigate('SignUpScreen'),
+  toConfirmCodeScreen: () => n.navigate('ConfirmCodeScreen'),
+});
 export const SignInScreen = () => {
+  const navigation = useNavigation<NavigationProp<MainStackNavigationP>>();
+  const navigator = navigateFactory(navigation);
   return (
-    <AppLayout insetTopClassName={'bg-gray-400'} insetBottomClassName="bg-gray-500">
-      <View className="bg-gray-500 flex-grow">
-        <View className="p-8 bg-gray-400 text-red-50 flex-grow-[0.3] bg-app-bege rounded-br-[80px]">
-          <Text className="text-4xl font-light text-app-marrom">Just works bro, thats too easy</Text>
+    <AppLayout>
+      <SpaceY y={32}>
+        <View>
+          <Text className="text-3xl font-light">Welcome</Text>
+          <Text className="text-xl font-light">Sign in to continue</Text>
         </View>
-        <View className="p-8 bg-app-pink flex-grow bg-gray-500 relative">
-          <AbsoluteSubtractElement />
-          <Image source={require('../../assets/🛍️.png')} className="flex-grow" />
-          <Button />
-        </View>
-      </View>
+        <SpaceY xClassName="bg-gray-300 rounded-lg p-8" y={24}>
+          <TextInput
+            placeholder="abcd@xyz.com"
+            placeholderTextColor={'#111'}
+            keyboardType="email-address"
+            className="bg-slate-400 rounded-sm px-2 py-4"
+          ></TextInput>
+          <AppButton onPress={navigator.toConfirmCodeScreen}>Send code</AppButton>
+          <SignUpText onPress={navigator.toSignUpScreen} />
+        </SpaceY>
+      </SpaceY>
     </AppLayout>
   );
 };
 
-const AbsoluteSubtractElement = () => {
-  const radius = 80;
+type SignUpText = TouchableOpacityProps;
+const SignUpText = (p: SignUpText) => {
   return (
-    <View className="absolute left-0">
-      <View style={{ height: radius, width: radius }} className="bg-gray-400 relative left-0 overflow-hidden">
-        <View
-          style={{ height: radius * 2, width: radius * 2 }}
-          className="bg-gray-500 relative rounded-tl-full left-[0px] top-[0]"
-        />
-      </View>
-    </View>
-  );
-};
-// Write a button with circular radius
-const Button = () => {
-  return (
-    <TouchableOpacity className={clsx('bg-gray-400 w-full rounded-full h-16 justify-center items-center')}>
-      <Text className="text-2xl text-black">Clica aqui+</Text>
+    <TouchableOpacity className="align-baseline items-center content-center" onPress={p.onPress}>
+      <Text className="text-sm font-light">
+        Don't have an account?
+        <Text className="text-sm font-bold text-blue-500"> Sign up</Text>
+      </Text>
     </TouchableOpacity>
   );
 };

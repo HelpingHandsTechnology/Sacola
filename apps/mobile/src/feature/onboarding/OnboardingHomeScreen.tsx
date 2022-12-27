@@ -1,9 +1,9 @@
 import React from 'react';
-import clsx from 'clsx';
-import { Image, Text, TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import { AppLayout } from '../../shared/components/AppLayout';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { MainStackNavigationP } from '../../../App';
+import { AppButton } from '../../shared/components/AppButton';
 
 const navigateFactory = (n: NavigationProp<MainStackNavigationP>) => ({
   toSignInScreen: () => n.navigate('SignInScreen'),
@@ -12,7 +12,7 @@ export const OnboardingHomeScreen = () => {
   const navigation = useNavigation<NavigationProp<MainStackNavigationP>>();
   const navigator = navigateFactory(navigation);
   return (
-    <AppLayout insetTopClassName={'bg-gray-400'} insetBottomClassName="bg-gray-500">
+    <AppLayout insetTopClassName={'bg-gray-400'} insetBottomClassName="bg-gray-500" xClassName="">
       <View className="bg-gray-500 flex-grow">
         <View className="p-8 bg-gray-400 text-red-50 flex-grow-[0.3] bg-app-bege rounded-br-[80px]">
           <Text className="text-4xl font-light text-app-marrom">Just works bro, thats too easy</Text>
@@ -20,7 +20,7 @@ export const OnboardingHomeScreen = () => {
         <View className="p-8 bg-app-pink flex-grow bg-gray-500 relative">
           <AbsoluteSubtractElement />
           <Image source={require('../../assets/🛍️.png')} className="flex-grow" />
-          <Button onPress={navigator.toSignInScreen} />
+          <AppButton onPress={navigator.toSignInScreen}>Clica aqui+</AppButton>
         </View>
       </View>
     </AppLayout>
@@ -40,14 +40,3 @@ const AbsoluteSubtractElement = () => {
     </View>
   );
 };
-// Write a button with circular radius
-
-const Button = (p: ButtonP) => {
-  return (
-    <TouchableOpacity className={clsx('bg-gray-400 w-full rounded-full h-16 justify-center items-center')} {...p}>
-      <Text className="text-2xl text-black">Clica aqui+</Text>
-    </TouchableOpacity>
-  );
-};
-
-type ButtonP = {} & TouchableOpacityProps;
