@@ -5,6 +5,7 @@ import z from 'zod';
 import { trpc } from '../trpc';
 import { mail } from '../mail';
 import { prisma } from '../prisma';
+import { authMiddleware } from '../middlewares/auth.middleware';
 
 export const userRouter = trpc.router({
   signUp: trpc.procedure
@@ -137,5 +138,11 @@ export const userRouter = trpc.router({
           message: 'Ishi',
         });
       }
+    }),
+  getUserInfo: trpc.procedure
+    .use(authMiddleware)
+    .output(z.object({ name: z.string(), email: z.string().email() }))
+    .query(({ ctx }) => {
+      return { name: ctx.user.name, email: ctx.user.email };
     }),
 });

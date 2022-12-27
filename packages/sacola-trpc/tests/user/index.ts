@@ -32,4 +32,10 @@ describe('Authorization suite', () => {
 
     expect(Array.isArray(res)).toBeTruthy();
   });
+
+  it('should get toninho infos', async () => {
+    const res = await authCaller.user.getUserInfo();
+
+    expect(res).toStrictEqual({ name: process.env.TONINHO_USERNAME, email: process.env.TONINHO_EMAIL });
+  });
 });
