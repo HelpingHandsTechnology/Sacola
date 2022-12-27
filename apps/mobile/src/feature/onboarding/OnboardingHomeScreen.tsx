@@ -12,12 +12,12 @@ export const OnboardingHomeScreen = () => {
   const navigation = useNavigation<NavigationProp<MainStackNavigationP>>();
   const navigator = navigateFactory(navigation);
   return (
-    <AppLayout insetTopClassName={'bg-gray-400'} insetBottomClassName="bg-gray-500" xClassName="">
-      <View className="bg-gray-500 flex-grow">
-        <View className="p-8 bg-gray-400 text-red-50 flex-grow-[0.3] bg-app-bege rounded-br-[80px]">
+    <AppLayout insetTopClassName={'bg-white'} insetBottomClassName="bg-black" xClassName="">
+      <View className="bg-black flex-grow">
+        <View className="p-8 bg-white text-red-50 flex-grow-[0.3] bg-app-bege rounded-br-[80px]">
           <Text className="text-4xl font-light text-app-marrom">Just works bro, thats too easy</Text>
         </View>
-        <View className="p-8 bg-app-pink flex-grow bg-gray-500 relative">
+        <View className="p-8 bg-app-pink flex-grow bg-black relative">
           <AbsoluteSubtractElement />
           <Image source={require('../../assets/🛍️.png')} className="flex-grow" />
           <AppButton onPress={navigator.toSignInScreen}>Clica aqui+</AppButton>
@@ -31,10 +31,10 @@ const AbsoluteSubtractElement = () => {
   const radius = 80;
   return (
     <View className="absolute left-0">
-      <View style={{ height: radius, width: radius }} className="bg-gray-400 relative left-0 overflow-hidden">
+      <View style={{ height: radius, width: radius }} className="bg-white relative left-0 overflow-hidden">
         <View
           style={{ height: radius * 2, width: radius * 2 }}
-          className="bg-gray-500 relative rounded-tl-full left-[0px] top-[0]"
+          className="bg-black relative rounded-tl-full left-[0px] top-[0]"
         />
       </View>
     </View>

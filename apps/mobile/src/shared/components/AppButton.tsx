@@ -5,7 +5,7 @@ import { ComponentBaseP } from '../../../App';
 
 export const AppButton = (p: AppButtonP) => {
   return (
-    <TouchableOpacity className={clsx('bg-gray-400 w-full rounded-xl h-16 justify-center items-center')} {...p}>
+    <TouchableOpacity className={clsx('bg-white w-full rounded-xl h-16 justify-center items-center')} {...p}>
       <Text className="text-2xl text-black">{p.children}</Text>
     </TouchableOpacity>
   );
