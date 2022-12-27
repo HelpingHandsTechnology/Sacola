@@ -6,7 +6,7 @@ import { OnboardingHomeScreen } from './src/feature/onboarding/OnboardingHomeScr
 import { queryClient, trpc, trpcClient } from './src/lib/trpc';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SignInScreen } from './src/feature/onboarding/SignInScreen';
-import { ConfirmCodeScreen } from './src/feature/auth/SignInScreen';
+import { ConfirmCodeScreen } from './src/feature/auth/ConfirmCodeScreen';
 
 export type ComponentBaseP = {
   children?: React.ReactNode;
