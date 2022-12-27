@@ -5,8 +5,18 @@ import { MainStackNavigationP } from '../../../App';
 import { AppButton } from '../../shared/components/AppButton';
 import { AppLayout } from '../../shared/components/AppLayout';
 import { SpaceY } from '../../shared/components/SpaceY';
+import * as Burnt from 'burnt';
 import { CodeField, Cursor, useBlurOnFulfill, useClearByFocusCell } from 'react-native-confirmation-code-field';
+import { throttle } from '../../utils';
 
+const toastThrottle = throttle(() => {
+  Burnt.toast({
+    title: 'Code resent',
+    preset: 'done', // or "error", "heart"
+    message: 'Take a look on span bucket',
+    duration: 2, // duration in seconds
+  });
+}, 5000);
 const navigateFactory = (n: NavigationProp<MainStackNavigationP>) => ({
   toSignUpScreen: () => n.navigate('SignUpScreen'),
   toConfirmCodeScreen: () => n.navigate('ConfirmCodeScreen'),
@@ -29,7 +39,6 @@ export const ConfirmCodeScreen = () => {
           <CodeField
             ref={ref}
             {...props}
-            // Use `caretHidden={false}` when users can't paste a text value, because context menu doesn't appear
             value={value}
             onChangeText={setValue}
             cellCount={6}
@@ -46,6 +55,19 @@ export const ConfirmCodeScreen = () => {
               </Text>
             )}
           />
+          <TouchableOpacity>
+            <Text>
+              Didn't receive the code? try{' '}
+              <Text
+                className="text-blue-700"
+                onPress={() => {
+                  toastThrottle();
+                }}
+              >
+                resending
+              </Text>
+            </Text>
+          </TouchableOpacity>
           <AppButton onPress={navigator.toConfirmCodeScreen}>Send code</AppButton>
         </SpaceY>
       </SpaceY>
