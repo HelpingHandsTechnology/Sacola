@@ -12,7 +12,7 @@ export const OnboardingHomeScreen = () => {
   const navigation = useNavigation<NavigationProp<MainStackNavigationP>>();
   const navigator = navigateFactory(navigation);
   return (
-    <AppLayout insetTopClassName={'bg-gray-400'} insetBottomClassName="bg-gray-500">
+    <AppLayout insetTopClassName={'bg-gray-400'} insetBottomClassName="bg-gray-500" xClassName="">
       <View className="bg-gray-500 flex-grow">
         <View className="p-8 bg-gray-400 text-red-50 flex-grow-[0.3] bg-app-bege rounded-br-[80px]">
           <Text className="text-4xl font-light text-app-marrom">Just works bro, thats too easy</Text>
@@ -20,7 +20,7 @@ export const OnboardingHomeScreen = () => {
         <View className="p-8 bg-app-pink flex-grow bg-gray-500 relative">
           <AbsoluteSubtractElement />
           <Image source={require('../../assets/🛍️.png')} className="flex-grow" />
-          <AppButton onPress={navigator.toSignInScreen} />
+          <AppButton onPress={navigator.toSignInScreen}>Clica aqui+</AppButton>
         </View>
       </View>
     </AppLayout>
