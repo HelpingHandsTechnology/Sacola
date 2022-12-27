@@ -5,12 +5,18 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { OnboardingHomeScreen } from './src/feature/onboarding/OnboardingHomeScreen';
 import { queryClient, trpc, trpcClient } from './src/lib/trpc';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { SignInScreen } from './src/feature/onboarding/SignInScreen';
 
 export type ComponentBaseP = {
   children?: React.ReactNode;
   className?: string;
 };
-const Stack = createNativeStackNavigator<{ OnboardingHomeScreen: undefined }>();
+export type MainStackNavigationP = {
+  OnboardingHomeScreen: undefined;
+  SignInScreen: undefined;
+};
+const Stack = createNativeStackNavigator<MainStackNavigationP>();
+
 export default function App() {
   return (
     <SafeAreaProvider>
@@ -19,6 +25,7 @@ export default function App() {
           <NavigationContainer>
             <Stack.Navigator initialRouteName="OnboardingHomeScreen" screenOptions={{ headerShown: false }}>
               <Stack.Screen name="OnboardingHomeScreen" component={OnboardingHomeScreen} />
+              <Stack.Screen name="SignInScreen" component={SignInScreen} />
             </Stack.Navigator>
           </NavigationContainer>
         </QueryClientProvider>
