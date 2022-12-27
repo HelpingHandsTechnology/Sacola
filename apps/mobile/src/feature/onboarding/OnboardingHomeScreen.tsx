@@ -1,9 +1,9 @@
 import React from 'react';
-import clsx from 'clsx';
-import { Image, Text, TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import { AppLayout } from '../../shared/components/AppLayout';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { MainStackNavigationP } from '../../../App';
+import { AppButton } from '../../shared/components/AppButton';
 
 const navigateFactory = (n: NavigationProp<MainStackNavigationP>) => ({
   toSignInScreen: () => n.navigate('SignInScreen'),
@@ -38,15 +38,5 @@ const AbsoluteSubtractElement = () => {
         />
       </View>
     </View>
-  );
-};
-// Write a button with circular radius
-
-type AppButtonP = {} & TouchableOpacityProps;
-export const AppButton = (p: AppButtonP) => {
-  return (
-    <TouchableOpacity className={clsx('bg-gray-400 w-full rounded-xl h-16 justify-center items-center')} {...p}>
-      <Text className="text-2xl text-black">Clica aqui+</Text>
-    </TouchableOpacity>
   );
 };
