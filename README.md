@@ -38,4 +38,4 @@
 - Groups (so users can share articles in an "n to n" relation)
 - Trending Topics by Tags or users interest
 - Timeline by Tags or users interest
-- Comments on Articles
+- Comments on Articles.
