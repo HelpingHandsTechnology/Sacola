@@ -37,4 +37,16 @@ describe('Articles suite', () => {
 
     expect(res.articleId).toBe(res2.articleId);
   });
+
+  it('should get only favorites articles', async () => {
+    const res = await authCaller.articles.getAll({ isFavorite: true });
+
+    expect(res.every(article => article.isFavorite)).toBeTruthy();
+  });
+
+  it('should get only the articles that has the TAG_TESTE tag', async () => {
+    const res = await authCaller.articles.getAll({ tags: ["TAG_TESTE"] });
+
+    expect(res.every(article => article.articleTags.every(tag => tag.tag.name === "TAG_TESTE"))).toBeTruthy();
+  });
 });
