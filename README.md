@@ -1,3 +1,10 @@
+# How to run ?
+
+```bash
+# Run mobile
+yarn dev:expo
+```
+
 # This ReadMe here for a while is just a description of ideas and what needs to be done for now:
 
 ## MVP
