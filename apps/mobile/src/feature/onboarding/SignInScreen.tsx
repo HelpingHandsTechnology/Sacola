@@ -1,16 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
-import { Image, Text, TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { AppLayout } from '../../shared/components/AppLayout';
-import { NavigationProp, useNavigation } from '@react-navigation/native';
-import { MainStackNavigationP } from '../../../App';
 
-const navigateFactory = (n: NavigationProp<MainStackNavigationP>) => ({
-  toSignInScreen: () => n.navigate('SignInScreen'),
-});
-export const OnboardingHomeScreen = () => {
-  const navigation = useNavigation<NavigationProp<MainStackNavigationP>>();
-  const navigator = navigateFactory(navigation);
+export const SignInScreen = () => {
   return (
     <AppLayout insetTopClassName={'bg-gray-400'} insetBottomClassName="bg-gray-500">
       <View className="bg-gray-500 flex-grow">
@@ -20,7 +13,7 @@ export const OnboardingHomeScreen = () => {
         <View className="p-8 bg-app-pink flex-grow bg-gray-500 relative">
           <AbsoluteSubtractElement />
           <Image source={require('../../assets/🛍️.png')} className="flex-grow" />
-          <Button onPress={navigator.toSignInScreen} />
+          <Button />
         </View>
       </View>
     </AppLayout>
@@ -41,13 +34,10 @@ const AbsoluteSubtractElement = () => {
   );
 };
 // Write a button with circular radius
-
-const Button = (p: ButtonP) => {
+const Button = () => {
   return (
-    <TouchableOpacity className={clsx('bg-gray-400 w-full rounded-full h-16 justify-center items-center')} {...p}>
+    <TouchableOpacity className={clsx('bg-gray-400 w-full rounded-full h-16 justify-center items-center')}>
       <Text className="text-2xl text-black">Clica aqui+</Text>
     </TouchableOpacity>
   );
 };
-
-type ButtonP = {} & TouchableOpacityProps;
