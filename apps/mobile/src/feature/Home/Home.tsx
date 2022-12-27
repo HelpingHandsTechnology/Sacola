@@ -1,14 +1,11 @@
 import React from 'react';
-import { NavigationProp, useNavigation } from '@react-navigation/native';
+import type { MainStackNavigationP, ComponentBaseP } from '../../../App';
 import { View, Text, FlatList } from 'react-native';
 import { AppLayout } from '../../shared/components/AppLayout';
 import clsx from 'clsx';
 import { ArticleDTO, dummyArticles } from '../../fixtures/articles';
-import { MainStackNavigationP, navigateFactory, ComponentBaseP } from '../../../App';
 
 export const Home = () => {
-  const navigation = useNavigation<NavigationProp<MainStackNavigationP>>();
-  const navigator = navigateFactory(navigation);
   return (
     <AppLayout>
       <FlatList
@@ -26,11 +23,9 @@ const IntlDate = Intl.DateTimeFormat('en-US', {
 });
 const ArticleCard = (props: { article: ArticleDTO } & ComponentBaseP) => {
   return (
-    <View className={clsx('bg-gray-500 rounded-lg p-4', props.xClassName)}>
-      <Text className="text-md font-bold">{props.article.title}</Text>
-      <Text className="text-sm font-light text-gray-800">
-        add at {IntlDate.format(new Date(props.article.createdAt))}
-      </Text>
+    <View className={clsx('bg-black rounded-lg p-4', props.xClassName)}>
+      <Text className="text-md font-bold text-white">{props.article.title}</Text>
+      <Text className="text-sm font-light text-gray-400">{IntlDate.format(new Date(props.article.createdAt))}</Text>
     </View>
   );
 };

@@ -40,7 +40,3 @@ export default function App() {
     </SafeAreaProvider>
   );
 }
-export const navigateFactory = (n: NavigationProp<MainStackNavigationP>) => ({
-  toSignUpScreen: () => n.navigate('SignUpScreen'),
-  toConfirmCodeScreen: () => n.navigate('ConfirmCodeScreen'),
-});
