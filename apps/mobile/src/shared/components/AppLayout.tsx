@@ -13,9 +13,9 @@ type AppLayoutP = {
 } & ComponentBaseP;
 export const AppLayout = ({
   children,
-  insetTopClassName = 'bg-gray-500',
-  insetBottomClassName = 'bg-gray-500',
-  xClassName = 'bg-gray-500 p-4',
+  insetTopClassName = 'bg-white',
+  insetBottomClassName = 'bg-white',
+  xClassName = 'bg-white p-4',
 }: AppLayoutP) => {
   const inset = useSafeAreaInsets();
   const navigation = useNavigation<NavigationProp<MainStackNavigationP>>();
