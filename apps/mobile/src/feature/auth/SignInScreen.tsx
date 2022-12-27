@@ -23,7 +23,7 @@ export const SignInScreen = () => {
         <SpaceY xClassName="bg-gray-300 rounded-lg p-8" y={24}>
           <TextInput
             placeholder="abcd@xyz.com"
-            placeholderTextColor={'#111'}
+            placeholderTextColor={'#333'}
             keyboardType="email-address"
             className="bg-slate-400 rounded-sm px-2 py-4"
           ></TextInput>
