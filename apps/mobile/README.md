@@ -3,5 +3,5 @@
 ### What packages do we use ?
 
 - NativeWind for styling
-- Burnt for toasts
+- [Burnt](https://github.com/nandorojo/burnt) for toasts
 - tRPC for api
