@@ -26,38 +26,31 @@ export const userRouter = trpc.router({
     .mutation(async ({ input }) => {
       const { name, email } = input;
 
-      try {
-        const userExist = await prisma.user.findUnique({ where: { email } });
+      const userExist = await prisma.user.findUnique({ where: { email } });
 
-        if (userExist) {
-          throw new TRPCError({
-            code: 'CONFLICT',
-            message: 'User already exist',
-          });
-        }
-
-        await mail.sendMail({
-          from: 'Sacola <thesacola@gmail.com>',
-          to: `${name} <${email}>`,
-          subject: 'Sacola SignUp',
-          html: `Hello, ${name}, welcome :D`,
-        });
-
-        await prisma.user.create({
-          data: {
-            name,
-            email,
-            emailVerified: false,
-          },
-        });
-
-        return { message: 'User Created' };
-      } catch (e) {
+      if (userExist) {
         throw new TRPCError({
-          code: 'BAD_REQUEST',
-          message: 'Ishi',
+          code: 'CONFLICT',
+          message: 'User already exist',
         });
       }
+
+      await mail.sendMail({
+        from: 'Sacola <thesacola@gmail.com>',
+        to: `${name} <${email}>`,
+        subject: 'Sacola SignUp',
+        html: `Hello, ${name}, welcome :D`,
+      });
+
+      await prisma.user.create({
+        data: {
+          name,
+          email,
+          emailVerified: false,
+        },
+      });
+
+      return { message: 'User Created' };
     }),
   signIn: trpc.procedure
     .input(z.object({ email: z.string().email() }))
