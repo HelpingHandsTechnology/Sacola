@@ -2,10 +2,12 @@ import { TRPCError } from '@trpc/server';
 import jwt from 'jsonwebtoken';
 import z from 'zod';
 
-import { trpc } from '../trpc';
+import { User } from '@prisma/client';
+import { TaskSendSignInEmail } from 'src/services/mail';
 import { mail } from '../mail';
-import { prisma } from '../prisma';
 import { authMiddleware } from '../middlewares/auth.middleware';
+import { prisma } from '../prisma';
+import { trpc } from '../trpc';
 
 export const userRouter = trpc.router({
   signUp: trpc.procedure
@@ -76,21 +78,24 @@ export const userRouter = trpc.router({
           });
         }
 
-        const code = String(Math.random()).slice(3, 9);
+        // If the codeLastSent is less then 30 seconds ago, throw an error
+        if (user.codeLastSent && new Date().getTime() - user.codeLastSent.getTime() < 1000 * 30) {
+          throw new TRPCError({
+            code: 'TOO_MANY_REQUESTS',
+            message: 'Wait 30 seconds to sed a new code',
+          });
+        }
 
+        const code = String(Math.random()).slice(3, 9);
         await prisma.user.update({
           where: { email },
           data: {
             lastCode: code,
+            codeLastSent: new Date(),
           },
         });
 
-        await mail.sendMail({
-          from: 'Sacola <thesacola@gmail.com>',
-          to: `${user.name} <${email}>`,
-          subject: 'Sacola SignUp',
-          html: code,
-        });
+        await TaskSendSignInEmail(user, code);
 
         return { message: 'Email sended!' };
       } catch (e) {
