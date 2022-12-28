@@ -1,6 +1,8 @@
 import React from 'react';
 import type { ComponentBaseP } from '../../../App';
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text } from 'react-native';
+import { FlashList } from "@shopify/flash-list";
+
 import { AppLayout } from '../../shared/components/AppLayout';
 import { dummyArticles } from '../../fixtures/articles';
 import { ArticleCard } from './components/ArticleCard';
@@ -13,7 +15,7 @@ export const Home = () => {
   return (
     <AppLayout xClassName="bg-white px-4 pb-4 flex-1">
       <HomeTopCard />
-      <FlatList
+      <FlashList
         ListHeaderComponent={() => <Text className="text-xl font-bold mb-4">Your Articles</Text>}
         data={dummyArticles}
         renderItem={ArticleCard}
