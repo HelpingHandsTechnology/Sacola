@@ -28,11 +28,11 @@ export default function App() {
       <trpc.Provider client={trpcClient} queryClient={queryClient}>
         <QueryClientProvider client={queryClient}>
           <NavigationContainer>
-            <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
-              <Stack.Screen name="ConfirmCodeScreen" component={ConfirmCodeScreen} />
-              <Stack.Screen name="Home" component={Home} />
+            <Stack.Navigator initialRouteName="OnboardingHomeScreen" screenOptions={{ headerShown: false }}>
               <Stack.Screen name="OnboardingHomeScreen" component={OnboardingHomeScreen} />
               <Stack.Screen name="SignInScreen" component={SignInScreen} />
+              <Stack.Screen name="ConfirmCodeScreen" component={ConfirmCodeScreen} />
+              <Stack.Screen name="Home" component={Home} />
             </Stack.Navigator>
           </NavigationContainer>
         </QueryClientProvider>
