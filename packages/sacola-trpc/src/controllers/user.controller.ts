@@ -3,12 +3,12 @@ import jwt from 'jsonwebtoken';
 import z from 'zod';
 
 import { User } from '@prisma/client';
-import { TaskSendSignInEmail } from 'src/services/mail';
-import { SECONDS } from 'src/utils/constants';
 import { mail } from '../mail';
 import { authMiddleware } from '../middlewares/auth.middleware';
 import { prisma } from '../prisma';
+import { TaskSendSignInEmail } from '../services/mail';
 import { trpc } from '../trpc';
+import { SECONDS } from '../utils/constants';
 
 export const userRouter = trpc.router({
   signUp: trpc.procedure
