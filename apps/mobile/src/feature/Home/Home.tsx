@@ -38,7 +38,7 @@ type HomeFirstLetterUserComponentP = ComponentBaseP;
 const HomeFirstLetterUserComponent = (p: HomeFirstLetterUserComponentP) => {
   const FirstLetterUser = 'A';
   return (
-    <AppButton className={clsx('w-8 h-8 bg-black rounded-lg items-center justify-center', p.xClassName)}>
+    <AppButton xClassName={clsx('w-8 h-8 bg-black rounded-lg items-center justify-center', p.xClassName)}>
       <Text className="text-xs font-bold text-white">{FirstLetterUser}</Text>
     </AppButton>
   );
@@ -47,7 +47,7 @@ const HomeFirstLetterUserComponent = (p: HomeFirstLetterUserComponentP) => {
 const HomeAddLinkButton = (p: HomeFirstLetterUserComponentP) => {
   const FirstLetterUser = '+';
   return (
-    <AppButton className={clsx('w-8 h-8 bg-black rounded-lg items-center justify-center', p.xClassName)}>
+    <AppButton xClassName={clsx('w-8 h-8 bg-black rounded-lg items-center justify-center', p.xClassName)}>
       <Text className="text-xs font-bold text-white">{FirstLetterUser}</Text>
     </AppButton>
   );
