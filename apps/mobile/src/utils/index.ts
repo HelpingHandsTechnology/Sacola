@@ -1,10 +1,10 @@
-export function throttle(callback: () => void, delay: number) {
+export function throttle<T extends unknown>(callback: (...args: T[]) => void, delay: number): (...args: T[]) => void {
   let previousCall = Date.now();
-  return function () {
+  return function (...args: T[]) {
     const currentCall = Date.now();
     if (currentCall - previousCall >= delay) {
       previousCall = currentCall;
-      callback();
+      callback(...args);
     }
   };
 }
