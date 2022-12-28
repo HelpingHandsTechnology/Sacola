@@ -14,8 +14,8 @@ export const Home = () => {
       <HomeTopCard />
       <FlatList
         ListHeaderComponent={() => <Text className="text-xl font-bold mb-4">Your Articles</Text>}
-        data={dummyArticles.concat(dummyArticles)}
-        renderItem={({ item, index }) => <ArticleCard article={item} xClassName={index === 0 ? undefined : 'mt-4'} />}
+        data={dummyArticles}
+        renderItem={ArticleCard}
         keyExtractor={(item) => item.id}
       />
     </AppLayout>
