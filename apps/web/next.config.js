@@ -11,6 +11,9 @@ const nextConfig = {
     config.resolve.extensions = ['.web.js', '.web.jsx', '.web.ts', '.web.tsx', ...config.resolve.extensions];
     return config;
   },
+  experimental: {
+    appDir: true,
+  },
   reactStrictMode: true,
   swcMinify: true,
 };
