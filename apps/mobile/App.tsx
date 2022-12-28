@@ -31,7 +31,7 @@ export default function App() {
         <GestureHandlerRootView style={{ flex: 1 }}>
           <QueryClientProvider client={queryClient}>
             <NavigationContainer>
-              <Stack.Navigator initialRouteName="AuthStackScreen" screenOptions={{ headerShown: false }}>
+              <Stack.Navigator initialRouteName="OnboardingHomeScreen" screenOptions={{ headerShown: false }}>
                 <Stack.Screen name="AuthStackScreen" component={AuthStackScreen} />
                 <Stack.Screen name="OnboardingHomeScreen" component={OnboardingHomeScreen} />
                 <Stack.Screen name="ConfirmCodeScreen" component={ConfirmCodeScreen} />

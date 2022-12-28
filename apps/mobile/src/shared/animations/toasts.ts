@@ -7,7 +7,7 @@ export const errorToast = throttle(
       title,
       message,
       preset: 'error',
-      duration: 1.5,
+      duration: 5,
     }),
-  1500,
+  5000,
 );
