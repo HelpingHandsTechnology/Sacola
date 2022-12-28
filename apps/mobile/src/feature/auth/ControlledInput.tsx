@@ -55,7 +55,9 @@ type ControlledInputValidateProps =
 
 export const ControlledInput = <TFieldValues extends FieldValues>(props: ControlledInputP<TFieldValues>) => {
   const { control, trigger, setValue } = useFormContext();
-  const debouncedTrigger = React.useMemo(() => debounce(trigger, 1000), [trigger]);
+  const debouncedTrigger = React.useMemo(() => {
+    return debounce(trigger, 1000);
+  }, [trigger]);
 
   const {
     field: { ref, onBlur, value },
@@ -63,6 +65,7 @@ export const ControlledInput = <TFieldValues extends FieldValues>(props: Control
   } = useController({
     rules: {
       required: typeof props.required === 'boolean' ? 'Esse campo é obrigatório' : props.required,
+      validate: props.validate,
       ...(props.rules || {}),
     },
     name: props.name,
@@ -107,11 +110,11 @@ const ControlledInputContainer = ({ children, errors, ...props }: ControlledInpu
       <Show
         when={!!getDeepVal(errors, props.name)}
         renderItem={() => (
-          <TextInput testID={`controlled-input-error:${props.name}`} className="text-red-500">
+          <Text testID={`controlled-input-error:${props.name}`} xClassName="text-red-500 text-xs">
             {getDeepVal(errors, props.name)?.type === 'validate'
               ? props.validateMessage
               : getDeepVal(errors, props.name)?.message}
-          </TextInput>
+          </Text>
         )}
       />
     </View>
