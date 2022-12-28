@@ -1,14 +1,14 @@
 import { NavigationProp, useNavigation } from '@react-navigation/native';
+import * as Burnt from 'burnt';
 import React from 'react';
 import { Image, StyleSheet, Text, TextInput, TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
+import { CodeField, Cursor, useBlurOnFulfill, useClearByFocusCell } from 'react-native-confirmation-code-field';
 import { MainStackNavigationP } from '../../../App';
+import { trpc } from '../../lib/trpc';
 import { AppButton } from '../../shared/components/AppButton';
 import { AppLayout } from '../../shared/components/AppLayout';
 import { SpaceY } from '../../shared/components/SpaceY';
-import * as Burnt from 'burnt';
-import { CodeField, Cursor, useBlurOnFulfill, useClearByFocusCell } from 'react-native-confirmation-code-field';
 import { throttle } from '../../utils';
-import { trpc } from '../../lib/trpc';
 
 export const ConfirmCodeScreen = () => {
   const [value, setValue] = React.useState('');
