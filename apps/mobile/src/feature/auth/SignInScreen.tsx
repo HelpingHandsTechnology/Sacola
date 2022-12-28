@@ -27,7 +27,7 @@ const emptyEmailThrottle = throttle(
 export const SignInScreen = () => {
   const navigation = useNavigation<NavigationProp<MainStackNavigationP>>();
   const navigator = navigateFactory(navigation);
-  const [email, setEmail] = React.useState('some@cu');
+  const [email, setEmail] = React.useState('antoniel2210@gmail.com');
   const { mutate } = trpc.user.signIn.useMutation();
 
   const handleSubmit = () => {
@@ -39,7 +39,7 @@ export const SignInScreen = () => {
     }
     mutate(
       {
-        email: email,
+        email,
       },
       {
         onSuccess: () => {
