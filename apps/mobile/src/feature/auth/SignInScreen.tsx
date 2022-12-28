@@ -1,17 +1,17 @@
 import { NavigationProp, useNavigation } from '@react-navigation/native';
+import * as Burnt from 'burnt';
+import { TextInput } from 'design';
 import React from 'react';
 import { Image, Text, TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
-import { TextInput } from 'design';
 import { MainStackNavigationP } from '../../../App';
+import { trpc } from '../../lib/trpc';
 import { AppButton } from '../../shared/components/AppButton';
 import { AppLayout } from '../../shared/components/AppLayout';
 import { SpaceY } from '../../shared/components/SpaceY';
-import * as Burnt from 'burnt';
 import { throttle } from '../../utils';
-import { trpc } from '../../lib/trpc';
 
 const navigateFactory = (n: NavigationProp<MainStackNavigationP>) => ({
-  toSignUpScreen: () => n.navigate('SignUpScreen'),
+  toSignUpScreen: () => n.navigate('AuthStackScreen', { screen: 'SignUpScreen' }),
   toConfirmCodeScreen: () => n.navigate('ConfirmCodeScreen'),
 });
 const emptyEmailThrottle = throttle(
