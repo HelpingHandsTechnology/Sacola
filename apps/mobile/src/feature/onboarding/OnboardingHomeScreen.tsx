@@ -1,12 +1,12 @@
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Image, Text, View } from 'react-native';
-import { AppLayout } from '../../shared/components/AppLayout';
-import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { MainStackNavigationP } from '../../../App';
 import { AppButton } from '../../shared/components/AppButton';
+import { AppLayout } from '../../shared/components/AppLayout';
 
 const navigateFactory = (n: NavigationProp<MainStackNavigationP>) => ({
-  toSignInScreen: () => n.navigate('SignInScreen'),
+  toSignInScreen: () => n.navigate('AuthStackScreen', { screen: 'SignInScreen' }),
 });
 export const OnboardingHomeScreen = () => {
   const navigation = useNavigation<NavigationProp<MainStackNavigationP>>();
