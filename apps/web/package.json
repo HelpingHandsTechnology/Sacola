@@ -14,6 +14,7 @@
     "design": "*",
     "eslint": "8.29.0",
     "eslint-config-next": "13.0.6",
+    "fixtures": "*",
     "next": "13.0.6",
     "next-transpile-modules": "^10.0.0",
     "sacola-trpc": "*",

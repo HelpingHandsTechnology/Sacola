@@ -35,7 +35,6 @@ export const Text = ({
     .with('span', () => 'text')
     .otherwise(() => 'text');
 
-  console.log({ xClassName });
   return (
     <TextRNW
       accessibilityRole={matchAccessibilityRole}

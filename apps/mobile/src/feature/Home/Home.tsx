@@ -4,7 +4,7 @@ import { View, Text } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 
 import { AppLayout } from '../../shared/components/AppLayout';
-import { dummyArticles } from '../../fixtures/articles';
+import { dummyArticles } from 'fixtures';
 import { ArticleCard } from './components/ArticleCard';
 import { GreetingComponent } from './components/GreetingComponent';
 import clsx from 'clsx';

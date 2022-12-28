@@ -16,6 +16,7 @@
     "@types/react-native": "~0.70.6",
     "add": "^2.0.6",
     "burnt": "^0.8.1",
+    "fixtures": "*",
     "design": "*",
     "expo": "~47.0.8",
     "expo-splash-screen": "~0.17.5",
