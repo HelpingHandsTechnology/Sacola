@@ -4,6 +4,7 @@ import z from 'zod';
 
 import { User } from '@prisma/client';
 import { TaskSendSignInEmail } from 'src/services/mail';
+import { SECONDS } from 'src/utils/constants';
 import { mail } from '../mail';
 import { authMiddleware } from '../middlewares/auth.middleware';
 import { prisma } from '../prisma';
@@ -79,7 +80,7 @@ export const userRouter = trpc.router({
         }
 
         // If the codeLastSent is less then 30 seconds ago, throw an error
-        if (user.codeLastSent && new Date().getTime() - user.codeLastSent.getTime() < 1000 * 30) {
+        if (user.codeLastSent && new Date().getTime() - user.codeLastSent.getTime() < 30 * SECONDS) {
           throw new TRPCError({
             code: 'TOO_MANY_REQUESTS',
             message: 'Wait 30 seconds to sed a new code',
