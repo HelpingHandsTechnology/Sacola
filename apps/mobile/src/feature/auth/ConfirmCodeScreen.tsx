@@ -8,20 +8,7 @@ import { SpaceY } from '../../shared/components/SpaceY';
 import * as Burnt from 'burnt';
 import { CodeField, Cursor, useBlurOnFulfill, useClearByFocusCell } from 'react-native-confirmation-code-field';
 import { throttle } from '../../utils';
-
-const toastThrottle = throttle(() => {
-  Burnt.toast({
-    title: 'Code resent',
-    preset: 'done', // or "error", "heart"
-    message: 'Take a look on span bucket',
-    duration: 2, // duration in seconds
-  });
-}, 5000);
-
-const navigateFactory = (n: NavigationProp<MainStackNavigationP>) => ({
-  toSignUpScreen: () => n.navigate('SignUpScreen'),
-  toConfirmCodeScreen: () => n.reset({ index: 0, routes: [{ name: 'Home' }] }),
-});
+import { trpc } from '../../lib/trpc';
 
 export const ConfirmCodeScreen = () => {
   const [value, setValue] = React.useState('');
@@ -33,6 +20,26 @@ export const ConfirmCodeScreen = () => {
 
   const navigation = useNavigation<NavigationProp<MainStackNavigationP>>();
   const navigator = navigateFactory(navigation);
+  const { mutate } = trpc.user.verifyCode.useMutation();
+  const handleSubmit = () => {
+    mutate(
+      {
+        code: value,
+        email: 'antoniel2210@gmail.com',
+      },
+      {
+        onSuccess: navigator.toConfirmCodeScreen,
+        onError: () => {
+          Burnt.toast({
+            title: 'Error on code verification',
+            message: 'Invalid code, verify your email and try again',
+            preset: 'error',
+            duration: 1.5,
+          });
+        },
+      },
+    );
+  };
   return (
     <AppLayout>
       <SpaceY y={32}>
@@ -70,12 +77,26 @@ export const ConfirmCodeScreen = () => {
               </Text>
             </Text>
           </TouchableOpacity>
-          <AppButton onPress={navigator.toConfirmCodeScreen}>Confirm code</AppButton>
+          <AppButton onPress={handleSubmit}>Confirm code</AppButton>
         </SpaceY>
       </SpaceY>
     </AppLayout>
   );
 };
+
+const toastThrottle = throttle(() => {
+  Burnt.toast({
+    title: 'Code resent',
+    preset: 'done', // or "error", "heart"
+    message: 'Take a look on span bucket',
+    duration: 2, // duration in seconds
+  });
+}, 5000);
+
+const navigateFactory = (n: NavigationProp<MainStackNavigationP>) => ({
+  toSignUpScreen: () => n.navigate('SignUpScreen'),
+  toConfirmCodeScreen: () => n.reset({ index: 0, routes: [{ name: 'Home' }] }),
+});
 
 const styles = StyleSheet.create({
   root: { flex: 1, padding: 20 },
