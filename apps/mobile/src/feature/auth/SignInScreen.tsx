@@ -22,11 +22,7 @@ export const SignInScreen = () => {
           <Text className="text-xl font-light">Sign in to continue</Text>
         </View>
         <SpaceY xClassName="bg-gray-300 rounded-lg p-8" y={24}>
-          <TextInput
-            placeholder="abcd@xyz.com"
-            placeholderTextColor={'#333'}
-            keyboardType="email-address"
-          ></TextInput>
+          <TextInput placeholder="abcd@xyz.com" placeholderTextColor={'#333'} keyboardType="email-address"></TextInput>
           <AppButton onPress={navigator.toConfirmCodeScreen}>Send code</AppButton>
           <SignUpText onPress={navigator.toSignUpScreen} />
         </SpaceY>

@@ -3,9 +3,9 @@ import clsx from 'clsx';
 import { Text, TouchableOpacity, TouchableOpacityProps } from 'react-native';
 import { ComponentBaseP } from '../../../App';
 
-export const AppButton = (p: AppButtonP) => {
+export const AppButton = ({ xClassName = 'w-full bg-white', ...p }: AppButtonP) => {
   return (
-    <TouchableOpacity className={clsx('bg-white w-full rounded-xl h-16 justify-center items-center')} {...p}>
+    <TouchableOpacity className={clsx(' w-full rounded-xl h-16 justify-center items-center', xClassName)} {...p}>
       <Text className="text-2xl text-black">{p.children}</Text>
     </TouchableOpacity>
   );

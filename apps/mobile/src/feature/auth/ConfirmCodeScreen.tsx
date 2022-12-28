@@ -17,10 +17,12 @@ const toastThrottle = throttle(() => {
     duration: 2, // duration in seconds
   });
 }, 5000);
+
 const navigateFactory = (n: NavigationProp<MainStackNavigationP>) => ({
   toSignUpScreen: () => n.navigate('SignUpScreen'),
-  toConfirmCodeScreen: () => n.navigate('ConfirmCodeScreen'),
+  toConfirmCodeScreen: () => n.reset({ index: 0, routes: [{ name: 'Home' }] }),
 });
+
 export const ConfirmCodeScreen = () => {
   const [value, setValue] = React.useState('');
   const ref = useBlurOnFulfill({ value, cellCount: 6 });
@@ -68,7 +70,7 @@ export const ConfirmCodeScreen = () => {
               </Text>
             </Text>
           </TouchableOpacity>
-          <AppButton onPress={navigator.toConfirmCodeScreen}>Send code</AppButton>
+          <AppButton onPress={navigator.toConfirmCodeScreen}>Confirm code</AppButton>
         </SpaceY>
       </SpaceY>
     </AppLayout>
