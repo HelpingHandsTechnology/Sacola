@@ -1,4 +1,5 @@
-const withTM = require('next-transpile-modules')(['sacola-trpc', 'design', 'nativewind']);
+// const withTM = require('next-transpile-modules')(['sacola-trpc', 'design', 'nativewind']);
+
 /**
  * @type {import('next').NextConfig} */
 const nextConfig = {
@@ -13,9 +14,11 @@ const nextConfig = {
   },
   experimental: {
     appDir: true,
+    transpilePackages: ['sacola-trpc', 'design', 'nativewind'],
   },
   reactStrictMode: true,
   swcMinify: true,
 };
 
-module.exports = withTM(nextConfig);
+module.exports = nextConfig;
+// module.exports = withTM(nextConfig);
