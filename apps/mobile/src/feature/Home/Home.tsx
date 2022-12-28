@@ -7,6 +7,7 @@ import { ArticleCard } from './components/ArticleCard';
 import { GreetingComponent } from './components/GreetingComponent';
 import clsx from 'clsx';
 import { Row } from 'design';
+import { AppButton } from '../../shared/components/AppButton';
 
 export const Home = () => {
   return (
@@ -24,7 +25,7 @@ export const Home = () => {
 
 const HomeTopCard = () => {
   return (
-    <View className="p-4 bg-black rounded-lg mb-8 content-between items-center flex-row">
+    <View className="py-4 bg-white rounded-lg mb-8 content-between items-center flex-row">
       <GreetingComponent />
       <Row>
         <HomeAddLinkButton xClassName="mr-2" />
@@ -37,17 +38,17 @@ type HomeFirstLetterUserComponentP = ComponentBaseP;
 const HomeFirstLetterUserComponent = (p: HomeFirstLetterUserComponentP) => {
   const FirstLetterUser = 'A';
   return (
-    <View className={clsx('w-8 h-8 bg-white rounded-lg items-center justify-center', p.xClassName)}>
-      <Text className="text-xs font-bold text-black">{FirstLetterUser}</Text>
-    </View>
+    <AppButton className={clsx('w-8 h-8 bg-black rounded-lg items-center justify-center', p.xClassName)}>
+      <Text className="text-xs font-bold text-white">{FirstLetterUser}</Text>
+    </AppButton>
   );
 };
 
 const HomeAddLinkButton = (p: HomeFirstLetterUserComponentP) => {
   const FirstLetterUser = '+';
   return (
-    <TouchableOpacity className={clsx('w-8 h-8 bg-white rounded-lg items-center justify-center', p.xClassName)}>
-      <Text className="text-xs font-bold text-black">{FirstLetterUser}</Text>
-    </TouchableOpacity>
+    <AppButton className={clsx('w-8 h-8 bg-black rounded-lg items-center justify-center', p.xClassName)}>
+      <Text className="text-xs font-bold text-white">{FirstLetterUser}</Text>
+    </AppButton>
   );
 };
