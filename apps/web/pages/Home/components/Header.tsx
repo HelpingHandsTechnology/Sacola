@@ -1,6 +1,6 @@
 import { Text } from "design";
 
-export function Header(){
+export default function Header(){
   return (
     <header className="flex justify-between">
       <Text xClassName="text-4xl font-bold ">Welcome back! 👋</Text>

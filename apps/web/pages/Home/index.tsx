@@ -1,7 +1,7 @@
 import { Footer } from '../../components/Footer';
 import { dummyArticles } from '../../fixtures/articles';
-import { ArticleCard } from './components/ArticleCard';
-import { Header } from './components/Header';
+import Header from './components/Header';
+import ArticleCard from './components/ArticleCard';
 
 export default function Home() {
   return (
