@@ -9,7 +9,7 @@ export const queryClient = new QueryClient();
 export const trpcClient = trpc.createClient({
   links: [
     httpBatchLink({
-      url: 'http://localhost:5000/trpc',
+      url: 'http://localhost:3000/api/trpc',
     }),
   ],
 });
