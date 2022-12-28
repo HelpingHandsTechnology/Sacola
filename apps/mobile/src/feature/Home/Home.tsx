@@ -1,7 +1,7 @@
 import React from 'react';
 import type { ComponentBaseP } from '../../../App';
 import { View, Text } from 'react-native';
-import { FlashList } from "@shopify/flash-list";
+import { FlashList } from '@shopify/flash-list';
 
 import { AppLayout } from '../../shared/components/AppLayout';
 import { dummyArticles } from '../../fixtures/articles';
@@ -17,6 +17,7 @@ export const Home = () => {
       <HomeTopCard />
       <FlashList
         ListHeaderComponent={() => <Text className="text-xl font-bold mb-4">Your Articles</Text>}
+        estimatedItemSize={100}
         data={dummyArticles}
         renderItem={ArticleCard}
         keyExtractor={(item) => item.id}
