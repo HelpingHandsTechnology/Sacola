@@ -3,7 +3,7 @@ import { ComponentBaseP } from '../../../../App';
 import { View, Text, TouchableOpacity } from 'react-native';
 import Animated, { LightSpeedInLeft, Layout, ZoomInEasyDown } from 'react-native-reanimated';
 import clsx from 'clsx';
-import { ArticleDTO } from '../../../fixtures/articles';
+import { ArticleDTO } from 'fixtures';
 
 export const ArticleCard = (p: { item: ArticleDTO; index: number } & ComponentBaseP) => {
   return (

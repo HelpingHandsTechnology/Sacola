@@ -2,10 +2,13 @@ import { TRPCError } from '@trpc/server';
 import jwt from 'jsonwebtoken';
 import z from 'zod';
 
-import { trpc } from '../trpc';
 import { mail } from '../mail';
-import { prisma } from '../prisma';
 import { authMiddleware } from '../middlewares/auth.middleware';
+import { prisma } from '../prisma';
+import { TaskSendSignInEmail } from '../services/mail';
+import { trpc } from '../trpc';
+import { catchTrpcError } from '../utils/catchTrpcError';
+import { SECONDS } from '../utils/constants';
 
 export const userRouter = trpc.router({
   signUp: trpc.procedure
@@ -50,10 +53,7 @@ export const userRouter = trpc.router({
 
         return { message: 'User Created' };
       } catch (e) {
-        throw new TRPCError({
-          code: 'BAD_REQUEST',
-          message: 'Ishi',
-        });
+        throw catchTrpcError(e);
       }
     }),
   signIn: trpc.procedure
@@ -76,28 +76,28 @@ export const userRouter = trpc.router({
           });
         }
 
-        const code = String(Math.random()).slice(3, 9);
+        // If the codeLastSent is less then 30 seconds ago, throw an error
+        if (user.codeLastSent && new Date().getTime() - user.codeLastSent.getTime() < 30 * SECONDS) {
+          throw new TRPCError({
+            code: 'TOO_MANY_REQUESTS',
+            message: 'Wait 30 seconds to sed a new code',
+          });
+        }
 
+        const code = String(Math.random()).slice(3, 9);
         await prisma.user.update({
           where: { email },
           data: {
             lastCode: code,
+            codeLastSent: new Date(),
           },
         });
 
-        await mail.sendMail({
-          from: 'Sacola <thesacola@gmail.com>',
-          to: `${user.name} <${email}>`,
-          subject: 'Sacola SignUp',
-          html: code,
-        });
+        await TaskSendSignInEmail(user, code);
 
         return { message: 'Email sended!' };
       } catch (e) {
-        throw new TRPCError({
-          code: 'BAD_REQUEST',
-          message: 'Ishi',
-        });
+        throw catchTrpcError(e);
       }
     }),
   verifyCode: trpc.procedure
@@ -133,10 +133,7 @@ export const userRouter = trpc.router({
 
         return { token };
       } catch (e) {
-        throw new TRPCError({
-          code: 'BAD_REQUEST',
-          message: 'Ishi',
-        });
+        throw catchTrpcError(e);
       }
     }),
   getUserInfo: trpc.procedure

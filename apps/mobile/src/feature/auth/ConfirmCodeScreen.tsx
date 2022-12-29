@@ -94,7 +94,7 @@ const toastThrottle = throttle(() => {
 }, 5000);
 
 const navigateFactory = (n: NavigationProp<MainStackNavigationP>) => ({
-  toSignUpScreen: () => n.navigate('SignUpScreen'),
+  toSignUpScreen: () => n.navigate('AuthStackScreen', { screen: 'SignUpScreen' }),
   toConfirmCodeScreen: () => n.reset({ index: 0, routes: [{ name: 'Home' }] }),
 });
 
