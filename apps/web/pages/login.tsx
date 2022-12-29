@@ -1,15 +1,34 @@
 import { useState } from 'react';
 import { TextInput } from 'design';
 import { trpcClient } from '../utils/trpc';
+import Link from 'next/link';
+import { setTokenCookie } from '../auth/tokenCookies';
+import { useRouter } from 'next/router';
+
 /* eslint-disable react/no-unescaped-entities */
 export default function Login() {
   const [email, setEmail] = useState<string>('');
-  const [showConfirmationCode, setShowConfirmationCode] = useState<boolean>(false);
-  const { mutate } = trpcClient.user.signIn.useMutation();
+  const [confirmationCode, setConfirmationCode] = useState<string>('');
+  const [showConfirmationCode, setShowConfirmationCode] = useState<boolean>(true);
+  const router = useRouter();
+
+  const { mutate, isLoading: isLoadingEmail } = trpcClient.user.signIn.useMutation();
+  const { mutate: confirmCode, isLoading: isLoadingCode } = trpcClient.user.verifyCode.useMutation();
 
   const handleButtonClick = () => {
-    mutate({ email });
-    // setShowConfirmationCode(!showConfirmationCode);
+    mutate({ email },
+      {
+        onSuccess: () => setShowConfirmationCode(true)
+      });
+  };
+
+  const handleConfirmCode = () => {
+    confirmCode({ email, code: confirmationCode }, {
+      onSuccess: async (data) => {
+        await setTokenCookie(data.token)
+        router.push('/')
+      }
+    })
   };
 
   return (
@@ -19,14 +38,64 @@ export default function Login() {
         <h2 className="text-white text-xl">Sign in to continue</h2>
       </section>
       <section className="flex items-center justify-center w-3/5 flex-col">
-        {!showConfirmationCode ? (
-          <EmailFormComponent {...{ email, setEmail, handleButtonClick }} />
-        ) : (
-          <ConfirmationCodeComponent {...{ handleButtonClick }} />
+        {isLoadingEmail || isLoadingCode ? <Loading /> : (
+          renderForm({
+            email,
+            setEmail,
+            confirmationCode,
+            setConfirmationCode,
+            showConfirmationCode,
+            handleButtonClick,
+            handleConfirmCode,
+          })
         )}
       </section>
     </div>
   );
+}
+
+const Loading = () => {
+  return (
+    <div className="flex items-center justify-center h-screen">
+      <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900" />
+    </div>
+  )
+}
+
+const renderForm = ({
+  email,
+  setEmail,
+  confirmationCode,
+  setConfirmationCode,
+  showConfirmationCode,
+  handleButtonClick,
+  handleConfirmCode,
+} : {
+  email: string;
+  setEmail: (email: string) => void;
+  confirmationCode: string;
+  setConfirmationCode: (confirmationCode: string) => void;
+  showConfirmationCode: boolean;
+  handleButtonClick: () => void;
+  handleConfirmCode: () => void;
+}) => {
+  if(showConfirmationCode) {
+    return (
+      <ConfirmationCodeComponent
+        confirmationCode={confirmationCode}
+        setConfirmationCode={setConfirmationCode}
+        handleButtonClick={handleConfirmCode}
+      />
+    )
+  } else {
+    return (
+      <EmailFormComponent
+        email={email}
+        setEmail={setEmail}
+        handleButtonClick={handleButtonClick}
+      />
+    )
+  }
 }
 
 const EmailFormComponent = ({
@@ -57,15 +126,23 @@ const EmailFormComponent = ({
       </button>
       <span>
         Don't have an account?{' '}
-        <a href="/register" className="text-blue-600">
+        <Link href="/register" className="text-blue-600">
           Register
-        </a>
+        </Link>
       </span>
     </>
   );
 };
 
-const ConfirmationCodeComponent = ({ handleButtonClick }: { handleButtonClick: () => void }) => {
+const ConfirmationCodeComponent = ({
+  confirmationCode,
+  setConfirmationCode,
+  handleButtonClick,
+}: {
+  confirmationCode: string;
+  setConfirmationCode: (confirmationCode: string) => void;
+  handleButtonClick: () => void
+}) => {
   return (
     <>
       <fieldset className="flex flex-col w-1/2 gap-2">
@@ -76,8 +153,8 @@ const ConfirmationCodeComponent = ({ handleButtonClick }: { handleButtonClick: (
           xClassName="border border-black p-2 rounded-md"
           placeholder="123456"
           placeholderTextColor={'#333'}
-          value={''}
-          onChangeText={() => {}}
+          value={confirmationCode}
+          onChangeText={setConfirmationCode}
         />
       </fieldset>
       <button onClick={handleButtonClick} className="bg-black text-white text-xl p-4 w-1/2 m-5 rounded-md">
