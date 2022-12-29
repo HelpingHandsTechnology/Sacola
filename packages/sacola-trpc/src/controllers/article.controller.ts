@@ -2,12 +2,13 @@ import { z } from 'zod';
 import { Readability } from '@mozilla/readability';
 import axios from 'axios';
 import { JSDOM } from 'jsdom';
+import { Prisma } from '@prisma/client';
 
 import { trpc } from '../trpc';
 import { prisma } from '../prisma';
 import { authMiddleware } from '../middlewares/auth.middleware';
 import { generateTitlePartialSearch } from '../utils/search';
-import { Prisma } from '@prisma/client';
+import { catchTrpcError } from '../utils/catchTrpcError';
 
 const articleProcedure = trpc.procedure.use(authMiddleware);
 
@@ -65,42 +66,46 @@ export const articleRouter = trpc.router({
           }
         : {};
 
-      return await prisma.articleUser.findMany({
-        where: {
-          userId: ctx.user.id,
-          isFavorite: input?.isFavorite,
-          ...tagsFilter,
-        },
-        select: {
-          articleId: true,
-          article: {
-            select: {
-              id: true,
-              title: true,
-              urlDomain: true,
-            },
+      try {
+        return await prisma.articleUser.findMany({
+          where: {
+            userId: ctx.user.id,
+            isFavorite: input?.isFavorite,
+            ...tagsFilter,
           },
-          userId: true,
-          user: {
-            select: {
-              name: true,
-              email: true,
+          select: {
+            articleId: true,
+            article: {
+              select: {
+                id: true,
+                title: true,
+                urlDomain: true,
+              },
             },
-          },
-          isFavorite: true,
-          articleTags: {
-            select: {
-              tagId: true,
-              tag: {
-                select: {
-                  id: true,
-                  name: true,
+            userId: true,
+            user: {
+              select: {
+                name: true,
+                email: true,
+              },
+            },
+            isFavorite: true,
+            articleTags: {
+              select: {
+                tagId: true,
+                tag: {
+                  select: {
+                    id: true,
+                    name: true,
+                  },
                 },
               },
             },
           },
-        },
-      });
+        });
+      } catch (e) {
+        throw catchTrpcError(e);
+      }
     }),
   getById: articleProcedure
     .input(z.object({ id: z.string() }))
@@ -114,32 +119,40 @@ export const articleRouter = trpc.router({
         .nullable(),
     )
     .query(async ({ ctx, input }) => {
-      return await prisma.article.findUnique({
-        where: {
-          id: input.id,
-        },
-        select: {
-          id: true,
-          title: true,
-          urlDomain: true,
-        },
-      });
+      try {
+        return await prisma.article.findUnique({
+          where: {
+            id: input.id,
+          },
+          select: {
+            id: true,
+            title: true,
+            urlDomain: true,
+          },
+        });
+      } catch (e) {
+        throw catchTrpcError(e);
+      }
     }),
   // TODO: Zod output schema
   getReadabilityById: articleProcedure.input(z.object({ id: z.string() })).query(async ({ ctx, input }) => {
-    const response = await prisma.article.findUnique({
-      where: {
-        id: input.id,
-      },
-    });
+    try {
+      const response = await prisma.article.findUnique({
+        where: {
+          id: input.id,
+        },
+      });
 
-    const url = await axios.get(response?.urlDomain ?? '');
+      const url = await axios.get(response?.urlDomain ?? '');
 
-    const doc = new JSDOM(url.data);
-    const readability = new Readability(doc.window.document);
-    const article = readability.parse();
+      const doc = new JSDOM(url.data);
+      const readability = new Readability(doc.window.document);
+      const article = readability.parse();
 
-    return article;
+      return article;
+    } catch (e) {
+      throw catchTrpcError(e);
+    }
   }),
   searchArticle: articleProcedure
     .input(z.object({ search: z.string(), isDeepSearch: z.boolean() }))
@@ -147,180 +160,184 @@ export const articleRouter = trpc.router({
     .query(async ({ ctx, input }) => {
       const search = input.search;
 
-      if (input.isDeepSearch) {
-        return await prisma.articleUser.findMany({
-          where: {
-            userId: ctx.user.id,
-            article: {
-              OR: [
-                {
-                  title: {
-                    startsWith: search,
+      try {
+        if (input.isDeepSearch) {
+          return await prisma.articleUser.findMany({
+            where: {
+              userId: ctx.user.id,
+              article: {
+                OR: [
+                  {
+                    title: {
+                      startsWith: search,
+                    },
                   },
-                },
-                {
-                  title: {
-                    contains: search,
+                  {
+                    title: {
+                      contains: search,
+                    },
                   },
-                },
-                {
-                  AND: generateTitlePartialSearch(search),
-                },
-              ],
-            },
-          },
-          select: {
-            articleId: true,
-            article: {
-              select: {
-                id: true,
-                title: true,
-                urlDomain: true,
-              },
-            },
-            userId: true,
-            user: {
-              select: {
-                name: true,
-                email: true,
-              },
-            },
-            isFavorite: true,
-            articleTags: {
-              select: {
-                tagId: true,
-                tag: {
-                  select: {
-                    id: true,
-                    name: true,
+                  {
+                    AND: generateTitlePartialSearch(search),
                   },
+                ],
+              },
+            },
+            select: {
+              articleId: true,
+              article: {
+                select: {
+                  id: true,
+                  title: true,
+                  urlDomain: true,
                 },
               },
-            },
-          },
-        });
-      } else {
-        const startWithQuery = await prisma.articleUser.findMany({
-          where: {
-            userId: ctx.user.id,
-            article: {
-              title: {
-                startsWith: search,
+              userId: true,
+              user: {
+                select: {
+                  name: true,
+                  email: true,
+                },
               },
-            },
-          },
-          select: {
-            articleId: true,
-            article: {
-              select: {
-                id: true,
-                title: true,
-                urlDomain: true,
-              },
-            },
-            userId: true,
-            user: {
-              select: {
-                name: true,
-                email: true,
-              },
-            },
-            isFavorite: true,
-            articleTags: {
-              select: {
-                tagId: true,
-                tag: {
-                  select: {
-                    id: true,
-                    name: true,
+              isFavorite: true,
+              articleTags: {
+                select: {
+                  tagId: true,
+                  tag: {
+                    select: {
+                      id: true,
+                      name: true,
+                    },
                   },
                 },
               },
             },
-          },
-        });
+          });
+        } else {
+          const startWithQuery = await prisma.articleUser.findMany({
+            where: {
+              userId: ctx.user.id,
+              article: {
+                title: {
+                  startsWith: search,
+                },
+              },
+            },
+            select: {
+              articleId: true,
+              article: {
+                select: {
+                  id: true,
+                  title: true,
+                  urlDomain: true,
+                },
+              },
+              userId: true,
+              user: {
+                select: {
+                  name: true,
+                  email: true,
+                },
+              },
+              isFavorite: true,
+              articleTags: {
+                select: {
+                  tagId: true,
+                  tag: {
+                    select: {
+                      id: true,
+                      name: true,
+                    },
+                  },
+                },
+              },
+            },
+          });
 
-        if (startWithQuery.length > 0) return startWithQuery;
+          if (startWithQuery.length > 0) return startWithQuery;
 
-        const containsQuery = await prisma.articleUser.findMany({
-          where: {
-            userId: ctx.user.id,
-            article: {
-              title: {
-                contains: search,
+          const containsQuery = await prisma.articleUser.findMany({
+            where: {
+              userId: ctx.user.id,
+              article: {
+                title: {
+                  contains: search,
+                },
               },
             },
-          },
-          select: {
-            articleId: true,
-            article: {
-              select: {
-                id: true,
-                title: true,
-                urlDomain: true,
+            select: {
+              articleId: true,
+              article: {
+                select: {
+                  id: true,
+                  title: true,
+                  urlDomain: true,
+                },
               },
-            },
-            userId: true,
-            user: {
-              select: {
-                name: true,
-                email: true,
+              userId: true,
+              user: {
+                select: {
+                  name: true,
+                  email: true,
+                },
               },
-            },
-            isFavorite: true,
-            articleTags: {
-              select: {
-                tagId: true,
-                tag: {
-                  select: {
-                    id: true,
-                    name: true,
+              isFavorite: true,
+              articleTags: {
+                select: {
+                  tagId: true,
+                  tag: {
+                    select: {
+                      id: true,
+                      name: true,
+                    },
                   },
                 },
               },
             },
-          },
-        });
+          });
 
-        if (containsQuery.length > 0) return containsQuery;
+          if (containsQuery.length > 0) return containsQuery;
 
-        return await prisma.articleUser.findMany({
-          where: {
-            userId: ctx.user.id,
-            article: {
-              AND: generateTitlePartialSearch(search),
-            },
-          },
-          select: {
-            articleId: true,
-            article: {
-              select: {
-                id: true,
-                title: true,
-                urlDomain: true,
+          return await prisma.articleUser.findMany({
+            where: {
+              userId: ctx.user.id,
+              article: {
+                AND: generateTitlePartialSearch(search),
               },
             },
-            userId: true,
-            user: {
-              select: {
-                name: true,
-                email: true,
+            select: {
+              articleId: true,
+              article: {
+                select: {
+                  id: true,
+                  title: true,
+                  urlDomain: true,
+                },
               },
-            },
-            isFavorite: true,
-            articleTags: {
-              select: {
-                tagId: true,
-                tag: {
-                  select: {
-                    id: true,
-                    name: true,
+              userId: true,
+              user: {
+                select: {
+                  name: true,
+                  email: true,
+                },
+              },
+              isFavorite: true,
+              articleTags: {
+                select: {
+                  tagId: true,
+                  tag: {
+                    select: {
+                      id: true,
+                      name: true,
+                    },
                   },
                 },
               },
             },
-          },
-        });
+          });
+        }
+      } catch (e) {
+        throw catchTrpcError(e);
       }
     }),
   create: articleProcedure
@@ -329,66 +346,70 @@ export const articleRouter = trpc.router({
     .query(async ({ ctx, input }) => {
       const url = input.url;
 
-      const article = await prisma.article.findUnique({
-        where: {
-          urlDomain: url,
-        },
-      });
-
-      if (article) {
-        const userAlreadySavedArticle = await prisma.articleUser.findUnique({
+      try {
+        const article = await prisma.article.findUnique({
           where: {
-            userId_articleId: {
-              userId: ctx.user.id,
-              articleId: article.id,
-            },
+            urlDomain: url,
           },
         });
 
-        if (userAlreadySavedArticle) {
+        if (article) {
+          const userAlreadySavedArticle = await prisma.articleUser.findUnique({
+            where: {
+              userId_articleId: {
+                userId: ctx.user.id,
+                articleId: article.id,
+              },
+            },
+          });
+
+          if (userAlreadySavedArticle) {
+            return {
+              message: 'Article already have saved this article',
+              articleId: article.id,
+            };
+          }
+
+          await prisma.articleUser.create({
+            data: {
+              articleId: article.id,
+              userId: ctx.user.id,
+            },
+          });
+
           return {
-            message: 'Article already have saved this article',
+            message: 'Article saved with success!',
             articleId: article.id,
           };
         }
 
-        await prisma.articleUser.create({
+        const { data } = await axios.get(url);
+
+        const doc = new JSDOM(data);
+        const readability = new Readability(doc.window.document);
+        const reader = readability.parse();
+
+        const newArticle = await prisma.article.create({
           data: {
-            articleId: article.id,
-            userId: ctx.user.id,
+            title: reader?.title || doc.window.document.title,
+            urlDomain: url,
+            articleUser: {
+              create: [
+                {
+                  userId: ctx.user.id,
+                },
+              ],
+            },
           },
         });
 
         return {
           message: 'Article saved with success!',
-          articleId: article.id,
+          articleId: newArticle.id,
         };
+      } catch (e) {
+        throw catchTrpcError(e);
       }
-
-      const { data } = await axios.get(url);
-
-      const doc = new JSDOM(data);
-      const readability = new Readability(doc.window.document);
-      const reader = readability.parse();
-
-      const newArticle = await prisma.article.create({
-        data: {
-          title: reader?.title || doc.window.document.title,
-          urlDomain: url,
-          articleUser: {
-            create: [
-              {
-                userId: ctx.user.id,
-              },
-            ],
-          },
-        },
-      });
-
-      return {
-        message: 'Article saved with success!',
-        articleId: newArticle.id,
-      };
     }),
   deleteById: articleProcedure
     .input(
@@ -398,16 +419,20 @@ export const articleRouter = trpc.router({
     )
     .output(z.object({ message: z.string() }))
     .query(async ({ ctx, input }) => {
-      await prisma.articleUser.delete({
-        where: {
-          userId_articleId: {
-            userId: ctx.user.id,
-            articleId: input.id,
+      try {
+        await prisma.articleUser.delete({
+          where: {
+            userId_articleId: {
+              userId: ctx.user.id,
+              articleId: input.id,
+            },
           },
-        },
-      });
+        });
 
-      return { message: 'Article deleted with success!' };
+        return { message: 'Article deleted with success!' };
+      } catch (e) {
+        throw catchTrpcError(e);
+      }
     }),
   // TODO: Test case that isFavorite is undefined
   updateById: articleProcedure
@@ -419,45 +444,49 @@ export const articleRouter = trpc.router({
     )
     .output(formattedArticleUserSchema)
     .query(async ({ ctx, input }) => {
-      return await prisma.articleUser.update({
-        data: {
-          isFavorite: input.isFavorite,
-        },
-        where: {
-          userId_articleId: {
-            articleId: input.id,
-            userId: ctx.user.id,
+      try {
+        return await prisma.articleUser.update({
+          data: {
+            isFavorite: input.isFavorite,
           },
-        },
-        select: {
-          articleId: true,
-          article: {
-            select: {
-              id: true,
-              title: true,
-              urlDomain: true,
+          where: {
+            userId_articleId: {
+              articleId: input.id,
+              userId: ctx.user.id,
             },
           },
-          userId: true,
-          user: {
-            select: {
-              name: true,
-              email: true,
+          select: {
+            articleId: true,
+            article: {
+              select: {
+                id: true,
+                title: true,
+                urlDomain: true,
+              },
             },
-          },
-          isFavorite: true,
-          articleTags: {
-            select: {
-              tagId: true,
-              tag: {
-                select: {
-                  id: true,
-                  name: true,
+            userId: true,
+            user: {
+              select: {
+                name: true,
+                email: true,
+              },
+            },
+            isFavorite: true,
+            articleTags: {
+              select: {
+                tagId: true,
+                tag: {
+                  select: {
+                    id: true,
+                    name: true,
+                  },
                 },
               },
             },
           },
-        },
-      });
+        });
+      } catch (e) {
+        throw catchTrpcError(e);
+      }
     }),
 });

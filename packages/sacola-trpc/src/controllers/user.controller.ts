@@ -2,12 +2,12 @@ import { TRPCError } from '@trpc/server';
 import jwt from 'jsonwebtoken';
 import z from 'zod';
 
-import { User } from '@prisma/client';
 import { mail } from '../mail';
 import { authMiddleware } from '../middlewares/auth.middleware';
 import { prisma } from '../prisma';
 import { TaskSendSignInEmail } from '../services/mail';
 import { trpc } from '../trpc';
+import { catchTrpcError } from '../utils/catchTrpcError';
 import { SECONDS } from '../utils/constants';
 
 export const userRouter = trpc.router({
@@ -26,31 +26,35 @@ export const userRouter = trpc.router({
     .mutation(async ({ input }) => {
       const { name, email } = input;
 
-      const userExist = await prisma.user.findUnique({ where: { email } });
+      try {
+        const userExist = await prisma.user.findUnique({ where: { email } });
 
-      if (userExist) {
-        throw new TRPCError({
-          code: 'CONFLICT',
-          message: 'User already exist',
+        if (userExist) {
+          throw new TRPCError({
+            code: 'CONFLICT',
+            message: 'User already exist',
+          });
+        }
+
+        await mail.sendMail({
+          from: 'Sacola <thesacola@gmail.com>',
+          to: `${name} <${email}>`,
+          subject: 'Sacola SignUp',
+          html: `Hello, ${name}, welcome :D`,
         });
+
+        await prisma.user.create({
+          data: {
+            name,
+            email,
+            emailVerified: false,
+          },
+        });
+
+        return { message: 'User Created' };
+      } catch (e) {
+        throw catchTrpcError(e);
       }
-
-      await mail.sendMail({
-        from: 'Sacola <thesacola@gmail.com>',
-        to: `${name} <${email}>`,
-        subject: 'Sacola SignUp',
-        html: `Hello, ${name}, welcome :D`,
-      });
-
-      await prisma.user.create({
-        data: {
-          name,
-          email,
-          emailVerified: false,
-        },
-      });
-
-      return { message: 'User Created' };
     }),
   signIn: trpc.procedure
     .input(z.object({ email: z.string().email() }))
@@ -93,10 +97,7 @@ export const userRouter = trpc.router({
 
         return { message: 'Email sended!' };
       } catch (e) {
-        throw new TRPCError({
-          code: 'BAD_REQUEST',
-          message: 'Ishi',
-        });
+        throw catchTrpcError(e);
       }
     }),
   verifyCode: trpc.procedure
@@ -132,10 +133,7 @@ export const userRouter = trpc.router({
 
         return { token };
       } catch (e) {
-        throw new TRPCError({
-          code: 'BAD_REQUEST',
-          message: 'Ishi',
-        });
+        throw catchTrpcError(e);
       }
     }),
   getUserInfo: trpc.procedure
