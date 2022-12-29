@@ -1,8 +1,8 @@
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import * as Burnt from 'burnt';
-import { TextInput } from 'design';
 import React from 'react';
-import { Image, Text, TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
+import { useFormContext } from 'react-hook-form';
+import { Text, TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
 import * as z from 'zod';
 import { MainStackNavigationP } from '../../../App';
 import { trpc } from '../../lib/trpc';
@@ -15,7 +15,7 @@ import { ControlledInput } from './ControlledInput';
 
 const navigateFactory = (n: NavigationProp<MainStackNavigationP>) => ({
   toSignUpScreen: () => n.navigate('AuthStackScreen', { screen: 'SignUpScreen' }),
-  toConfirmCodeScreen: () => n.navigate('ConfirmCodeScreen'),
+  toVerifyCodeScreen: () => n.navigate('AuthStackScreen', { screen: 'VerifyCodeScreen' }),
 });
 const emptyEmailThrottle = throttle(
   ({ title, message }: { title: string; message: string }) =>
@@ -30,11 +30,11 @@ const emptyEmailThrottle = throttle(
 export const SignInScreen = () => {
   const navigation = useNavigation<NavigationProp<MainStackNavigationP>>();
   const navigator = navigateFactory(navigation);
-  const [email, setEmail] = React.useState('antoniel2210@gmail.com');
+  const { handleSubmit } = useFormContext<AuthStackSForm>();
   const { mutate } = trpc.user.signIn.useMutation();
 
-  const handleSubmit = () => {
-    if (!email) {
+  const submit = (form: AuthStackSForm) => {
+    if (!form.email) {
       return emptyEmailThrottle({
         message: 'Please enter your email',
         title: 'Empty email',
@@ -42,13 +42,14 @@ export const SignInScreen = () => {
     }
     mutate(
       {
-        email,
+        email: form.email,
       },
       {
         onSuccess: () => {
-          return navigator.toConfirmCodeScreen();
+          return navigator.toVerifyCodeScreen();
         },
         onError: (err) => {
+          console.log(err);
           Burnt.toast({
             title: 'Error',
             message: err.message,
@@ -76,7 +77,7 @@ export const SignInScreen = () => {
             keyboardType="email-address"
             label="Email"
           />
-          <AppButton onPress={handleSubmit}>Send code</AppButton>
+          <AppButton onPress={handleSubmit(submit)}>Send code</AppButton>
           <SignUpText onPress={navigator.toSignUpScreen} />
         </SpaceY>
       </SpaceY>
