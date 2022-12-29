@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { TextInput } from 'design';
 import { trpcClient } from '../utils/trpc';
 import Link from 'next/link';
+
 import { setTokenCookie } from '../auth/tokenCookies';
 import { useRouter } from 'next/router';
 
@@ -98,15 +99,13 @@ const renderForm = ({
   }
 }
 
-const EmailFormComponent = ({
-  email,
-  setEmail,
-  handleButtonClick,
-}: {
+interface EmailFormComponentProps {
   email: string;
   setEmail: (email: string) => void;
   handleButtonClick: () => void;
-}) => {
+}
+
+const EmailFormComponent = ({ email, setEmail, handleButtonClick }: EmailFormComponentProps) => {
   return (
     <>
       <fieldset className="flex flex-col w-1/2 gap-2">
@@ -134,15 +133,17 @@ const EmailFormComponent = ({
   );
 };
 
+interface ConfirmationCodeComponentProps {
+  confirmationCode: string;
+  setConfirmationCode: (confirmationCode: string) => void;
+  handleButtonClick: () => void
+}
+
 const ConfirmationCodeComponent = ({
   confirmationCode,
   setConfirmationCode,
   handleButtonClick,
-}: {
-  confirmationCode: string;
-  setConfirmationCode: (confirmationCode: string) => void;
-  handleButtonClick: () => void
-}) => {
+}: ConfirmationCodeComponentProps) => {
   return (
     <>
       <fieldset className="flex flex-col w-1/2 gap-2">
@@ -162,9 +163,9 @@ const ConfirmationCodeComponent = ({
       </button>
       <span>
         Didn't received the code?{' '}
-        <a href="#" className="text-blue-600">
+        <Link href="#" className="text-blue-600">
           Resend
-        </a>
+        </Link>
       </span>
     </>
   );

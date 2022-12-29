@@ -19,9 +19,9 @@
     "format": "turbo run format",
     "test": "turbo run test",
     "clean": "sh clean.sh",
-    "dev:web": "cd apps/web && yarn dev",
-    "dev:expo": "cd apps/mobile && yarn dev",
-    "dev:design": "cd packages/design && yarn storybook",
+    "dev:web": "turbo run dev --filter=web",
+    "dev:expo": "turbo run dev --filter=mobile",
+    "dev:design": "turbo run storybook --filter=design",
     "postinstall": "cd packages/sacola-trpc && prisma generate"
   },
   "dependencies": {

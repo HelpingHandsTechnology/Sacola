@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { TextInput } from 'design';
 import { trpcClient } from '../utils/trpc';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
+
 /* eslint-disable react/no-unescaped-entities */
 export default function Register() {
   const [email, setEmail] = useState<string>('');
@@ -21,7 +23,6 @@ export default function Register() {
         <div className="max-w-sm flex flex-col gap-2">
           <h1 className="text-white text-4xl">Sign up now!</h1>
           <h2 className="text-white text-xl">Create an account and start saving your favorite articles today</h2>
-
         </div>
       </section>
       <section className="flex items-center justify-center w-3/5 flex-col">
@@ -79,9 +80,9 @@ const EmailFormComponent = ({
       </button>
       <span>
         Already have an account?{' '}
-        <a href="/login" className="text-blue-600">
+        <Link href="/login" className="text-blue-600">
           Sign in
-        </a>
+        </Link>
       </span>
     </>
   );
@@ -107,9 +108,9 @@ const ConfirmationCodeComponent = ({ handleButtonClick }: { handleButtonClick: (
       </button>
       <span>
         Didn't received the code?{' '}
-        <a href="#" className="text-blue-600">
+        <Link href="#" className="text-blue-600">
           Resend
-        </a>
+        </Link>
       </span>
     </>
   );
