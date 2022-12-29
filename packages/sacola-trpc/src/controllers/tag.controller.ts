@@ -1,8 +1,10 @@
 import { TRPCError } from '@trpc/server';
 import { prisma } from '../prisma';
 import { z } from 'zod';
+
 import { authMiddleware } from '../middlewares/auth.middleware';
 import { trpc } from '../trpc';
+import { catchTrpcError } from '../utils/catchTrpcError';
 
 const tagProcedure = trpc.procedure.use(authMiddleware);
 
@@ -19,10 +21,7 @@ export const tagRouter = trpc.router({
           tagId: tag.id,
         };
       } catch (e) {
-        throw new TRPCError({
-          code: 'BAD_REQUEST',
-          message: 'Ishi',
-        });
+        throw catchTrpcError(e);
       }
     }),
   getTags: tagProcedure.output(z.array(z.object({ id: z.string(), name: z.string() }))).query(async ({ ctx }) => {
@@ -95,10 +94,7 @@ export const tagRouter = trpc.router({
           message: 'Tag added to article with success!',
         };
       } catch (e) {
-        throw new TRPCError({
-          code: 'BAD_REQUEST',
-          message: 'Ishi',
-        });
+        throw catchTrpcError(e);
       }
     }),
 });

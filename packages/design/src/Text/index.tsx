@@ -1,8 +1,8 @@
-import React from 'react';
 import clsx from 'clsx';
-import { getWeightClassname, getSizeClassname, getTextAlignClassname } from './utils';
-import { Text as TextRNW, AccessibilityProps } from 'react-native';
+import React from 'react';
+import { AccessibilityProps, Text as TextRNW } from 'react-native';
 import { match } from 'ts-pattern';
+import { getSizeClassname, getTextAlignClassname, getWeightClassname } from './utils';
 
 export interface TextProps {
   children: React.ReactNode;
@@ -11,6 +11,7 @@ export interface TextProps {
   weight?: 'thin' | 'normal' | 'medium' | 'bold' | 'extrabold';
   textAlign?: 'left' | 'center' | 'right';
   xClassName?: string;
+  testID?: string;
 }
 
 export const Text = ({
@@ -20,6 +21,7 @@ export const Text = ({
   size = 'md',
   textAlign = 'left',
   xClassName,
+  ...props
 }: TextProps): JSX.Element => {
   const weightClassname = getWeightClassname(weight);
   const sizeClassname = getSizeClassname(size);
@@ -39,6 +41,7 @@ export const Text = ({
     <TextRNW
       accessibilityRole={matchAccessibilityRole}
       className={clsx(weightClassname, sizeClassname, textAlignClassname, xClassName)}
+      {...props}
     >
       {children}
     </TextRNW>
