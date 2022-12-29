@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { TextInput } from 'design';
 import { trpcClient } from '../utils/trpc';
+import Link from 'next/link';
+
 /* eslint-disable react/no-unescaped-entities */
 export default function Login() {
   const [email, setEmail] = useState<string>('');
@@ -57,9 +59,9 @@ const EmailFormComponent = ({
       </button>
       <span>
         Don't have an account?{' '}
-        <a href="/register" className="text-blue-600">
+        <Link href="/register" className="text-blue-600">
           Register
-        </a>
+        </Link>
       </span>
     </>
   );
@@ -85,9 +87,9 @@ const ConfirmationCodeComponent = ({ handleButtonClick }: { handleButtonClick: (
       </button>
       <span>
         Didn't received the code?{' '}
-        <a href="#" className="text-blue-600">
+        <Link href="#" className="text-blue-600">
           Resend
-        </a>
+        </Link>
       </span>
     </>
   );
