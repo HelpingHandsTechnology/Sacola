@@ -3,7 +3,6 @@ import { TextInput } from 'design';
 import { trpcClient } from '../utils/trpc';
 import Link from 'next/link';
 
-/* eslint-disable react/no-unescaped-entities */
 export default function Login() {
   const [email, setEmail] = useState<string>('');
   const [showConfirmationCode, setShowConfirmationCode] = useState<boolean>(false);
@@ -31,15 +30,13 @@ export default function Login() {
   );
 }
 
-const EmailFormComponent = ({
-  email,
-  setEmail,
-  handleButtonClick,
-}: {
+interface EmailFormComponentProps {
   email: string;
   setEmail: (email: string) => void;
   handleButtonClick: () => void;
-}) => {
+}
+
+const EmailFormComponent = ({ email, setEmail, handleButtonClick }: EmailFormComponentProps) => {
   return (
     <>
       <fieldset className="flex flex-col w-1/2 gap-2">
@@ -67,7 +64,11 @@ const EmailFormComponent = ({
   );
 };
 
-const ConfirmationCodeComponent = ({ handleButtonClick }: { handleButtonClick: () => void }) => {
+interface ConfirmationCodeComponentProps {
+  handleButtonClick: () => void;
+}
+
+const ConfirmationCodeComponent = ({ handleButtonClick }: ConfirmationCodeComponentProps) => {
   return (
     <>
       <fieldset className="flex flex-col w-1/2 gap-2">
