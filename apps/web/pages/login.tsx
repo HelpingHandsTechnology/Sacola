@@ -10,7 +10,7 @@ import { useRouter } from 'next/router';
 export default function Login() {
   const [email, setEmail] = useState<string>('');
   const [confirmationCode, setConfirmationCode] = useState<string>('');
-  const [showConfirmationCode, setShowConfirmationCode] = useState<boolean>(true);
+  const [showConfirmationCode, setShowConfirmationCode] = useState<boolean>(false);
   const router = useRouter();
 
   const { mutate, isLoading: isLoadingEmail } = trpcClient.user.signIn.useMutation();
