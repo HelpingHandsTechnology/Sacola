@@ -14,11 +14,11 @@
   },
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
     "format": "turbo run format",
     "test": "turbo run test",
     "clean": "sh clean.sh",
+    "dev": "turbo run dev --filter=./apps/*",
     "dev:web": "turbo run dev --filter=web",
     "dev:expo": "turbo run dev --filter=mobile",
     "dev:design": "turbo run storybook --filter=design",

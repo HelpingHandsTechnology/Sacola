@@ -1,3 +1,4 @@
-export * from './TextInput';
-export * from './Text';
-export * from './Row';
+export * from './components/Row';
+export * from './components/Text';
+export * from './components/TextInput';
+export * from './feature';

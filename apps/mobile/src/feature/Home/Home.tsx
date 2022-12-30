@@ -1,15 +1,15 @@
-import React from 'react';
-import type { ComponentBaseP } from '../../../App';
-import { View, Text } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
+import React from 'react';
+import { Text, View } from 'react-native';
+import type { ComponentBaseP } from '../../../App';
 
-import { AppLayout } from '../../shared/components/AppLayout';
 import { dummyArticles } from 'fixtures';
-import { ArticleCard } from './components/ArticleCard';
-import { GreetingComponent } from './components/GreetingComponent';
+import { AppLayout } from '../../shared/components/AppLayout';
+// import { ArticleCard } from './components/ArticleCard';
 import clsx from 'clsx';
-import { Row } from 'design';
+import { ArticleCard, Row } from 'design';
 import { AppButton } from '../../shared/components/AppButton';
+import { GreetingComponent } from './components/GreetingComponent';
 
 export const Home = () => {
   return (
@@ -19,7 +19,11 @@ export const Home = () => {
         ListHeaderComponent={() => <Text className="text-xl font-bold mb-4">Your Articles</Text>}
         estimatedItemSize={100}
         data={dummyArticles}
-        renderItem={ArticleCard}
+        renderItem={({ item, index }) => (
+          <View className={`${index === 0 ? 'mt-4' : 'mt-8'}`}>
+            <ArticleCard item={item} />
+          </View>
+        )}
         keyExtractor={(item) => item.id}
       />
     </AppLayout>

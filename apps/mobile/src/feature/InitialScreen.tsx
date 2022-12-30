@@ -15,6 +15,24 @@ const navigatorFactory = (n: NavigationProp<MainStackNavigationP>) => {
 export const InitialScreen = () => {
   const navigation = useNavigation<NavigationProp<MainStackNavigationP>>();
   const navigator = navigatorFactory(navigation);
+
+  trpc.user.getUserInfo.useQuery(undefined, {
+    onSuccess: navigator.navigateHome,
+    onError: navigator.navigateOnboarding,
+  });
+
+  return (
+    <AppLayout
+      xClassName={clsx(['bg-black items-center justify-center'])}
+      insetBottomClassName="bg-black"
+      insetTopClassName="bg-black"
+    >
+      <AnimatedSacolaImage />
+    </AppLayout>
+  );
+};
+
+const AnimatedSacolaImage = () => {
   const scale = useSharedValue(1);
   const style = useAnimatedStyle(() => {
     return {
@@ -22,27 +40,16 @@ export const InitialScreen = () => {
     };
   }, []);
 
-  trpc.user.getUserInfo.useQuery(undefined, {
-    onSuccess: navigator.navigateHome,
-    onError: navigator.navigateOnboarding,
-  });
-
   React.useEffect(() => {
     scale.value = withRepeat(withTiming(1.2, { duration: 3000 }), -1, true);
   }, []);
 
   return (
-    <AppLayout
-      xClassName={clsx(['bg-black items-center justify-center'])}
-      insetBottomClassName="bg-red-500"
-      insetTopClassName="bg-black"
-    >
-      <Animated.Image
-        style={[style]}
-        className={clsx(['w-64'])}
-        resizeMode="contain"
-        source={require('../assets/🛍️.png')}
-      />
-    </AppLayout>
+    <Animated.Image
+      style={[style]}
+      className={clsx(['w-64'])}
+      resizeMode="contain"
+      source={require('../assets/🛍️.png')}
+    />
   );
 };

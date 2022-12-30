@@ -1,18 +1,23 @@
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import * as Burnt from 'burnt';
 import React from 'react';
+import { useFormContext } from 'react-hook-form';
 import { Image, StyleSheet, Text, TextInput, TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
 import { CodeField, Cursor, useBlurOnFulfill, useClearByFocusCell } from 'react-native-confirmation-code-field';
 import { MainStackNavigationP } from '../../../App';
+import { authMMKVKeys, deleteAuthMMKV, setAuthMMKV } from '../../lib/mmkv';
 import { trpc } from '../../lib/trpc';
 import { AppButton } from '../../shared/components/AppButton';
 import { AppLayout } from '../../shared/components/AppLayout';
 import { SpaceY } from '../../shared/components/SpaceY';
 import { throttle } from '../../utils';
+import { AuthStackSForm } from './AuthStack';
 
-export const ConfirmCodeScreen = () => {
+export const VerifyCodeScreen = () => {
   const [value, setValue] = React.useState('');
+  const { watch } = useFormContext<AuthStackSForm>();
   const ref = useBlurOnFulfill({ value, cellCount: 6 });
+
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
     setValue,
@@ -25,10 +30,13 @@ export const ConfirmCodeScreen = () => {
     mutate(
       {
         code: value,
-        email: 'antoniel2210@gmail.com',
+        email: watch('email'),
       },
       {
-        onSuccess: navigator.toConfirmCodeScreen,
+        onSuccess: (data) => {
+          setAuthMMKV(authMMKVKeys.authToken, data.token);
+          navigator.toVerifyCodeScreen();
+        },
         onError: () => {
           Burnt.toast({
             title: 'Error on code verification',
@@ -95,7 +103,7 @@ const toastThrottle = throttle(() => {
 
 const navigateFactory = (n: NavigationProp<MainStackNavigationP>) => ({
   toSignUpScreen: () => n.navigate('AuthStackScreen', { screen: 'SignUpScreen' }),
-  toConfirmCodeScreen: () => n.reset({ index: 0, routes: [{ name: 'Home' }] }),
+  toVerifyCodeScreen: () => n.reset({ index: 0, routes: [{ name: 'Home' }] }),
 });
 
 const styles = StyleSheet.create({
