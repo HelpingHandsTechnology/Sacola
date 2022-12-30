@@ -19,7 +19,11 @@ export const Home = () => {
         ListHeaderComponent={() => <Text className="text-xl font-bold mb-4">Your Articles</Text>}
         estimatedItemSize={100}
         data={dummyArticles}
-        renderItem={ArticleCard}
+        renderItem={({ item, index }) => (
+          <View className={`${index === 0 ? 'mt-4' : 'mt-8'}`}>
+            <ArticleCard item={item} />
+          </View>
+        )}
         keyExtractor={(item) => item.id}
       />
     </AppLayout>
