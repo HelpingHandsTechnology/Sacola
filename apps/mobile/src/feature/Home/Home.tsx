@@ -1,15 +1,15 @@
-import React from 'react';
-import type { ComponentBaseP } from '../../../App';
-import { View, Text } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
+import React from 'react';
+import { Text, View } from 'react-native';
+import type { ComponentBaseP } from '../../../App';
 
-import { AppLayout } from '../../shared/components/AppLayout';
 import { dummyArticles } from 'fixtures';
-import { ArticleCard } from './components/ArticleCard';
-import { GreetingComponent } from './components/GreetingComponent';
+import { AppLayout } from '../../shared/components/AppLayout';
+// import { ArticleCard } from './components/ArticleCard';
 import clsx from 'clsx';
-import { Row } from 'design';
+import { ArticleCard, Row } from 'design';
 import { AppButton } from '../../shared/components/AppButton';
+import { GreetingComponent } from './components/GreetingComponent';
 
 export const Home = () => {
   return (
