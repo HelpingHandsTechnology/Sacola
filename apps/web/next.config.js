@@ -1,4 +1,11 @@
-const withTM = require('next-transpile-modules')(['fixtures', 'sacola-trpc', 'design', 'nativewind']);
+const withTM = require('next-transpile-modules')([
+  'fixtures',
+  'sacola-trpc',
+  'design',
+  'nativewind',
+  'moti',
+  'react-native-reanimated',
+]);
 /**
  * @type {import('next').NextConfig} */
 const nextConfig = {

@@ -3,5 +3,6 @@ module.exports = {
   plugins: [
     ['react-native-web', { commonjs: true }],
     ['nativewind/babel', { mode: 'transformOnly' }],
+    'react-native-reanimated/plugin',
   ],
 };
