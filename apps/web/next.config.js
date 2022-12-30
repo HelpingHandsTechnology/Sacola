@@ -3,8 +3,11 @@ const withTM = require('next-transpile-modules')([
   'sacola-trpc',
   'design',
   'nativewind',
+  'react-native',
+  'react-native-web',
   'moti',
-  'react-native-reanimated',
+  '@motify/core',
+  '@motify/components',
 ]);
 /**
  * @type {import('next').NextConfig} */
