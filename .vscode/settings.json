@@ -1,3 +1,4 @@
 {
-  "tailwindCSS.classAttributes": ["className", "class", "xClassName"]
+  "tailwindCSS.classAttributes": ["className", "class", "xClassName"],
+  "editor.formatOnSave": true
 }
