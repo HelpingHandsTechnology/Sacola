@@ -13,11 +13,14 @@ import { catchTrpcError } from '../utils/catchTrpcError';
 const articleProcedure = trpc.procedure.use(authMiddleware);
 
 const formattedArticleUserSchema = z.object({
+  shortDescription: z.string().nullable(),
   articleId: z.string(),
   article: z.object({
     id: z.string(),
     title: z.string(),
     urlDomain: z.string(),
+    image: z.string(),
+    shortDescription: z.string().nullable(),
   }),
   userId: z.string(),
   user: z.object({
@@ -74,12 +77,15 @@ export const articleRouter = trpc.router({
             ...tagsFilter,
           },
           select: {
+            shortDescription: true,
             articleId: true,
             article: {
               select: {
                 id: true,
                 title: true,
                 urlDomain: true,
+                image: true,
+                shortDescription: true,
               },
             },
             userId: true,
@@ -184,12 +190,15 @@ export const articleRouter = trpc.router({
               },
             },
             select: {
+              shortDescription: true,
               articleId: true,
               article: {
                 select: {
                   id: true,
                   title: true,
                   urlDomain: true,
+                  image: true,
+                  shortDescription: true,
                 },
               },
               userId: true,
@@ -224,12 +233,15 @@ export const articleRouter = trpc.router({
               },
             },
             select: {
+              shortDescription: true,
               articleId: true,
               article: {
                 select: {
                   id: true,
                   title: true,
                   urlDomain: true,
+                  image: true,
+                  shortDescription: true,
                 },
               },
               userId: true,
@@ -266,12 +278,15 @@ export const articleRouter = trpc.router({
               },
             },
             select: {
+              shortDescription: true,
               articleId: true,
               article: {
                 select: {
                   id: true,
                   title: true,
                   urlDomain: true,
+                  image: true,
+                  shortDescription: true,
                 },
               },
               userId: true,
@@ -306,12 +321,15 @@ export const articleRouter = trpc.router({
               },
             },
             select: {
+              shortDescription: true,
               articleId: true,
               article: {
                 select: {
                   id: true,
                   title: true,
                   urlDomain: true,
+                  image: true,
+                  shortDescription: true,
                 },
               },
               userId: true,
@@ -383,16 +401,23 @@ export const articleRouter = trpc.router({
           };
         }
 
-        const { data } = await axios.get(url);
+        const { data } = await axios.get(url, {
+          headers: { 'Accept-Encoding': 'gzip,deflate,compress' },
+        });
 
         const doc = new JSDOM(data);
         const readability = new Readability(doc.window.document);
         const reader = readability.parse();
 
+        const imgElement = doc.window.document.querySelector('meta[property="og:image"]');
+        const img = imgElement && imgElement.getAttribute('content');
+
         const newArticle = await prisma.article.create({
           data: {
             title: reader?.title || doc.window.document.title,
             urlDomain: url,
+            image: img || 'https://avatars.githubusercontent.com/u/106390362?s=200&v=4',
+            shortDescription: reader ? reader.excerpt : null,
             articleUser: {
               create: [
                 {
@@ -440,6 +465,7 @@ export const articleRouter = trpc.router({
       z.object({
         id: z.string(),
         isFavorite: z.boolean().optional(),
+        shortDescription: z.string().optional()
       }),
     )
     .output(formattedArticleUserSchema)
@@ -448,6 +474,7 @@ export const articleRouter = trpc.router({
         return await prisma.articleUser.update({
           data: {
             isFavorite: input.isFavorite,
+            shortDescription: input.shortDescription ? input.shortDescription : null,
           },
           where: {
             userId_articleId: {
@@ -456,12 +483,15 @@ export const articleRouter = trpc.router({
             },
           },
           select: {
+            shortDescription: true,
             articleId: true,
             article: {
               select: {
                 id: true,
                 title: true,
                 urlDomain: true,
+                image: true,
+                shortDescription: true,
               },
             },
             userId: true,

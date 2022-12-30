@@ -32,8 +32,8 @@ const authCaller2 = appRouter.createCaller({
 
 describe('Articles suite', () => {
   it('create test', async () => {
-    const res = await authCaller.articles.create({ url: 'https://getpocket.com/home' });
-    const res2 = await authCaller2.articles.create({ url: 'https://getpocket.com/home' });
+    const res = await authCaller.articles.create({ url: 'https://trpc.io' });
+    const res2 = await authCaller2.articles.create({ url: 'https://trpc.io' });
 
     expect(res.articleId).toBe(res2.articleId);
   });
