@@ -30,6 +30,8 @@
     "@trpc/next": "^10.5.0",
     "@trpc/react-query": "^10.5.0",
     "react-native": "0.70.5",
+    "react-native-reanimated": "^2.13.0",
+    "moti": "^0.21.0",
     "react-native-web": "^0.18.10",
     "@trpc/server": "^10.5.0",
     "clsx": "^1.2.1",
