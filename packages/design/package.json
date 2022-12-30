@@ -2,14 +2,16 @@
   "name": "design",
   "version": "0.0.1",
   "private": true,
-  "main": "src/index.ts",
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
   "scripts": {
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
   "dependencies": {
     "@storybook/addon-react-native-web": "^0.0.19",
-    "tailwindcss-classnames": "^3.0.7"
+    "tailwindcss-classnames": "^3.0.7",
+    "fixtures": "*"
   },
   "devDependencies": {
     "@babel/core": "^7.20.5",
