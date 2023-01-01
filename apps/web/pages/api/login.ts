@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import cookie from 'cookie';
+import { ONE_DAY } from '../../utils/time';
 
 const login = (req: NextApiRequest, res: NextApiResponse) => {
   res.setHeader(
@@ -7,7 +8,7 @@ const login = (req: NextApiRequest, res: NextApiResponse) => {
     cookie.serialize('token', req.body.token, {
       httpOnly: false,
       secure: process.env.NODE_ENV !== 'development',
-      maxAge: 60 * 60,
+      maxAge: 7 * ONE_DAY,
       sameSite: 'strict',
       path: '/',
     }),

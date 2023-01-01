@@ -42,10 +42,6 @@ export interface SSRContext extends NextPageContext {
  */
 export const trpcNext = createTRPCNext<AppRouter, SSRContext>({
   config({ ctx }) {
-    /**
-     * If you want to use SSR, you need to use the server's full URL
-     * @link https://trpc.io/docs/ssr
-     */
     return {
       /**
        * @link https://trpc.io/docs/data-transformers
@@ -62,16 +58,13 @@ export const trpcNext = createTRPCNext<AppRouter, SSRContext>({
         }),
         httpBatchLink({
           url: `${getBaseUrl()}/api/trpc`,
-          /**
-           * Set custom request headers on every request from tRPC
-           * @link https://trpc.io/docs/ssr
-           */
           headers() {
             // get token from cookie from local without take from ctx
             const token =
               typeof window !== 'undefined'
                 ? cookie.parse(document.cookie).token
                 : cookie.parse(ctx?.req?.headers?.cookie || '').token;
+
             const httpHeaders: HTTPHeaders = { authorization: token || undefined };
 
             return httpHeaders;
