@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { TextInput } from 'design';
 import { trpcClient } from '../lib/trpc';
 import Link from 'next/link';
-import { setTokenCookie } from '../auth/tokenCookies';
+import { setTokenCookie } from '../lib/cookeis';
 import { useRouter } from 'next/router';
 
 /* eslint-disable react/no-unescaped-entities */
