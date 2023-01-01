@@ -12,8 +12,8 @@ export default function Login() {
   const [showConfirmationCode, setShowConfirmationCode] = useState<boolean>(false);
   const router = useRouter();
 
-  const { mutate, isLoading: isLoadingEmail } = trpcClient.user.signIn.useMutation();
-  const { mutate: confirmCode, isLoading: isLoadingCode } = trpcClient.user.verifyCode.useMutation();
+  const { mutate, isLoading: isLoadingEmail } = trpcClient.auth.signIn.useMutation();
+  const { mutate: confirmCode, isLoading: isLoadingCode } = trpcClient.auth.verifyCode.useMutation();
 
   const handleButtonClick = () => {
     mutate(

@@ -9,7 +9,7 @@ export default function Register() {
   const [email, setEmail] = useState<string>('');
   const [name, setName] = useState<string>('');
   const [showConfirmationCode, setShowConfirmationCode] = useState<boolean>(false);
-  const { mutate } = trpcClient.user.signUp.useMutation();
+  const { mutate } = trpcClient.auth.signUp.useMutation();
   const router = useRouter();
 
   const handleButtonClick = () => {

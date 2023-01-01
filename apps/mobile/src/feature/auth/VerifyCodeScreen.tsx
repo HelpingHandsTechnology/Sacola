@@ -25,7 +25,7 @@ export const VerifyCodeScreen = () => {
 
   const navigation = useNavigation<NavigationProp<MainStackNavigationP>>();
   const navigator = navigateFactory(navigation);
-  const { mutate } = trpc.user.verifyCode.useMutation();
+  const { mutate } = trpc.auth.verifyCode.useMutation();
   const handleSubmit = () => {
     mutate(
       {

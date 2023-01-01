@@ -16,7 +16,7 @@ export const InitialScreen = () => {
   const navigation = useNavigation<NavigationProp<MainStackNavigationP>>();
   const navigator = navigatorFactory(navigation);
 
-  trpc.user.getUserInfo.useQuery(undefined, {
+  trpc.auth.getUserInfo.useQuery(undefined, {
     onSuccess: navigator.navigateHome,
     onError: navigator.navigateOnboarding,
   });

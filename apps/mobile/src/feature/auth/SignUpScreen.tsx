@@ -22,7 +22,7 @@ export const SignUpScreen = () => {
   const navigation = useNavigation<NavigationProp<MainStackNavigationP>>();
   const navigator = navigateFactory(navigation);
   const { handleSubmit, reset } = useFormContext<AuthStackSForm>();
-  const { mutate } = trpc.user.signUp.useMutation();
+  const { mutate } = trpc.auth.signUp.useMutation();
 
   const onSubmit = async (data: AuthStackSForm) => {
     mutate(data, {

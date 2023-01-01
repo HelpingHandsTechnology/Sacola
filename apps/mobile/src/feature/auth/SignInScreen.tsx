@@ -31,7 +31,7 @@ export const SignInScreen = () => {
   const navigation = useNavigation<NavigationProp<MainStackNavigationP>>();
   const navigator = navigateFactory(navigation);
   const { handleSubmit } = useFormContext<AuthStackSForm>();
-  const { mutate } = trpc.user.signIn.useMutation();
+  const { mutate } = trpc.auth.signIn.useMutation();
 
   const submit = (form: AuthStackSForm) => {
     if (!form.email) {
