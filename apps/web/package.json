@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@expo/next-adapter": "^4.0.13",
     "@types/cookie": "^0.5.1",
     "@types/js-cookie": "^3.0.2",
     "@types/node": "18.11.13",
@@ -21,6 +22,7 @@
     "js-cookie": "^3.0.1",
     "next": "13.0.6",
     "next-auth": "^4.18.7",
+    "next-compose-plugins": "^2.2.1",
     "next-transpile-modules": "^10.0.0",
     "sacola-trpc": "*",
     "superjson": "^1.12.0",
