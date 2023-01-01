@@ -5,10 +5,10 @@ import type { AppRouter } from 'sacola-trpc';
 import superjson from 'superjson';
 import { authMMKVKeys, getAuthMMKV } from './mmkv';
 
-export const trpc = createTRPCReact<AppRouter>();
+export const trpcApp = createTRPCReact<AppRouter>();
 
 export const queryClient = new QueryClient();
-export const trpcClient = trpc.createClient({
+export const trpcClient = trpcApp.createClient({
   transformer: superjson,
   links: [
     httpBatchLink({

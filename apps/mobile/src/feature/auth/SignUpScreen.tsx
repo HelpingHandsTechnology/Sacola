@@ -5,7 +5,7 @@ import { useFormContext } from 'react-hook-form';
 import { Text, TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
 import { z } from 'zod';
 import { MainStackNavigationP } from '../../../App';
-import { trpc } from '../../lib/trpc';
+import { trpcApp } from '../../lib/trpc';
 import { errorToast } from '../../shared/animations/toasts';
 import { AppButton } from '../../shared/components/AppButton';
 import { AppLayout } from '../../shared/components/AppLayout';
@@ -22,7 +22,7 @@ export const SignUpScreen = () => {
   const navigation = useNavigation<NavigationProp<MainStackNavigationP>>();
   const navigator = navigateFactory(navigation);
   const { handleSubmit, reset } = useFormContext<AuthStackSForm>();
-  const { mutate } = trpc.auth.signUp.useMutation();
+  const { mutate } = trpcApp.auth.signUp.useMutation();
 
   const onSubmit = async (data: AuthStackSForm) => {
     mutate(data, {

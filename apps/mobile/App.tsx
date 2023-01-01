@@ -10,7 +10,7 @@ import { Home } from './src/feature/Home/Home';
 import { InitialScreen } from './src/feature/InitialScreen';
 import { OnboardingHomeScreen } from './src/feature/onboarding/OnboardingHomeScreen';
 import { authMMKVKeys, getAuthMMKV } from './src/lib/mmkv';
-import { queryClient, trpc, trpcClient } from './src/lib/trpc';
+import { queryClient, trpcApp, trpcClient } from './src/lib/trpc';
 
 export type ComponentBaseP = {
   children?: React.ReactNode;
@@ -27,7 +27,7 @@ const Stack = createNativeStackNavigator<MainStackNavigationP>();
 export default function App() {
   return (
     <SafeAreaProvider>
-      <trpc.Provider client={trpcClient} queryClient={queryClient}>
+      <trpcApp.Provider client={trpcClient} queryClient={queryClient}>
         <GestureHandlerRootView style={{ flex: 1 }}>
           <QueryClientProvider client={queryClient}>
             <NavigationContainer>
@@ -40,7 +40,7 @@ export default function App() {
             </NavigationContainer>
           </QueryClientProvider>
         </GestureHandlerRootView>
-      </trpc.Provider>
+      </trpcApp.Provider>
     </SafeAreaProvider>
   );
 }

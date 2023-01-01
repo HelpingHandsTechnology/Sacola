@@ -5,7 +5,7 @@ import { useFormContext } from 'react-hook-form';
 import { Text, TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
 import * as z from 'zod';
 import { MainStackNavigationP } from '../../../App';
-import { trpc } from '../../lib/trpc';
+import { trpcApp } from '../../lib/trpc';
 import { AppButton } from '../../shared/components/AppButton';
 import { AppLayout } from '../../shared/components/AppLayout';
 import { SpaceY } from '../../shared/components/SpaceY';
@@ -31,7 +31,7 @@ export const SignInScreen = () => {
   const navigation = useNavigation<NavigationProp<MainStackNavigationP>>();
   const navigator = navigateFactory(navigation);
   const { handleSubmit } = useFormContext<AuthStackSForm>();
-  const { mutate } = trpc.auth.signIn.useMutation();
+  const { mutate } = trpcApp.auth.signIn.useMutation();
 
   const submit = (form: AuthStackSForm) => {
     if (!form.email) {

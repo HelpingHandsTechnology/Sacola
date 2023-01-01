@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import React from 'react';
 import Animated, { useAnimatedStyle, useSharedValue, withRepeat, withTiming } from 'react-native-reanimated';
 import { MainStackNavigationP } from '../../App';
-import { trpc } from '../lib/trpc';
+import { trpcApp } from '../lib/trpc';
 import { AppLayout } from '../shared/components/AppLayout';
 
 const navigatorFactory = (n: NavigationProp<MainStackNavigationP>) => {
@@ -16,7 +16,7 @@ export const InitialScreen = () => {
   const navigation = useNavigation<NavigationProp<MainStackNavigationP>>();
   const navigator = navigatorFactory(navigation);
 
-  trpc.auth.getUserInfo.useQuery(undefined, {
+  trpcApp.auth.getUserInfo.useQuery(undefined, {
     onSuccess: navigator.navigateHome,
     onError: navigator.navigateOnboarding,
   });

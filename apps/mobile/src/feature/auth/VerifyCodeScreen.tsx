@@ -6,7 +6,7 @@ import { Image, StyleSheet, Text, TextInput, TouchableOpacity, TouchableOpacityP
 import { CodeField, Cursor, useBlurOnFulfill, useClearByFocusCell } from 'react-native-confirmation-code-field';
 import { MainStackNavigationP } from '../../../App';
 import { authMMKVKeys, deleteAuthMMKV, setAuthMMKV } from '../../lib/mmkv';
-import { trpc } from '../../lib/trpc';
+import { trpcApp } from '../../lib/trpc';
 import { AppButton } from '../../shared/components/AppButton';
 import { AppLayout } from '../../shared/components/AppLayout';
 import { SpaceY } from '../../shared/components/SpaceY';
@@ -25,7 +25,7 @@ export const VerifyCodeScreen = () => {
 
   const navigation = useNavigation<NavigationProp<MainStackNavigationP>>();
   const navigator = navigateFactory(navigation);
-  const { mutate } = trpc.auth.verifyCode.useMutation();
+  const { mutate } = trpcApp.auth.verifyCode.useMutation();
   const handleSubmit = () => {
     mutate(
       {
