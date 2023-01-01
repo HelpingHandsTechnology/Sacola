@@ -1,3 +1,7 @@
+if (typeof window !== 'undefined') {
+  // @ts-ignore
+  window._frameTimestamp = null;
+}
 import 'raf/polyfill';
 import 'babel-polyfill';
 import '../styles/globals.css';

@@ -6,7 +6,7 @@ const nextConfig = {
   swcMinify: true,
 };
 
-const withTM = require('next-transpile-modules')(['fixtures', 'sacola-trpc', 'design', 'nativewind']);
+const withTM = require('next-transpile-modules')(['fixtures', 'sacola-trpc', 'design', 'nativewind', 'moti']);
 const { withExpo } = require('@expo/next-adapter');
 const withPlugins = require('next-compose-plugins');
 
