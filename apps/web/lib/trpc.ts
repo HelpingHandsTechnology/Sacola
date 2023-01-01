@@ -3,6 +3,7 @@ import { createTRPCNext } from '@trpc/next';
 import { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
 import { NextPageContext } from 'next';
 import superjson from 'superjson';
+import cookie from 'cookie';
 import { AppRouter } from 'sacola-trpc';
 
 const getBaseUrl = () => {
@@ -66,8 +67,11 @@ export const trpcNext = createTRPCNext<AppRouter, SSRContext>({
            * @link https://trpc.io/docs/ssr
            */
           headers() {
-            const token = window.localStorage.getItem("token");
-
+            // get token from cookie from local without take from ctx
+            const token =
+              typeof window !== 'undefined'
+                ? cookie.parse(document.cookie).token
+                : cookie.parse(ctx?.req?.headers?.cookie || '').token;
             const httpHeaders: HTTPHeaders = { authorization: token || undefined };
 
             return httpHeaders;
@@ -83,7 +87,7 @@ export const trpcNext = createTRPCNext<AppRouter, SSRContext>({
   /**
    * @link https://trpc.io/docs/ssr
    */
-  ssr: false,
+  ssr: true,
 });
 
 export type RouterInput = inferRouterInputs<AppRouter>;

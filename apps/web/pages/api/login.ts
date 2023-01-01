@@ -5,7 +5,7 @@ const login = (req: NextApiRequest, res: NextApiResponse) => {
   res.setHeader(
     'Set-Cookie',
     cookie.serialize('token', req.body.token, {
-      httpOnly: true,
+      httpOnly: false,
       secure: process.env.NODE_ENV !== 'development',
       maxAge: 60 * 60,
       sameSite: 'strict',
