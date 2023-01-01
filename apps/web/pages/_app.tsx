@@ -6,10 +6,10 @@ import 'raf/polyfill';
 import 'babel-polyfill';
 import '../styles/globals.css';
 import type { AppProps } from 'next/app';
-import { trpcClient } from '../lib/trpc';
+import { trpcNext } from '../lib/trpc';
 
 const App = ({ Component, pageProps }: AppProps) => {
   return <Component {...pageProps} />;
 };
 
-export default trpcClient.withTRPC(App);
+export default trpcNext.withTRPC(App);

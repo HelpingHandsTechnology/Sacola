@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { TextInput } from 'design';
-import { trpcClient } from '../lib/trpc';
+import { trpcNext } from '../lib/trpc';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
@@ -9,7 +9,7 @@ export default function Register() {
   const [email, setEmail] = useState<string>('');
   const [name, setName] = useState<string>('');
   const [showConfirmationCode, setShowConfirmationCode] = useState<boolean>(false);
-  const { mutate } = trpcClient.auth.signUp.useMutation();
+  const { mutate } = trpcNext.auth.signUp.useMutation();
   const router = useRouter();
 
   const handleButtonClick = () => {

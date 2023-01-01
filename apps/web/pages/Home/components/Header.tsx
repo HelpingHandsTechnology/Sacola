@@ -1,10 +1,10 @@
 import { Text } from 'design';
 import { useRouter } from 'next/router';
-import { trpcClient } from '../../../lib/trpc';
+import { trpcNext } from '../../../lib/trpc';
 
 export default function Header() {
   const router = useRouter();
-  const { mutate } = trpcClient.auth.invalidateToken.useMutation();
+  const { mutate } = trpcNext.auth.invalidateToken.useMutation();
   const logout = () => {
     mutate(undefined, {
       onSettled: () => {

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { TextInput } from 'design';
-import { trpcClient } from '../lib/trpc';
+import { trpcNext } from '../lib/trpc';
 import Link from 'next/link';
 import { setTokenCookie } from '../lib/cookeis';
 import { useRouter } from 'next/router';
@@ -12,8 +12,8 @@ export default function Login() {
   const [showConfirmationCode, setShowConfirmationCode] = useState<boolean>(false);
   const router = useRouter();
 
-  const { mutate, isLoading: isLoadingEmail } = trpcClient.auth.signIn.useMutation();
-  const { mutate: confirmCode, isLoading: isLoadingCode } = trpcClient.auth.verifyCode.useMutation();
+  const { mutate, isLoading: isLoadingEmail } = trpcNext.auth.signIn.useMutation();
+  const { mutate: confirmCode, isLoading: isLoadingCode } = trpcNext.auth.verifyCode.useMutation();
 
   const handleButtonClick = () => {
     mutate(
