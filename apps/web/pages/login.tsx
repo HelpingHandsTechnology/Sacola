@@ -17,7 +17,7 @@ export default function Login() {
 
   const handleButtonClick = () => {
     mutate(
-      { email },
+      { email: email.toLowerCase() },
       {
         onSuccess: () => setShowConfirmationCode(true),
       },

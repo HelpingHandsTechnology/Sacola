@@ -7,13 +7,18 @@ import { TaskSendSignInEmail } from '../services/mail';
 import { trpc } from '../trpc';
 import { catchTrpcError } from '../utils/catchTrpcError';
 import { SECONDS } from '../utils/constants';
+import cookie from 'cookie';
 
+const zEmail = z
+  .string()
+  .email()
+  .transform((email) => email.toLowerCase());
 export const authRouter = trpc.router({
   signUp: trpc.procedure
     .input(
       z.object({
         name: z.string(),
-        email: z.string().email(),
+        email: zEmail,
       }),
     )
     .output(
@@ -55,7 +60,11 @@ export const authRouter = trpc.router({
       }
     }),
   signIn: trpc.procedure
-    .input(z.object({ email: z.string().email() }))
+    .input(
+      z.object({
+        email: zEmail,
+      }),
+    )
     .output(
       z.object({
         message: z.string(),
@@ -69,7 +78,6 @@ export const authRouter = trpc.router({
         if (email === 'antoniel2210@gmail.com') {
           return { message: 'Same code 111-111' };
         }
-
         const user = await prisma.user.findUnique({ where: { email } });
         if (!user) {
           throw new TRPCError({
@@ -137,5 +145,25 @@ export const authRouter = trpc.router({
       } catch (e) {
         throw catchTrpcError(e);
       }
+    }),
+  invalidateToken: trpc.procedure
+    .output(
+      z.object({
+        message: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx: { req, res } }) => {
+      const data = res.setHeader(
+        'Set-Cookie',
+        cookie.serialize('token', '', {
+          httpOnly: true,
+          secure: process.env.NODE_ENV !== 'development',
+          maxAge: -1, // set the max age to a negative value to expire the cookie
+          sameSite: 'strict',
+          path: '/',
+        }),
+      );
+
+      return { message: 'Token invalidated' };
     }),
 });
