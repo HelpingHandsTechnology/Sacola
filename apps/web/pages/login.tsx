@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { TextInput } from 'design';
-import { trpcClient } from '../utils/trpc';
+import { trpcClient } from '../lib/trpc';
 import Link from 'next/link';
 import { setTokenCookie } from '../auth/tokenCookies';
 import { useRouter } from 'next/router';

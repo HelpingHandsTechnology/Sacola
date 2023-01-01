@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { TextInput } from 'design';
-import { trpcClient } from '../utils/trpc';
+import { trpcClient } from '../lib/trpc';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
