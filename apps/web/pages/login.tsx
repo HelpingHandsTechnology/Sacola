@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { TextInput } from 'design';
 import { trpcClient } from '../utils/trpc';
 import Link from 'next/link';
-
 import { setTokenCookie } from '../auth/tokenCookies';
 import { useRouter } from 'next/router';
 
@@ -17,19 +16,24 @@ export default function Login() {
   const { mutate: confirmCode, isLoading: isLoadingCode } = trpcClient.user.verifyCode.useMutation();
 
   const handleButtonClick = () => {
-    mutate({ email },
+    mutate(
+      { email },
       {
-        onSuccess: () => setShowConfirmationCode(true)
-      });
+        onSuccess: () => setShowConfirmationCode(true),
+      },
+    );
   };
 
   const handleConfirmCode = () => {
-    confirmCode({ email, code: confirmationCode }, {
-      onSuccess: async (data) => {
-        await setTokenCookie(data.token)
-        router.push('/')
-      }
-    })
+    confirmCode(
+      { email, code: confirmationCode },
+      {
+        onSuccess: async (data) => {
+          await setTokenCookie(data.token);
+          router.push('/');
+        },
+      },
+    );
   };
 
   return (
@@ -39,16 +43,20 @@ export default function Login() {
         <h2 className="text-white text-xl">Sign in to continue</h2>
       </section>
       <section className="flex items-center justify-center w-3/5 flex-col">
-        {isLoadingEmail || isLoadingCode ? <Loading /> : (
-          renderForm({
-            email,
-            setEmail,
-            confirmationCode,
-            setConfirmationCode,
-            showConfirmationCode,
-            handleButtonClick,
-            handleConfirmCode,
-          })
+        {isLoadingEmail || isLoadingCode ? (
+          <Loading />
+        ) : (
+          <Form
+            {...{
+              email,
+              setEmail,
+              confirmationCode,
+              setConfirmationCode,
+              showConfirmationCode,
+              handleButtonClick,
+              handleConfirmCode,
+            }}
+          />
         )}
       </section>
     </div>
@@ -60,18 +68,10 @@ const Loading = () => {
     <div className="flex items-center justify-center h-screen">
       <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900" />
     </div>
-  )
-}
+  );
+};
 
-const renderForm = ({
-  email,
-  setEmail,
-  confirmationCode,
-  setConfirmationCode,
-  showConfirmationCode,
-  handleButtonClick,
-  handleConfirmCode,
-} : {
+type FormP = {
   email: string;
   setEmail: (email: string) => void;
   confirmationCode: string;
@@ -79,25 +79,28 @@ const renderForm = ({
   showConfirmationCode: boolean;
   handleButtonClick: () => void;
   handleConfirmCode: () => void;
-}) => {
-  if(showConfirmationCode) {
+};
+const Form = ({
+  email,
+  setEmail,
+  confirmationCode,
+  setConfirmationCode,
+  showConfirmationCode,
+  handleButtonClick,
+  handleConfirmCode,
+}: FormP) => {
+  if (showConfirmationCode) {
     return (
       <ConfirmationCodeComponent
         confirmationCode={confirmationCode}
         setConfirmationCode={setConfirmationCode}
         handleButtonClick={handleConfirmCode}
       />
-    )
+    );
   } else {
-    return (
-      <EmailFormComponent
-        email={email}
-        setEmail={setEmail}
-        handleButtonClick={handleButtonClick}
-      />
-    )
+    return <EmailFormComponent email={email} setEmail={setEmail} handleButtonClick={handleButtonClick} />;
   }
-}
+};
 
 interface EmailFormComponentProps {
   email: string;
@@ -136,7 +139,7 @@ const EmailFormComponent = ({ email, setEmail, handleButtonClick }: EmailFormCom
 interface ConfirmationCodeComponentProps {
   confirmationCode: string;
   setConfirmationCode: (confirmationCode: string) => void;
-  handleButtonClick: () => void
+  handleButtonClick: () => void;
 }
 
 const ConfirmationCodeComponent = ({
