@@ -74,7 +74,14 @@ export const trpcNext = createTRPCNext<AppRouter, SSRContext>({
       /**
        * @link https://react-query.tanstack.com/reference/QueryClient
        */
-      // queryClientConfig: { defaultOptions: { queries: { staleTime: 60 } } },
+      queryClientConfig: {
+        defaultOptions: {
+          queries: {
+            retry: false,
+            staleTime: 60,
+          },
+        },
+      },
     };
   },
   /**
