@@ -361,7 +361,7 @@ export const articleRouter = trpc.router({
   create: articleProcedure
     .input(z.object({ url: z.string() }))
     .output(z.object({ message: z.string(), articleId: z.string() }))
-    .query(async ({ ctx, input }) => {
+    .mutation(async ({ ctx, input }) => {
       const url = input.url;
 
       try {

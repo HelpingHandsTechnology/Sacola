@@ -31,7 +31,8 @@
     "sacola-trpc": "*",
     "superjson": "^1.12.0",
     "typescript": "4.9.4",
-    "zod": "^3.20.0"
+    "zod": "^3.20.0",
+    "@tailwindcss/line-clamp": "^0.4.2"
   },
   "devDependencies": {
     "@types/nodemailer": "^6.4.6",

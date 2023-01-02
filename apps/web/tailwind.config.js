@@ -33,6 +33,9 @@ module.exports = {
       },
     },
   },
-  plugins: [require('nativewind/tailwind/css')],
+  plugins: [
+    require('nativewind/tailwind/css'),
+    require('@tailwindcss/line-clamp')
+  ],
   important: 'html',
 };
