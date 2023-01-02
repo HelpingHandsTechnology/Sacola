@@ -13,6 +13,7 @@
     ]
   },
   "scripts": {
+    "lint:ts": "yarn tsc --incremental --noEmit",
     "build": "turbo run build",
     "lint": "turbo run lint",
     "format": "turbo run format",

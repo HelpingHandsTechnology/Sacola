@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "lint:ts": "yarn tsc --incremental --noEmit",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

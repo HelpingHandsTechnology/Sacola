@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "main": "src/index.ts",
-  "scripts": {},
+  "scripts": {
+    "lint:ts": "yarn tsc --incremental --noEmit"
+  },
   "dependencies": {},
   "devDependencies": {}
 }

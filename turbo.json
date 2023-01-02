@@ -7,6 +7,9 @@
     "lint": {
       "outputs": []
     },
+    "lint:ts": {
+      "outputs": []
+    },
     "format": {
       "cache": false,
       "outputs": []

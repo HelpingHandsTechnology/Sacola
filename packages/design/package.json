@@ -5,6 +5,7 @@
   "main": "./src/index.ts",
   "module": "./src/index.ts",
   "scripts": {
+    "lint:ts": "yarn tsc --incremental --noEmit",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },

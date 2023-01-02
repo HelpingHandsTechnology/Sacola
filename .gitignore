@@ -1,5 +1,6 @@
 # dependencies
 node_modules
+tsconfig.tsbuildinfo
 .pnp
 .pnp.js
 
