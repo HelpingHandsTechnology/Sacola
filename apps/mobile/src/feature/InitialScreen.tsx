@@ -1,5 +1,6 @@
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import clsx from 'clsx';
+import { userInfo } from 'os';
 import React from 'react';
 import Animated, { useAnimatedStyle, useSharedValue, withRepeat, withTiming } from 'react-native-reanimated';
 import { MainStackNavigationP } from '../../App';
@@ -16,7 +17,7 @@ export const InitialScreen = () => {
   const navigation = useNavigation<NavigationProp<MainStackNavigationP>>();
   const navigator = navigatorFactory(navigation);
 
-  trpcApp.auth.getUserInfo.useQuery(undefined, {
+  trpcApp.user.getUserInfo.useQuery(undefined, {
     onSuccess: navigator.navigateHome,
     onError: navigator.navigateOnboarding,
   });
