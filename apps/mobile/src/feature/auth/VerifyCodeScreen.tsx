@@ -85,7 +85,9 @@ export const VerifyCodeScreen = () => {
               </Text>
             </Text>
           </TouchableOpacity>
-          <AppButton onPress={handleSubmit}>Confirm code</AppButton>
+          <AppButton onPress={handleSubmit}>
+            <Text>Confirm code</Text>
+          </AppButton>
         </SpaceY>
       </SpaceY>
     </AppLayout>

@@ -64,7 +64,9 @@ export const SignUpScreen = () => {
               label="Email"
             />
           </SpaceY>
-          <AppButton onPress={handleSubmit(onSubmit)}>Sign up</AppButton>
+          <AppButton onPress={handleSubmit(onSubmit)}>
+            <Text>Sign up</Text>
+          </AppButton>
           <Text className="text-xs font-light">
             We value your privacy and security. That's why we only ask for the necessary information when you create an
             account. Rest assured that your data will be kept safe and secure with us.

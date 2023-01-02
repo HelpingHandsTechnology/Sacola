@@ -77,7 +77,9 @@ export const SignInScreen = () => {
             keyboardType="email-address"
             label="Email"
           />
-          <AppButton onPress={handleSubmit(submit)}>Send code</AppButton>
+          <AppButton onPress={handleSubmit(submit)}>
+            <Text>Send code</Text>
+          </AppButton>
           <SignUpText onPress={navigator.toSignUpScreen} />
         </SpaceY>
       </SpaceY>
