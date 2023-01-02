@@ -10,23 +10,28 @@ import { Null } from './Null';
 type AppLayoutP = {
   insetTopClassName?: string;
   insetBottomClassName?: string;
+  insetBottom?: number;
+  insetTop?: number;
 } & ComponentBaseP;
 export const AppLayout = ({
   children,
-  insetTopClassName = 'bg-white',
-  insetBottomClassName = 'bg-white',
+  insetTopClassName = 'bg-transparent',
+  insetBottomClassName = 'bg-transparent',
+  insetBottom,
+  insetTop,
   xClassName = 'bg-white p-4',
 }: AppLayoutP) => {
   const inset = useSafeAreaInsets();
   const navigation = useNavigation<NavigationProp<MainStackNavigationP>>();
   const canGoBack = navigation.canGoBack();
+  console.log({ inset });
   return (
-    <>
-      <View style={{ paddingTop: inset.top }} className={clsx(insetTopClassName)} />
+    <View className="flex-1 bg-white">
+      <View style={{ paddingTop: insetTop ?? inset.top }} className={clsx(insetTopClassName)} />
       <Show when={canGoBack} renderItem={() => <GoBackAppLayout insetTopClassName={insetTopClassName} />} />
       <View className={clsx('flex-grow', xClassName)}>{children}</View>
-      <View style={{ paddingBottom: inset.top }} className={clsx(insetBottomClassName)} />
-    </>
+      <View style={{ paddingBottom: insetBottom ?? inset.bottom }} className={clsx(insetBottomClassName)} />
+    </View>
   );
 };
 const GoBackAppLayout = (p: AppLayoutP) => {
