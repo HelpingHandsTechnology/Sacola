@@ -59,7 +59,6 @@ export const trpcNext = createTRPCNext<AppRouter, SSRContext>({
         httpBatchLink({
           url: `${getBaseUrl()}/api/trpc`,
           headers() {
-            // get token from cookie from local without take from ctx
             const token =
               typeof window !== 'undefined'
                 ? cookie.parse(document.cookie).token
