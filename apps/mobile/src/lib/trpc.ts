@@ -7,7 +7,13 @@ import { authMMKVKeys, getAuthMMKV } from './mmkv';
 
 export const trpcApp = createTRPCReact<AppRouter>();
 
-export const queryClient = new QueryClient();
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+    },
+  },
+});
 export const trpcClient = trpcApp.createClient({
   transformer: superjson,
   links: [
