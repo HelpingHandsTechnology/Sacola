@@ -24,7 +24,7 @@ export const AppButton = ({ xClassName = 'w-full bg-white', ...p }: AppButtonP) 
   return (
     <TouchableWithoutFeedback onPressIn={onPressIn} onPressOut={onPressOut} {...p}>
       <Animated.View className={clsx('rounded-xl h-16 justify-center items-center', xClassName)} style={[scaleStyle]}>
-        <Text className="text-2xl text-black">{p.children}</Text>
+        {p.children}
       </Animated.View>
     </TouchableWithoutFeedback>
   );

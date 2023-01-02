@@ -24,7 +24,7 @@ export const AppLayout = ({
   const inset = useSafeAreaInsets();
   const navigation = useNavigation<NavigationProp<MainStackNavigationP>>();
   const canGoBack = navigation.canGoBack();
-  console.log({ inset });
+
   return (
     <View className="flex-1 bg-white">
       <View style={{ paddingTop: insetTop ?? inset.top }} className={clsx(insetTopClassName)} />

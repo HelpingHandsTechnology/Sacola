@@ -20,7 +20,9 @@ export const OnboardingHomeScreen = () => {
         <View className="p-8 bg-app-pink flex-grow bg-black relative">
           <AbsoluteSubtractElement />
           <Image source={require('../../assets/🛍️.png')} className="flex-grow" />
-          <AppButton onPress={navigator.toSignInScreen}>Sign In</AppButton>
+          <AppButton onPress={navigator.toSignInScreen}>
+            <Text>Sign In</Text>
+          </AppButton>
         </View>
       </View>
     </AppLayout>
