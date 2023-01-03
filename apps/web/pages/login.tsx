@@ -4,10 +4,12 @@ import { trpcNext } from '../lib/trpc';
 import Link from 'next/link';
 import { setTokenCookie } from '../lib/cookeis';
 import { useRouter } from 'next/router';
+import clsx from 'clsx';
 
 /* eslint-disable react/no-unescaped-entities */
 export default function Login() {
   const [email, setEmail] = useState<string>('');
+  const [error, setError] = useState<string | null>(null);
   const [confirmationCode, setConfirmationCode] = useState<string>('');
   const [showConfirmationCode, setShowConfirmationCode] = useState<boolean>(false);
   const router = useRouter();
@@ -16,6 +18,18 @@ export default function Login() {
   const { mutate: confirmCode, isLoading: isLoadingCode } = trpcNext.auth.verifyCode.useMutation();
 
   const handleButtonClick = () => {
+    if (!email) {
+      setError('Email is required');
+      return;
+    }
+
+    // validate email with regex
+    const re = /\S+@\S+\.\S+/;
+    if (!re.test(email)) {
+      setError('Email is invalid');
+      return;
+    }
+
     mutate(
       { email: email.toLowerCase() },
       {
@@ -48,6 +62,7 @@ export default function Login() {
         ) : (
           <Form
             {...{
+              error,
               email,
               setEmail,
               confirmationCode,
@@ -72,6 +87,7 @@ const Loading = () => {
 };
 
 type FormP = {
+  error: string | null;
   email: string;
   setEmail: (email: string) => void;
   confirmationCode: string;
@@ -83,6 +99,7 @@ type FormP = {
 const Form = ({
   email,
   setEmail,
+  error,
   confirmationCode,
   setConfirmationCode,
   showConfirmationCode,
@@ -98,17 +115,18 @@ const Form = ({
       />
     );
   } else {
-    return <EmailFormComponent email={email} setEmail={setEmail} handleButtonClick={handleButtonClick} />;
+    return <EmailFormComponent error={error} email={email} setEmail={setEmail} handleButtonClick={handleButtonClick} />;
   }
 };
 
 interface EmailFormComponentProps {
   email: string;
+  error: string | null;
   setEmail: (email: string) => void;
   handleButtonClick: () => void;
 }
 
-const EmailFormComponent = ({ email, setEmail, handleButtonClick }: EmailFormComponentProps) => {
+const EmailFormComponent = ({ email, setEmail, error, handleButtonClick }: EmailFormComponentProps) => {
   return (
     <>
       <fieldset className="flex flex-col w-1/2 gap-2">
@@ -116,12 +134,13 @@ const EmailFormComponent = ({ email, setEmail, handleButtonClick }: EmailFormCom
           E-mail
         </label>
         <TextInput
-          xClassName="border border-black p-2 rounded-md"
+          xClassName={clsx('border border-black p-2 rounded-md', error && 'border-red-600')}
           placeholder="abcd@xyz.com"
           placeholderTextColor={'#333'}
           value={email}
           onChangeText={setEmail}
         />
+        {error && <span className="text-red-600">{error}</span>}
       </fieldset>
       <button onClick={handleButtonClick} className="bg-black text-white text-xl p-4 w-1/2 m-5 rounded-md">
         Send code
