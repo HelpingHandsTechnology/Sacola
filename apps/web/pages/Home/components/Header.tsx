@@ -7,7 +7,7 @@ interface HeaderProps {
   handleCreateArticle: (url: string) => void;
 }
 
-export function Header({ handleCreateArticle }: HeaderProps) {
+export default function Header({ handleCreateArticle }: HeaderProps) {
   const [showAddUrlInput, setShowAddUrlInput] = useState(false);
   const [url, setUrl] = useState<string>('');
   const router = useRouter();
@@ -29,7 +29,10 @@ export function Header({ handleCreateArticle }: HeaderProps) {
         {!showAddUrlInput ? (
           <>
             <div>
-              <button className="w-8 h-8 bg-black rounded-lg items-center justify-center mr-2" onClick={() => setShowAddUrlInput(!showAddUrlInput)}>
+              <button
+                className="w-8 h-8 bg-black rounded-lg items-center justify-center mr-2"
+                onClick={() => setShowAddUrlInput(!showAddUrlInput)}
+              >
                 <Text xClassName="text-xs font-bold text-white">+</Text>
               </button>
               <button className="w-8 h-8 bg-black rounded-full items-center justify-center" onClick={() => logout()}>
@@ -48,10 +51,13 @@ export function Header({ handleCreateArticle }: HeaderProps) {
               className="border rounded-lg border-black px-2 w-full"
             />
             <div className="flex justify-end">
-              <button className="bg-black rounded-lg px-4 py-2 text-white" onClick={() => {
-                handleCreateArticle(url);
-                setShowAddUrlInput(!showAddUrlInput);
-              }}>
+              <button
+                className="bg-black rounded-lg px-4 py-2 text-white"
+                onClick={() => {
+                  handleCreateArticle(url);
+                  setShowAddUrlInput(!showAddUrlInput);
+                }}
+              >
                 Add
               </button>
             </div>
