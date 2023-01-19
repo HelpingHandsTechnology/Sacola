@@ -14,6 +14,15 @@ export const authMiddleware = trpc.middleware(async ({ ctx, next }) => {
         });
     }
 
+    jwt.verify(authorization, process.env.JWT_SECRET || 'secret', (err) => {
+        if (err) {
+            throw new TRPCError({
+                code: 'UNAUTHORIZED',
+                message: 'Invalid JWT'
+            });
+        }
+    });
+
     const jwtUser = jwt.decode(authorization, { json: true });
 
     if (!jwtUser || !jwtUser.id || !jwtUser.exp) {
