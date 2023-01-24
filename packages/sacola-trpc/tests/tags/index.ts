@@ -1,10 +1,10 @@
 require('dotenv').config();
 
 import { describe, it, expect } from 'vitest';
-import jwt from 'jsonwebtoken';
+import { sign } from 'jsonwebtoken';
 import { appRouter } from '../../index';
 
-const token = jwt.sign(
+const token = sign(
   { id: process.env.TONINHO_ID, username: process.env.TONINHO_USERNAME },
   process.env.JWT_SECRET || 'secret',
   {
@@ -20,7 +20,7 @@ const authCaller = appRouter.createCaller({
 describe('Authorization suite', () => {
   it('Should retrieve all Tonis Tags', async () => {
     const res = await authCaller.tags.getTags();
-  
+
     expect(Array.isArray(res)).toBeTruthy();
   });
 });
