@@ -9,6 +9,7 @@ import { prisma } from '../prisma';
 import { authMiddleware } from '../middlewares/auth.middleware';
 import { generateTitlePartialSearch } from '../utils/search';
 import { catchTrpcError } from '../utils/catchTrpcError';
+import { getSiteDescription } from '../utils/readability';
 
 const articleProcedure = trpc.procedure.use(authMiddleware);
 
@@ -417,7 +418,7 @@ export const articleRouter = trpc.router({
             title: reader?.title || doc.window.document.title,
             urlDomain: url,
             image: img || 'https://avatars.githubusercontent.com/u/106390362?s=200&v=4',
-            shortDescription: reader ? reader.excerpt : null,
+            shortDescription: getSiteDescription(reader, doc.window.document),
             articleUser: {
               create: [
                 {
@@ -465,7 +466,7 @@ export const articleRouter = trpc.router({
       z.object({
         id: z.string(),
         isFavorite: z.boolean().optional(),
-        shortDescription: z.string().optional()
+        shortDescription: z.string().optional(),
       }),
     )
     .output(formattedArticleUserSchema)
