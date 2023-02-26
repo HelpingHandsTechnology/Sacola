@@ -85,6 +85,7 @@ export default function Search() {
 
   const [search, setSearch] = useState('');
   const [isDeepSearch, setIsDeepSearch] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
   const [debounceSearch, setDebounceSearch] = useState('');
 
   useDebounce(() => setDebounceSearch(search), 1000, [search]);
@@ -94,7 +95,7 @@ export default function Search() {
     isLoading,
     error,
   } = trpcNext.articles.searchArticle.useQuery(
-    { search: debounceSearch, isDeepSearch: isDeepSearch },
+    { search: debounceSearch, isDeepSearch: isDeepSearch, isFavorite: isFavorite },
     { enabled: Boolean(debounceSearch), refetchOnMount: false, refetchOnWindowFocus: false },
   );
 
@@ -117,6 +118,7 @@ export default function Search() {
 
   const openArticle = (url: string) => window.open(url, '_blank');
 
+  // TODO: add filter by tags here
   return (
     <Layout>
       <div className="max-w-6xl w-full px-4 py-2 flex flex-col gap-2">
@@ -131,12 +133,23 @@ export default function Search() {
         <div className="flex gap-2">
           <input
             type="checkbox"
-            id="checkbox"
-            name="checkbox"
+            id="checkbox-deepsearch"
+            name="checkbox-deepsearch"
             className="cursor-pointer"
             onChange={() => setIsDeepSearch(!isDeepSearch)}
           />
-          <label htmlFor="checkbox">DeepSearch</label>
+          <label htmlFor="checkbox-deepsearch">DeepSearch</label>
+        </div>
+
+        <div className="flex gap-2">
+          <input
+            type="checkbox"
+            id="checkbox-isfavorite"
+            name="checkbox-isfavorite"
+            className="cursor-pointer"
+            onChange={() => setIsFavorite(!isFavorite)}
+          />
+          <label htmlFor="checkbox-isfavorite">IsFavorite</label>
         </div>
       </div>
 
