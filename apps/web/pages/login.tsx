@@ -137,7 +137,7 @@ const EmailFormComponent = ({ email, setEmail, error, handleButtonClick }: Email
       }}
     >
       <fieldset className="flex flex-col w-1/2 gap-2">
-        <MotiView animate={{ opacity: 1 }} from={{ opacity: '0' }} transition={{ type: 'timing', duration: 500 }}>
+        <MotiView animate={{ opacity: 1 }} from={{ opacity: '0' }} transition={{ type: 'timing', duration: 1000 }}>
           <label htmlFor="email" className="text-xl">
             E-mail
           </label>
@@ -154,7 +154,7 @@ const EmailFormComponent = ({ email, setEmail, error, handleButtonClick }: Email
       <MotiView
         animate={{ opacity: 1 }}
         from={{ opacity: '0' }}
-        transition={{ type: 'timing', duration: 500, delay: 300 }}
+        transition={{ type: 'timing', duration: 1000 }}
         className="w-1/2 m-5 space-y-2"
       >
         <button onClick={handleButtonClick} className="bg-black text-white text-xl p-4  rounded-md" type="submit">
