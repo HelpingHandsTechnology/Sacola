@@ -1,13 +1,20 @@
 import { Layout } from '@/components/layout';
-import Header from '@/components/site-header';
 import { ArticleCard, DropdownMenu } from 'design';
 
 import { trpcNext } from '../../lib/trpc';
 
 export default function Home() {
   const utils = trpcNext.useContext();
+
   const { data: articles, isLoading, error } = trpcNext.articles.getAll.useQuery();
+
   const { mutate: deleteMutation } = trpcNext.articles.deleteById.useMutation({
+    onSuccess: () => {
+      utils.articles.getAll.invalidate();
+    },
+  });
+
+  const { mutate: updateMutation } = trpcNext.articles.updateById.useMutation({
     onSuccess: () => {
       utils.articles.getAll.invalidate();
     },
@@ -22,6 +29,9 @@ export default function Home() {
   }
 
   const handleDeleteArticle = (articleId: string) => deleteMutation({ id: articleId });
+
+  const handleFavoriteArticle = (articleId: string, isFavorite: boolean) =>
+    updateMutation({ id: articleId, isFavorite: !isFavorite });
 
   const openArticle = (url: string) => window.open(url, '_blank');
 
@@ -43,6 +53,10 @@ export default function Home() {
                     onClick: () => openArticle(article.article.urlDomain),
                   },
                   { name: 'Remove', onClick: () => handleDeleteArticle(article.article.id) },
+                  {
+                    name: article.isFavorite ? 'Unfavorite' : 'Favorite',
+                    onClick: () => handleFavoriteArticle(article.article.id, article.isFavorite),
+                  },
                 ]}
               />
             </ArticleCard>
