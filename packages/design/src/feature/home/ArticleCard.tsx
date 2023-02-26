@@ -1,6 +1,7 @@
-import { Image, TouchableOpacity, View } from 'react-native';
+import { Image, View } from 'react-native';
+import { Article } from '@prisma/client';
+
 import { Text } from '../../components/Text';
-import { Article, ArticleTag, ArticleUser } from '@prisma/client';
 
 interface ArticleDTO {
   article: Article;
@@ -13,14 +14,12 @@ interface ArticleDTO {
 
 interface ArticleCardProps {
   article: ArticleDTO;
+  children: React.ReactNode;
 }
 
-export function ArticleCard({ article }: ArticleCardProps) {
+export function ArticleCard({ article, children }: ArticleCardProps) {
   return (
-    <TouchableOpacity
-      accessibilityRole="summary"
-      className="flex flex-col w-full bg-black rounded-lg h-80 cursor-pointer"
-    >
+    <div className="flex flex-col w-full bg-black rounded-lg h-80 cursor-pointer relative">
       <View className="flex items-center justify-center overflow-hidden w-full rounded-lg rounded-b-none h-40">
         <Image source={{ uri: article.article.image }} className="object-fill w-full h-full" />
       </View>
@@ -32,7 +31,8 @@ export function ArticleCard({ article }: ArticleCardProps) {
           {article.article.shortDescription}
         </Text>
       </View>
-    </TouchableOpacity>
+      {children}
+    </div>
   );
 }
 

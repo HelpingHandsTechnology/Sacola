@@ -438,7 +438,7 @@ export const articleRouter = trpc.router({
       }),
     )
     .output(z.object({ message: z.string() }))
-    .query(async ({ ctx, input }) => {
+    .mutation(async ({ ctx, input }) => {
       try {
         await prisma.articleUser.delete({
           where: {
@@ -464,7 +464,7 @@ export const articleRouter = trpc.router({
       }),
     )
     .output(formattedArticleUserSchema)
-    .query(async ({ ctx, input }) => {
+    .mutation(async ({ ctx, input }) => {
       try {
         return await prisma.articleUser.update({
           data: {
