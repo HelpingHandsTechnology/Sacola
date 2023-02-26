@@ -14,7 +14,7 @@ JWT_SECRET=
 
 The mobile package is a React Native app that uses Expo with the bare workflow. you can find more details about it on the [README](apps/mobile/README.md) file.
 
-#### How to run ?
+#### How to run ???
 
 ```bash
 # Install dependencies
