@@ -106,17 +106,17 @@ const Form = ({
   handleButtonClick,
   handleConfirmCode,
 }: FormP) => {
-  if (showConfirmationCode) {
-    return (
-      <ConfirmationCodeComponent
-        confirmationCode={confirmationCode}
-        setConfirmationCode={setConfirmationCode}
-        handleButtonClick={handleConfirmCode}
-      />
-    );
-  } else {
+  if (!showConfirmationCode) {
     return <EmailFormComponent error={error} email={email} setEmail={setEmail} handleButtonClick={handleButtonClick} />;
   }
+
+  return (
+    <ConfirmationCodeComponent
+      confirmationCode={confirmationCode}
+      setConfirmationCode={setConfirmationCode}
+      handleButtonClick={handleConfirmCode}
+    />
+  );
 };
 
 interface EmailFormComponentProps {
@@ -175,6 +175,7 @@ const ConfirmationCodeComponent = ({
         <TextInput
           xClassName="border border-black p-2 rounded-md"
           placeholder="123456"
+          maxLength={6}
           placeholderTextColor={'#333'}
           value={confirmationCode}
           onChangeText={setConfirmationCode}
