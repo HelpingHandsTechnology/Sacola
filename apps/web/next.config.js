@@ -1,3 +1,12 @@
+/**
+ * @type {import('next').NextConfig}
+ **/
+const nextConfig = {
+  reactStrictMode: true,
+  swcMinify: true,
+};
+
+const { withExpo } = require('@expo/next-adapter');
 const withTM = require('next-transpile-modules')([
   'fixtures',
   'sacola-trpc',
@@ -9,20 +18,13 @@ const withTM = require('next-transpile-modules')([
   '@motify/core',
   '@motify/components',
 ]);
-/**
- * @type {import('next').NextConfig} */
-const nextConfig = {
-  webpack: (config) => {
-    config.resolve.alias = {
-      ...(config.resolve.alias || {}),
-      // Transform all direct `react-native` imports to `react-native-web`
-      'react-native$': 'react-native-web',
-    };
-    config.resolve.extensions = ['.web.js', '.web.jsx', '.web.ts', '.web.tsx', ...config.resolve.extensions];
-    return config;
-  },
-  reactStrictMode: true,
-  swcMinify: true,
-};
+const withPlugins = require('next-compose-plugins');
 
-module.exports = withTM(nextConfig);
+const transform = withPlugins([withTM, [withExpo, {}]]);
+
+module.exports = function (name, { defaultConfig }) {
+  return transform(name, {
+    ...defaultConfig,
+    ...nextConfig,
+  });
+};

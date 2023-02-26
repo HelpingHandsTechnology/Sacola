@@ -5,6 +5,7 @@ import Link from 'next/link';
 
 import { setTokenCookie } from '../auth/tokenCookies';
 import { useRouter } from 'next/router';
+import { MotiView } from 'moti';
 
 /* eslint-disable react/no-unescaped-entities */
 export default function Login() {
@@ -17,29 +18,41 @@ export default function Login() {
   const { mutate: confirmCode, isLoading: isLoadingCode } = trpcClient.user.verifyCode.useMutation();
 
   const handleButtonClick = () => {
-    mutate({ email },
+    mutate(
+      { email },
       {
-        onSuccess: () => setShowConfirmationCode(true)
-      });
+        onSuccess: () => setShowConfirmationCode(true),
+      },
+    );
   };
 
   const handleConfirmCode = () => {
-    confirmCode({ email, code: confirmationCode }, {
-      onSuccess: async (data) => {
-        await setTokenCookie(data.token)
-        router.push('/')
-      }
-    })
+    confirmCode(
+      { email, code: confirmationCode },
+      {
+        onSuccess: async (data) => {
+          await setTokenCookie(data.token);
+          router.push('/');
+        },
+      },
+    );
   };
 
   return (
-    <div className="flex min-h-screen flex-row justify-between">
+    <MotiView
+      animate={{ opacity: 1 }}
+      from={{ opacity: '0' }}
+      transition={{ type: 'timing', duration: 500 }}
+      className="flex min-h-screen flex-row justify-between"
+    >
       <section className="bg-black py 2 flex items-center text-left justify-center flex-col gap-2 flex-1">
         <h1 className="text-white text-4xl">Welcome</h1>
         <h2 className="text-white text-xl">Sign in to continue</h2>
       </section>
       <section className="flex items-center justify-center w-3/5 flex-col">
-        {isLoadingEmail || isLoadingCode ? <Loading /> : (
+        {isLoadingEmail || isLoadingCode ? (
+          <Loading />
+        ) : (
           renderForm({
             email,
             setEmail,
@@ -51,7 +64,7 @@ export default function Login() {
           })
         )}
       </section>
-    </div>
+    </MotiView>
   );
 }
 
@@ -60,8 +73,8 @@ const Loading = () => {
     <div className="flex items-center justify-center h-screen">
       <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900" />
     </div>
-  )
-}
+  );
+};
 
 const renderForm = ({
   email,
@@ -71,7 +84,7 @@ const renderForm = ({
   showConfirmationCode,
   handleButtonClick,
   handleConfirmCode,
-} : {
+}: {
   email: string;
   setEmail: (email: string) => void;
   confirmationCode: string;
@@ -80,24 +93,18 @@ const renderForm = ({
   handleButtonClick: () => void;
   handleConfirmCode: () => void;
 }) => {
-  if(showConfirmationCode) {
+  if (showConfirmationCode) {
     return (
       <ConfirmationCodeComponent
         confirmationCode={confirmationCode}
         setConfirmationCode={setConfirmationCode}
         handleButtonClick={handleConfirmCode}
       />
-    )
+    );
   } else {
-    return (
-      <EmailFormComponent
-        email={email}
-        setEmail={setEmail}
-        handleButtonClick={handleButtonClick}
-      />
-    )
+    return <EmailFormComponent email={email} setEmail={setEmail} handleButtonClick={handleButtonClick} />;
   }
-}
+};
 
 interface EmailFormComponentProps {
   email: string;
@@ -136,7 +143,7 @@ const EmailFormComponent = ({ email, setEmail, handleButtonClick }: EmailFormCom
 interface ConfirmationCodeComponentProps {
   confirmationCode: string;
   setConfirmationCode: (confirmationCode: string) => void;
-  handleButtonClick: () => void
+  handleButtonClick: () => void;
 }
 
 const ConfirmationCodeComponent = ({
