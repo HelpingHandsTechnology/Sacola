@@ -52,12 +52,7 @@ export default function Login() {
   };
 
   return (
-    <MotiView
-      animate={{ opacity: 1 }}
-      from={{ opacity: '0' }}
-      transition={{ type: 'timing', duration: 500 }}
-      className="flex min-h-screen flex-row justify-between"
-    >
+    <div className="flex min-h-screen flex-row justify-between">
       <section className="bg-black py 2 flex items-center text-left justify-center flex-col gap-2 flex-1">
         <h1 className="text-white text-4xl">Welcome</h1>
         <h2 className="text-white text-xl">Sign in to continue</h2>
@@ -80,7 +75,7 @@ export default function Login() {
           />
         )}
       </section>
-    </MotiView>
+    </div>
   );
 }
 
@@ -142,31 +137,36 @@ const EmailFormComponent = ({ email, setEmail, error, handleButtonClick }: Email
       }}
     >
       <fieldset className="flex flex-col w-1/2 gap-2">
-        <label htmlFor="email" className="text-xl">
-          E-mail
-        </label>
-        <TextInput
-          xClassName={clsx('border border-black p-2 rounded-md', error && 'border-red-600')}
-          placeholder="abcd@xyz.com"
-          placeholderTextColor={'#333'}
-          value={email}
-          onChangeText={setEmail}
-        />
+        <MotiView animate={{ opacity: 1 }} from={{ opacity: '0' }} transition={{ type: 'timing', duration: 500 }}>
+          <label htmlFor="email" className="text-xl">
+            E-mail
+          </label>
+          <TextInput
+            xClassName={clsx('border border-black p-2 rounded-md', error && 'border-red-600')}
+            placeholder="abcd@xyz.com"
+            placeholderTextColor={'#333'}
+            value={email}
+            onChangeText={setEmail}
+          />
+        </MotiView>
         {error && <span className="text-red-600">{error}</span>}
       </fieldset>
-      <button
-        onClick={handleButtonClick}
-        className="bg-black text-white text-xl p-4 w-1/2 m-5 rounded-md"
-        type="submit"
+      <MotiView
+        animate={{ opacity: 1 }}
+        from={{ opacity: '0' }}
+        transition={{ type: 'timing', duration: 500, delay: 300 }}
+        className="w-1/2 m-5 space-y-2"
       >
-        Send code
-      </button>
-      <span>
-        Don't have an account?{' '}
-        <Link href="/register" className="text-blue-600">
-          Register
-        </Link>
-      </span>
+        <button onClick={handleButtonClick} className="bg-black text-white text-xl p-4  rounded-md" type="submit">
+          Send code
+        </button>
+        <span>
+          Don't have an account?{' '}
+          <Link href="/register" className="text-blue-600">
+            Register
+          </Link>
+        </span>
+      </MotiView>
     </form>
   );
 };
