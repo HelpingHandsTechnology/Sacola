@@ -24,10 +24,10 @@ model User {
 
 model Article {
   id               String  @id @unique @default(cuid())
-  title            String
+  title            String  @db.Text
   urlDomain        String  @unique
-  image            String
-  shortDescription String?
+  image            String  @db.Text
+  shortDescription String? @db.Text
 
   articleUser ArticleUser[]
 }
@@ -38,7 +38,7 @@ model ArticleUser {
   article          Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
   articleId        String
   isFavorite       Boolean  @default(false)
-  shortDescription String?
+  shortDescription String?  @db.Text
   createdAt        DateTime @default(now())
 
   articleTags ArticleTag[]

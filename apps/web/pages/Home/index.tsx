@@ -1,13 +1,19 @@
-import { ArticleCard, Text } from 'design';
-import { dummyArticles } from 'fixtures';
+import { ArticleCard } from 'design';
 import { Footer } from '../../components/Footer';
 import { trpcNext } from '../../lib/trpc';
 import Header from './components/Header';
 
 export default function Home() {
+  const utils = trpcNext.useContext();
+
   const { data: articles, isLoading, error } = trpcNext.articles.getAll.useQuery();
 
-  const { mutate } = trpcNext.articles.create.useMutation();
+  // TODO: Do optmistic update here
+  const { mutate } = trpcNext.articles.create.useMutation({
+    onSuccess: () => {
+      utils.articles.getAll.invalidate();
+    },
+  });
 
   if (isLoading) {
     return <div>Loading...</div>;
