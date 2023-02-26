@@ -128,7 +128,13 @@ interface EmailFormComponentProps {
 
 const EmailFormComponent = ({ email, setEmail, error, handleButtonClick }: EmailFormComponentProps) => {
   return (
-    <>
+    <form
+      className="flex items-center justify-center  flex-col w-full"
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleButtonClick();
+      }}
+    >
       <fieldset className="flex flex-col w-1/2 gap-2">
         <label htmlFor="email" className="text-xl">
           E-mail
@@ -142,7 +148,11 @@ const EmailFormComponent = ({ email, setEmail, error, handleButtonClick }: Email
         />
         {error && <span className="text-red-600">{error}</span>}
       </fieldset>
-      <button onClick={handleButtonClick} className="bg-black text-white text-xl p-4 w-1/2 m-5 rounded-md">
+      <button
+        onClick={handleButtonClick}
+        className="bg-black text-white text-xl p-4 w-1/2 m-5 rounded-md"
+        type="submit"
+      >
         Send code
       </button>
       <span>
@@ -151,7 +161,7 @@ const EmailFormComponent = ({ email, setEmail, error, handleButtonClick }: Email
           Register
         </Link>
       </span>
-    </>
+    </form>
   );
 };
 
