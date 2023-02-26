@@ -1,7 +1,5 @@
-import { ArticleCard } from 'design';
-import { DropdownMenu } from 'design';
+import { ArticleCard, DropdownMenu } from 'design';
 
-import { Footer } from '../../components/Footer';
 import { trpcNext } from '../../lib/trpc';
 import Header from './components/Header';
 
