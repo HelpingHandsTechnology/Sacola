@@ -47,7 +47,11 @@ export const DropdownMenu = ({ xClassName, items }: DropdownMenu) => {
               <li
                 key={item.name}
                 className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                onClick={item.onClick}
+                onClick={(e) => {
+                  item.onClick && item.onClick();
+
+                  e.stopPropagation();
+                }}
               >
                 {item.name}
               </li>

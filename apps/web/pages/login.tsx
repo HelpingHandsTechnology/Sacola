@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { setTokenCookie } from '../lib/cookeis';
 import { useRouter } from 'next/router';
 import clsx from 'clsx';
+import { MotiView } from 'moti';
 
 /* eslint-disable react/no-unescaped-entities */
 export default function Login() {
@@ -51,7 +52,12 @@ export default function Login() {
   };
 
   return (
-    <div className="flex min-h-screen flex-row justify-between">
+    <MotiView
+      animate={{ opacity: 1 }}
+      from={{ opacity: '0' }}
+      transition={{ type: 'timing', duration: 500 }}
+      className="flex min-h-screen flex-row justify-between"
+    >
       <section className="bg-black py 2 flex items-center text-left justify-center flex-col gap-2 flex-1">
         <h1 className="text-white text-4xl">Welcome</h1>
         <h2 className="text-white text-xl">Sign in to continue</h2>
@@ -74,7 +80,7 @@ export default function Login() {
           />
         )}
       </section>
-    </div>
+    </MotiView>
   );
 }
 

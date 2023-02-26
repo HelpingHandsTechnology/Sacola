@@ -10,7 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@expo/next-adapter": "^4.0.13",
+    "@expo/next-adapter": "^5.0.2",
     "@tailwindcss/line-clamp": "^0.4.2",
     "@types/cookie": "^0.5.1",
     "@types/js-cookie": "^3.0.2",
@@ -23,6 +23,7 @@
     "eslint-config-next": "13.0.6",
     "fixtures": "*",
     "js-cookie": "^3.0.1",
+    "moti": "^0.18.0",
     "lucide-react": "^0.115.0",
     "next": "13.0.6",
     "next-auth": "^4.18.7",
