@@ -35,7 +35,10 @@ export default function Header({ handleCreateArticle }: HeaderProps) {
               >
                 <Text xClassName="text-xs font-bold text-white">+</Text>
               </button>
-              <button className="w-8 h-8 bg-black rounded-full items-center justify-center" onClick={() => logout()}>
+              <button
+                className="w-8 h-8 bg-black rounded-full items-center justify-center"
+                onClick={() => router.push('/profile')}
+              >
                 <Text xClassName="text-xs font-bold text-white">A</Text>
               </button>
             </div>
