@@ -24,7 +24,7 @@ export default function Header({ handleCreateArticle }: HeaderProps) {
     <header className="flex justify-center w-full shadow-md">
       <div className="max-w-6xl w-full flex justify-between items-center px-4 py-2">
         <Text size="xl" xClassName="sm:text-4xl font-bold">
-          Welcome back! 👋
+          Sacola 🛍️
         </Text>
         {!showAddUrlInput ? (
           <>
