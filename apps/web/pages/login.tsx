@@ -53,11 +53,11 @@ export default function Login() {
 
   return (
     <div className="flex min-h-screen flex-row justify-between">
-      <section className="bg-black py 2 flex items-center text-left justify-center flex-col gap-2 flex-1">
-        <h1 className="text-white text-4xl">Welcome</h1>
-        <h2 className="text-white text-xl">Sign in to continue</h2>
+      <section className="py 2 flex flex-1 flex-col items-center justify-center gap-2 bg-black text-left">
+        <h1 className="text-4xl text-white">Welcome</h1>
+        <h2 className="text-xl text-white">Sign in to continue</h2>
       </section>
-      <section className="flex items-center justify-center w-3/5 flex-col">
+      <section className="flex w-3/5 flex-col items-center justify-center">
         {isLoadingEmail || isLoadingCode ? (
           <Loading />
         ) : (
@@ -81,8 +81,8 @@ export default function Login() {
 
 const Loading = () => {
   return (
-    <div className="flex items-center justify-center h-screen">
-      <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900" />
+    <div className="flex h-screen items-center justify-center">
+      <div className="h-32 w-32 animate-spin rounded-full border-b-2 border-gray-900" />
     </div>
   );
 };
@@ -130,13 +130,13 @@ interface EmailFormComponentProps {
 const EmailFormComponent = ({ email, setEmail, error, handleButtonClick }: EmailFormComponentProps) => {
   return (
     <form
-      className="flex items-center justify-center  flex-col w-full"
+      className="flex w-full flex-col  items-center justify-center"
       onSubmit={(e) => {
         e.preventDefault();
         handleButtonClick();
       }}
     >
-      <fieldset className="flex flex-col w-1/2 gap-2">
+      <fieldset className="flex w-1/2 flex-col gap-2">
         <MotiView animate={{ opacity: 1 }} from={{ opacity: '0' }} transition={{ type: 'timing', duration: 500 }}>
           <label htmlFor="email" className="text-xl">
             E-mail
@@ -155,9 +155,9 @@ const EmailFormComponent = ({ email, setEmail, error, handleButtonClick }: Email
         animate={{ opacity: 1 }}
         from={{ opacity: '0' }}
         transition={{ type: 'timing', duration: 500, delay: 300 }}
-        className="w-1/2 m-5 space-y-2"
+        className="m-5 w-1/2 space-y-2"
       >
-        <button onClick={handleButtonClick} className="bg-black text-white text-xl p-4  rounded-md" type="submit">
+        <button onClick={handleButtonClick} className="rounded-md bg-black p-4 text-xl  text-white" type="submit">
           Send code
         </button>
         <span>
@@ -184,7 +184,7 @@ const ConfirmationCodeComponent = ({
 }: ConfirmationCodeComponentProps) => {
   return (
     <>
-      <fieldset className="flex flex-col w-1/2 gap-2">
+      <fieldset className="flex w-1/2 flex-col gap-2">
         <label htmlFor="email" className="text-xl">
           Confirmation code
         </label>
@@ -197,7 +197,7 @@ const ConfirmationCodeComponent = ({
           onChangeText={setConfirmationCode}
         />
       </fieldset>
-      <button onClick={handleButtonClick} className="bg-black text-white text-xl p-4 w-1/2 m-5 rounded-md">
+      <button onClick={handleButtonClick} className="m-5 w-1/2 rounded-md bg-black p-4 text-xl text-white">
         Confirm code
       </button>
       <span>

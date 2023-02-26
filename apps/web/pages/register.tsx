@@ -19,13 +19,13 @@ export default function Register() {
 
   return (
     <div className="flex min-h-screen flex-row justify-between">
-      <section className="bg-black py-2 flex items-center text-left justify-center flex-col gap-2 flex-1">
-        <div className="max-w-sm flex flex-col gap-2">
-          <h1 className="text-white text-4xl">Sign up now!</h1>
-          <h2 className="text-white text-xl">Create an account and start saving your favorite articles today</h2>
+      <section className="flex flex-1 flex-col items-center justify-center gap-2 bg-black py-2 text-left">
+        <div className="flex max-w-sm flex-col gap-2">
+          <h1 className="text-4xl text-white">Sign up now!</h1>
+          <h2 className="text-xl text-white">Create an account and start saving your favorite articles today</h2>
         </div>
       </section>
-      <section className="flex items-center justify-center w-3/5 flex-col">
+      <section className="flex w-3/5 flex-col items-center justify-center">
         {!showConfirmationCode ? (
           <EmailFormComponent {...{ email, name, setName, setEmail, handleButtonClick }} />
         ) : (
@@ -51,7 +51,7 @@ const EmailFormComponent = ({
 }) => {
   return (
     <>
-      <fieldset className="flex flex-col w-1/2 gap-2 mb-4">
+      <fieldset className="mb-4 flex w-1/2 flex-col gap-2">
         <label htmlFor="name" className="text-xl">
           Name
         </label>
@@ -63,7 +63,7 @@ const EmailFormComponent = ({
           onChangeText={setName}
         />
       </fieldset>
-      <fieldset className="flex flex-col w-1/2 gap-2">
+      <fieldset className="flex w-1/2 flex-col gap-2">
         <label htmlFor="email" className="text-xl">
           E-mail
         </label>
@@ -75,7 +75,7 @@ const EmailFormComponent = ({
           onChangeText={setEmail}
         />
       </fieldset>
-      <button onClick={handleButtonClick} className="bg-black text-white text-xl p-4 w-1/2 m-5 rounded-md">
+      <button onClick={handleButtonClick} className="m-5 w-1/2 rounded-md bg-black p-4 text-xl text-white">
         Register
       </button>
       <span>
@@ -91,7 +91,7 @@ const EmailFormComponent = ({
 const ConfirmationCodeComponent = ({ handleButtonClick }: { handleButtonClick: () => void }) => {
   return (
     <>
-      <fieldset className="flex flex-col w-1/2 gap-2">
+      <fieldset className="flex w-1/2 flex-col gap-2">
         <label htmlFor="email" className="text-xl">
           Confirmation code
         </label>
@@ -103,7 +103,7 @@ const ConfirmationCodeComponent = ({ handleButtonClick }: { handleButtonClick: (
           onChangeText={() => {}}
         />
       </fieldset>
-      <button onClick={handleButtonClick} className="bg-black text-white text-xl p-4 w-1/2 m-5 rounded-md">
+      <button onClick={handleButtonClick} className="m-5 w-1/2 rounded-md bg-black p-4 text-xl text-white">
         Confirm code
       </button>
       <span>

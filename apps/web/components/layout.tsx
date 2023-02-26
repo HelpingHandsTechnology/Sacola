@@ -9,7 +9,7 @@ export function Layout({ children }: LayoutProps) {
   return (
     <>
       <Header />
-      <main className="flex w-full min-h-screen flex-col items-center gap-8">{children}</main>
+      <main className="flex min-h-screen w-full flex-col items-center gap-8">{children}</main>
       <Footer />
     </>
   );

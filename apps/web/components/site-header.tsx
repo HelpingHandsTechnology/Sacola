@@ -16,8 +16,8 @@ export default function Header() {
   });
 
   return (
-    <header className="flex justify-center w-full shadow-md mb-4">
-      <div className="max-w-6xl w-full flex justify-between items-center px-4 py-2">
+    <header className="mb-4 flex w-full justify-center shadow-md">
+      <div className="flex w-full max-w-6xl items-center justify-between px-4 py-2">
         <Link href="/">
           <Text size="xl" xClassName="sm:text-4xl font-bold">
             Sacola 🛍️
@@ -27,13 +27,13 @@ export default function Header() {
           <>
             <div>
               <button
-                className="w-8 h-8 bg-black rounded-lg items-center justify-center mr-2"
+                className="mr-2 h-8 w-8 items-center justify-center rounded-lg bg-black"
                 onClick={() => setShowAddUrlInput(!showAddUrlInput)}
               >
                 <Text xClassName="text-xs font-bold text-white">+</Text>
               </button>
               <button
-                className="w-8 h-8 bg-black rounded-full items-center justify-center"
+                className="h-8 w-8 items-center justify-center rounded-full bg-black"
                 onClick={() => router.push('/profile')}
               >
                 <Text xClassName="text-xs font-bold text-white">A</Text>
@@ -41,18 +41,18 @@ export default function Header() {
             </div>
           </>
         ) : (
-          <div className="flex flex-row gap-2 w-1/2">
+          <div className="flex w-1/2 flex-row gap-2">
             <input
               onChange={(e) => setUrl(e.target.value)}
               value={url}
               type="text"
               placeholder="Save a URL https://..."
               id="title"
-              className="border rounded-lg border-black px-2 w-full"
+              className="w-full rounded-lg border border-black px-2"
             />
             <div className="flex justify-end">
               <button
-                className="bg-black rounded-lg px-4 py-2 text-white"
+                className="rounded-lg bg-black px-4 py-2 text-white"
                 onClick={() => {
                   createMutation({ url });
                   setShowAddUrlInput(!showAddUrlInput);
