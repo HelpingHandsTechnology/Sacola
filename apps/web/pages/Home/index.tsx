@@ -29,7 +29,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex w-full min-h-screen flex-col items-center gap-8">
+    <>
       <Header handleCreateArticle={handleCreateArticle} />
       <main className="w-full px-4 py-4 flex flex-col max-w-6xl mb-auto">
         <section className="grid gap-4 grid-cols-fit-16">
@@ -40,7 +40,6 @@ export default function Home() {
           )}
         </section>
       </main>
-      <Footer />
-    </div>
+    </>
   );
 }
