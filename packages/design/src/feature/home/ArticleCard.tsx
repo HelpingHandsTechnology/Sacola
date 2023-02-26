@@ -13,13 +13,14 @@ interface ArticleDTO {
 }
 
 interface ArticleCardProps {
+  children?: React.ReactNode;
   article: ArticleDTO;
-  children: React.ReactNode;
+  onClick: () => void;
 }
 
-export function ArticleCard({ article, children }: ArticleCardProps) {
+export function ArticleCard({ article, children, onClick }: ArticleCardProps) {
   return (
-    <div className="flex flex-col w-full bg-black rounded-lg h-80 cursor-pointer relative">
+    <div className="flex flex-col w-full bg-black rounded-lg h-80 cursor-pointer relative" onClick={onClick}>
       <View className="flex items-center justify-center overflow-hidden w-full rounded-lg rounded-b-none h-40">
         <Image source={{ uri: article.article.image }} className="object-fill w-full h-full" />
       </View>

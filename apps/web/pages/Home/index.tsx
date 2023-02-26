@@ -33,6 +33,8 @@ export default function Home() {
 
   const handleDeleteArticle = (articleId: string) => deleteMutation({ id: articleId });
 
+  const openArticle = (url: string) => window.open(url, '_blank');
+
   return (
     <>
       <Header handleCreateArticle={handleCreateArticle} />
@@ -40,11 +42,18 @@ export default function Home() {
         <section className="grid gap-4 grid-cols-fit-16">
           {articles.length > 0 ? (
             articles.map((article) => (
-              <ArticleCard article={article} key={article.article.id}>
+              <ArticleCard
+                key={article.article.id}
+                article={article}
+                onClick={() => openArticle(article.article.urlDomain)}
+              >
                 <DropdownMenu
                   xClassName="absolute top-2 right-2 z-10"
                   items={[
-                    { name: 'View', onClick: () => {} },
+                    {
+                      name: 'View',
+                      onClick: () => openArticle(article.article.urlDomain),
+                    },
                     { name: 'Remove', onClick: () => handleDeleteArticle(article.article.id) },
                   ]}
                 />
