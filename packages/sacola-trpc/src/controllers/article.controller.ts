@@ -10,6 +10,8 @@ import { authMiddleware } from '../middlewares/auth.middleware';
 import { generateTitlePartialSearch } from '../utils/search';
 import { catchTrpcError } from '../utils/catchTrpcError';
 import { getSiteDescription } from '../utils/readability';
+import { ArticleRepository } from '../repository/article';
+import { ArticleUserRepository } from '../repository/articleUser';
 
 const articleProcedure = trpc.procedure.use(authMiddleware);
 
@@ -366,20 +368,12 @@ export const articleRouter = trpc.router({
       const url = input.url;
 
       try {
-        const article = await prisma.article.findUnique({
-          where: {
-            urlDomain: url,
-          },
-        });
+        const article = await ArticleRepository.findArticleByUrl(url);
 
         if (article) {
-          const userAlreadySavedArticle = await prisma.articleUser.findUnique({
-            where: {
-              userId_articleId: {
-                userId: ctx.user.id,
-                articleId: article.id,
-              },
-            },
+          const userAlreadySavedArticle = await ArticleUserRepository.findArticleUserByUserIdAndArticleId({
+            articleId: article.id,
+            userId: ctx.user.id,
           });
 
           if (userAlreadySavedArticle) {
