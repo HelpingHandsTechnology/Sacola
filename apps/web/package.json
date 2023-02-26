@@ -23,6 +23,7 @@
     "eslint-config-next": "13.0.6",
     "fixtures": "*",
     "js-cookie": "^3.0.1",
+    "lucide-react": "^0.115.0",
     "next": "13.0.6",
     "next-auth": "^4.18.7",
     "next-compose-plugins": "^2.2.1",
