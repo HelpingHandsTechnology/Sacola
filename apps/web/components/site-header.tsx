@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Text } from 'design';
 import { useRouter } from 'next/router';
 import { trpcNext } from '@/lib/trpc';
+import Link from 'next/link';
 
 export default function Header() {
   const [showAddUrlInput, setShowAddUrlInput] = useState(false);
@@ -17,9 +18,11 @@ export default function Header() {
   return (
     <header className="flex justify-center w-full shadow-md mb-4">
       <div className="max-w-6xl w-full flex justify-between items-center px-4 py-2">
-        <Text size="xl" xClassName="sm:text-4xl font-bold">
-          Sacola 🛍️
-        </Text>
+        <Link href="/">
+          <Text size="xl" xClassName="sm:text-4xl font-bold">
+            Sacola 🛍️
+          </Text>
+        </Link>
         {!showAddUrlInput ? (
           <>
             <div>
