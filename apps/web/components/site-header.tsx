@@ -1,27 +1,21 @@
 import { useState } from 'react';
 import { Text } from 'design';
 import { useRouter } from 'next/router';
-import { trpcNext } from '../../../lib/trpc';
+import { trpcNext } from '@/lib/trpc';
 
-interface HeaderProps {
-  handleCreateArticle: (url: string) => void;
-}
-
-export default function Header({ handleCreateArticle }: HeaderProps) {
+export default function Header() {
   const [showAddUrlInput, setShowAddUrlInput] = useState(false);
   const [url, setUrl] = useState<string>('');
   const router = useRouter();
-  const { mutate } = trpcNext.auth.invalidateToken.useMutation();
-  const logout = () => {
-    mutate(undefined, {
-      onSettled: () => {
-        router.push('/login');
-      },
-    });
-  };
+  const utils = trpcNext.useContext();
+  const { mutate: createMutation } = trpcNext.articles.create.useMutation({
+    onSuccess: () => {
+      utils.articles.getAll.invalidate();
+    },
+  });
 
   return (
-    <header className="flex justify-center w-full shadow-md">
+    <header className="flex justify-center w-full shadow-md mb-4">
       <div className="max-w-6xl w-full flex justify-between items-center px-4 py-2">
         <Text size="xl" xClassName="sm:text-4xl font-bold">
           Sacola 🛍️
@@ -57,7 +51,7 @@ export default function Header({ handleCreateArticle }: HeaderProps) {
               <button
                 className="bg-black rounded-lg px-4 py-2 text-white"
                 onClick={() => {
-                  handleCreateArticle(url);
+                  createMutation({ url });
                   setShowAddUrlInput(!showAddUrlInput);
                 }}
               >
