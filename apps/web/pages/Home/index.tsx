@@ -37,34 +37,37 @@ export default function Home() {
 
   return (
     <Layout>
-      <section className="grid gap-4 grid-cols-fit-16">
-        {articles.length > 0 ? (
-          articles.map((article) => (
-            <ArticleCard
-              key={article.article.id}
-              article={article}
-              onClick={() => openArticle(article.article.urlDomain)}
-            >
-              <DropdownMenu
-                xClassName="absolute top-2 right-2 z-10"
-                items={[
-                  {
-                    name: 'View',
-                    onClick: () => openArticle(article.article.urlDomain),
-                  },
-                  { name: 'Remove', onClick: () => handleDeleteArticle(article.article.id) },
-                  {
-                    name: article.isFavorite ? 'Unfavorite' : 'Favorite',
-                    onClick: () => handleFavoriteArticle(article.article.id, article.isFavorite),
-                  },
-                ]}
-              />
-            </ArticleCard>
-          ))
-        ) : (
-          <div className="text-center">No articles found. Try creating one!</div>
-        )}
-      </section>
+      <div className="container space-y-4">
+        <h1 className="text-2xl font-medium">Your Findings</h1>
+        <section className="grid grid-flow-row gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {articles.length > 0 ? (
+            articles.map((article) => (
+              <ArticleCard
+                key={article.article.id}
+                article={article}
+                onClick={() => openArticle(article.article.urlDomain)}
+              >
+                <DropdownMenu
+                  xClassName="absolute top-2 right-2 z-10"
+                  items={[
+                    {
+                      name: 'View',
+                      onClick: () => openArticle(article.article.urlDomain),
+                    },
+                    { name: 'Remove', onClick: () => handleDeleteArticle(article.article.id) },
+                    {
+                      name: article.isFavorite ? 'Unfavorite' : 'Favorite',
+                      onClick: () => handleFavoriteArticle(article.article.id, article.isFavorite),
+                    },
+                  ]}
+                />
+              </ArticleCard>
+            ))
+          ) : (
+            <div className="text-center">No articles found. Try creating one!</div>
+          )}
+        </section>
+      </div>
     </Layout>
   );
 }

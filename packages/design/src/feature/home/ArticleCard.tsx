@@ -20,12 +20,12 @@ interface ArticleCardProps {
 
 export function ArticleCard({ article, children, onClick }: ArticleCardProps) {
   return (
-    <div className="flex flex-col w-full bg-black rounded-lg h-80 cursor-pointer relative" onClick={onClick}>
-      <View className="flex items-center justify-center overflow-hidden w-full rounded-lg rounded-b-none h-40">
-        <Image source={{ uri: article.article.image }} className="object-fill w-full h-full" />
+    <div className="relative flex h-80 w-full cursor-pointer flex-col rounded-lg bg-black sm:h-72" onClick={onClick}>
+      <View className="flex h-40 w-full items-center justify-center overflow-hidden rounded-lg rounded-b-none">
+        <Image source={{ uri: article.article.image }} className="h-full w-full object-fill" />
       </View>
-      <View className="flex flex-1 flex-col p-4 h-fit">
-        <Text as="h3" xClassName="text-2xl text-white font-bold line-clamp-2">
+      <View className="flex h-fit flex-1 flex-col p-4">
+        <Text as="h3" xClassName="text-xl text-white font-bold line-clamp-2">
           {article.article.title}
         </Text>
         <Text as="p" xClassName="text-sm text-white line-clamp-3">
