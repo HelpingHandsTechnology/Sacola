@@ -154,7 +154,7 @@ const EmailFormComponent = ({ email, setEmail, error, handleButtonClick }: Email
       <MotiView
         animate={{ opacity: 1 }}
         from={{ opacity: '0' }}
-        transition={{ type: 'timing', duration: 500, delay: 300 }}
+        transition={{ type: 'timing', duration: 1000 }}
         className="m-5 w-1/2 space-y-2"
       >
         <button onClick={handleButtonClick} className="rounded-md bg-black p-4 text-xl  text-white" type="submit">
