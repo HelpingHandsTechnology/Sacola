@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Layout } from '@/components/layout';
 import { useDebounce } from 'react-use';
-import { ArticleCard, DropdownMenu } from 'design';
+import { ArticleCard, DropdownMenu, TextInput } from 'design';
 import { Article } from '@prisma/client';
 
 import { trpcNext } from '../lib/trpc';
@@ -121,13 +121,11 @@ export default function Search() {
   // TODO: add filter by tags here
   return (
     <Layout>
-      <div className="max-w-6xl w-full px-4 py-2 flex flex-col gap-2">
-        <input
-          type="text"
+      <div className="flex w-full max-w-6xl flex-col gap-2 px-4 py-2">
+        <TextInput
           value={search}
-          className="border rounded-lg border-black px-2 w-full"
-          placeholder="search pipipopo"
-          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search your articles..."
+          onChange={(e) => setSearch(e.nativeEvent.text)}
         />
 
         <div className="flex gap-2">
@@ -138,7 +136,7 @@ export default function Search() {
             className="cursor-pointer"
             onChange={() => setIsDeepSearch(!isDeepSearch)}
           />
-          <label htmlFor="checkbox-deepsearch">DeepSearch</label>
+          <label htmlFor="checkbox-deepsearch">Deep Search</label>
         </div>
 
         <div className="flex gap-2">
@@ -149,7 +147,7 @@ export default function Search() {
             className="cursor-pointer"
             onChange={() => setIsFavorite(!isFavorite)}
           />
-          <label htmlFor="checkbox-isfavorite">IsFavorite</label>
+          <label htmlFor="checkbox-isfavorite">Only Favorites</label>
         </div>
       </div>
 

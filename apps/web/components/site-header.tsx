@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Text } from 'design';
+import { Text, TextInput } from 'design';
 import { useRouter } from 'next/router';
 import { trpcNext } from '@/lib/trpc';
 import Link from 'next/link';
@@ -42,13 +42,11 @@ export default function Header() {
           </>
         ) : (
           <div className="flex w-1/2 flex-row gap-2">
-            <input
-              onChange={(e) => setUrl(e.target.value)}
+            <TextInput
+              nativeID="title"
+              onChange={(e) => setUrl(e.nativeEvent.text)}
               value={url}
-              type="text"
               placeholder="Save a URL https://..."
-              id="title"
-              className="w-full rounded-lg border border-black px-2"
             />
             <div className="flex justify-end">
               <button
