@@ -52,12 +52,12 @@ export default function Login() {
   };
 
   return (
-    <div className="flex min-h-screen flex-row justify-between">
-      <section className="py 2 flex flex-1 flex-col items-center justify-center gap-2 bg-black text-left">
+    <div className="flex min-h-screen laptop:flex-row laptop:justify-between flex-col">
+      <section className="py-2 flex laptop:flex-1 flex-col items-center justify-center gap-2 bg-black text-left">
         <h1 className="text-4xl text-white">Welcome</h1>
         <h2 className="text-xl text-white">Sign in to continue</h2>
       </section>
-      <section className="flex w-3/5 flex-col items-center justify-center">
+      <section className="flex w-full laptop:w-3/5 flex-col items-center justify-center">
         {isLoadingEmail || isLoadingCode ? (
           <Loading />
         ) : (
@@ -130,13 +130,13 @@ interface EmailFormComponentProps {
 const EmailFormComponent = ({ email, setEmail, error, handleButtonClick }: EmailFormComponentProps) => {
   return (
     <form
-      className="flex w-full flex-col  items-center justify-center"
+      className="flex w-full flex-col items-center justify-center"
       onSubmit={(e) => {
         e.preventDefault();
         handleButtonClick();
       }}
     >
-      <fieldset className="flex w-1/2 flex-col gap-2">
+      <fieldset className="flex laptop:w-1/2 w-full p-4 flex-col gap-2">
         <MotiView animate={{ opacity: 1 }} from={{ opacity: '0' }} transition={{ type: 'timing', duration: 500 }}>
           <label htmlFor="email" className="text-xl">
             E-mail
@@ -155,7 +155,7 @@ const EmailFormComponent = ({ email, setEmail, error, handleButtonClick }: Email
         animate={{ opacity: 1 }}
         from={{ opacity: '0' }}
         transition={{ type: 'timing', duration: 1000 }}
-        className="m-5 w-1/2 space-y-2"
+        className="m-5 w-full laptop:w-1/2 space-y-2 px-4"
       >
         <button onClick={handleButtonClick} className="rounded-md bg-black p-4 text-xl  text-white" type="submit">
           Send code
@@ -184,7 +184,8 @@ const ConfirmationCodeComponent = ({
 }: ConfirmationCodeComponentProps) => {
   return (
     <>
-      <fieldset className="flex w-1/2 flex-col gap-2">
+      <fieldset className="flex laptop:w-1/2 w-full p-4 flex-col gap-2">
+      <MotiView animate={{ opacity: 1 }} from={{ opacity: '0' }} transition={{ type: 'timing', duration: 500 }}>
         <label htmlFor="email" className="text-xl">
           Confirmation code
         </label>
@@ -196,16 +197,28 @@ const ConfirmationCodeComponent = ({
           value={confirmationCode}
           onChangeText={setConfirmationCode}
         />
+        </MotiView>
       </fieldset>
-      <button onClick={handleButtonClick} className="m-5 w-1/2 rounded-md bg-black p-4 text-xl text-white">
-        Confirm code
-      </button>
-      <span>
-        Didn't received the code?{' '}
-        <Link href="#" className="text-blue-600">
-          Resend
-        </Link>
-      </span>
+
+
+      <MotiView
+        animate={{ opacity: 1 }}
+        from={{ opacity: '0' }}
+        transition={{ type: 'timing', duration: 1000 }}
+        className="m-5 w-full laptop:w-1/2 space-y-2 px-4"
+      >
+        <button onClick={handleButtonClick} className="rounded-md bg-black p-4 text-xl  text-white" type="submit">
+          Confirm code
+        </button>
+        <span>
+          Didn't received the code?{' '}
+          <Link href="/register" className="text-blue-600">
+            Resend
+          </Link>
+        </span>
+      </MotiView>
+
+
     </>
   );
 };
