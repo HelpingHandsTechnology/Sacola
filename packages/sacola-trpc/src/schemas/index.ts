@@ -5,6 +5,7 @@ export const userSchema: ZodLazy<ZodType<User>> = z.lazy(() => z.object({
   id: z.string(),
   name: z.string(),
   email: z.string(),
+  username: z.string().nullable(),
   emailVerified: z.boolean(),
   lastCode: z.string().nullable(),
   codeLastSent: z.date().nullable(),
