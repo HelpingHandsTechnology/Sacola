@@ -10,6 +10,20 @@ ALTERNATIVE_TONINHO_ID=
 JWT_SECRET=
 ```
 
+### Web
+
+The web package is a Next.JS app. you can find more details about it on the [README](apps/web/README.md) file.
+
+#### How to run ?
+
+```bash
+# Install dependencies
+yarn
+
+# Run web app
+yarn dev:web
+```
+
 ### Mobile
 
 The mobile package is a React Native app that uses Expo with the bare workflow. you can find more details about it on the [README](apps/mobile/README.md) file.
