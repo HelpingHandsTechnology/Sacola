@@ -10,17 +10,6 @@ ALTERNATIVE_TONINHO_ID=
 JWT_SECRET=
 ```
 
-### Server
-
-The server package is a NodeJS API using Express and Prisma as ORM. you can find more details about it on the [README](apps/server/README.md) file.
-
-#### How to run ?
-
-```bash
-# Install dependencies
-yarn
-
-
 ### Web
 
 The web package is a Next.JS app. you can find more details about it on the [README](apps/web/README.md) file.
