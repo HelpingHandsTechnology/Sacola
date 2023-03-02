@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { setTokenCookie } from '../lib/cookeis';
 import { useRouter } from 'next/router';
 import clsx from 'clsx';
+import { MotiView } from 'moti';
 
 /* eslint-disable react/no-unescaped-entities */
 export default function Login() {
@@ -51,12 +52,12 @@ export default function Login() {
   };
 
   return (
-    <div className="flex min-h-screen flex-row justify-between">
-      <section className="bg-black py 2 flex items-center text-left justify-center flex-col gap-2 flex-1">
-        <h1 className="text-white text-4xl">Welcome</h1>
-        <h2 className="text-white text-xl">Sign in to continue</h2>
+    <div className="flex min-h-screen laptop:flex-row laptop:justify-between flex-col">
+      <section className="py-2 flex laptop:flex-1 flex-col items-center justify-center gap-2 bg-black text-left">
+        <h1 className="text-4xl text-white">Welcome</h1>
+        <h2 className="text-xl text-white">Sign in to continue</h2>
       </section>
-      <section className="flex items-center justify-center w-3/5 flex-col">
+      <section className="flex w-full laptop:w-3/5 flex-col items-center justify-center">
         {isLoadingEmail || isLoadingCode ? (
           <Loading />
         ) : (
@@ -80,8 +81,8 @@ export default function Login() {
 
 const Loading = () => {
   return (
-    <div className="flex items-center justify-center h-screen">
-      <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900" />
+    <div className="flex h-screen items-center justify-center">
+      <div className="h-32 w-32 animate-spin rounded-full border-b-2 border-gray-900" />
     </div>
   );
 };
@@ -106,17 +107,17 @@ const Form = ({
   handleButtonClick,
   handleConfirmCode,
 }: FormP) => {
-  if (showConfirmationCode) {
-    return (
-      <ConfirmationCodeComponent
-        confirmationCode={confirmationCode}
-        setConfirmationCode={setConfirmationCode}
-        handleButtonClick={handleConfirmCode}
-      />
-    );
-  } else {
+  if (!showConfirmationCode) {
     return <EmailFormComponent error={error} email={email} setEmail={setEmail} handleButtonClick={handleButtonClick} />;
   }
+
+  return (
+    <ConfirmationCodeComponent
+      confirmationCode={confirmationCode}
+      setConfirmationCode={setConfirmationCode}
+      handleButtonClick={handleConfirmCode}
+    />
+  );
 };
 
 interface EmailFormComponentProps {
@@ -128,30 +129,45 @@ interface EmailFormComponentProps {
 
 const EmailFormComponent = ({ email, setEmail, error, handleButtonClick }: EmailFormComponentProps) => {
   return (
-    <>
-      <fieldset className="flex flex-col w-1/2 gap-2">
-        <label htmlFor="email" className="text-xl">
-          E-mail
-        </label>
-        <TextInput
-          xClassName={clsx('border border-black p-2 rounded-md', error && 'border-red-600')}
-          placeholder="abcd@xyz.com"
-          placeholderTextColor={'#333'}
-          value={email}
-          onChangeText={setEmail}
-        />
+    <form
+      className="flex w-full flex-col items-center justify-center"
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleButtonClick();
+      }}
+    >
+      <fieldset className="flex laptop:w-1/2 w-full p-4 flex-col gap-2">
+        <MotiView animate={{ opacity: 1 }} from={{ opacity: '0' }} transition={{ type: 'timing', duration: 500 }}>
+          <label htmlFor="email" className="text-xl">
+            E-mail
+          </label>
+          <TextInput
+            xClassName={clsx('border border-black p-2 rounded-md', error && 'border-red-600')}
+            placeholder="abcd@xyz.com"
+            placeholderTextColor={'#333'}
+            value={email}
+            onChangeText={setEmail}
+          />
+        </MotiView>
         {error && <span className="text-red-600">{error}</span>}
       </fieldset>
-      <button onClick={handleButtonClick} className="bg-black text-white text-xl p-4 w-1/2 m-5 rounded-md">
-        Send code
-      </button>
-      <span>
-        Don't have an account?{' '}
-        <Link href="/register" className="text-blue-600">
-          Register
-        </Link>
-      </span>
-    </>
+      <MotiView
+        animate={{ opacity: 1 }}
+        from={{ opacity: '0' }}
+        transition={{ type: 'timing', duration: 1000 }}
+        className="m-5 w-full laptop:w-1/2 space-y-2 px-4"
+      >
+        <button onClick={handleButtonClick} className="rounded-md bg-black p-4 text-xl  text-white" type="submit">
+          Send code
+        </button>
+        <span>
+          Don't have an account?{' '}
+          <Link href="/register" className="text-blue-600">
+            Register
+          </Link>
+        </span>
+      </MotiView>
+    </form>
   );
 };
 
@@ -168,27 +184,41 @@ const ConfirmationCodeComponent = ({
 }: ConfirmationCodeComponentProps) => {
   return (
     <>
-      <fieldset className="flex flex-col w-1/2 gap-2">
+      <fieldset className="flex laptop:w-1/2 w-full p-4 flex-col gap-2">
+      <MotiView animate={{ opacity: 1 }} from={{ opacity: '0' }} transition={{ type: 'timing', duration: 500 }}>
         <label htmlFor="email" className="text-xl">
           Confirmation code
         </label>
         <TextInput
           xClassName="border border-black p-2 rounded-md"
           placeholder="123456"
+          maxLength={6}
           placeholderTextColor={'#333'}
           value={confirmationCode}
           onChangeText={setConfirmationCode}
         />
+        </MotiView>
       </fieldset>
-      <button onClick={handleButtonClick} className="bg-black text-white text-xl p-4 w-1/2 m-5 rounded-md">
-        Confirm code
-      </button>
-      <span>
-        Didn't received the code?{' '}
-        <Link href="#" className="text-blue-600">
-          Resend
-        </Link>
-      </span>
+
+
+      <MotiView
+        animate={{ opacity: 1 }}
+        from={{ opacity: '0' }}
+        transition={{ type: 'timing', duration: 1000 }}
+        className="m-5 w-full laptop:w-1/2 space-y-2 px-4"
+      >
+        <button onClick={handleButtonClick} className="rounded-md bg-black p-4 text-xl  text-white" type="submit">
+          Confirm code
+        </button>
+        <span>
+          Didn't received the code?{' '}
+          <Link href="/register" className="text-blue-600">
+            Resend
+          </Link>
+        </span>
+      </MotiView>
+
+
     </>
   );
 };

@@ -1,5 +1,5 @@
 import { TRPCError } from '@trpc/server';
-import jwt from 'jsonwebtoken';
+import { sign } from 'jsonwebtoken';
 import z from 'zod';
 import { mail } from '../mail';
 import { prisma } from '../prisma';
@@ -137,7 +137,7 @@ export const authRouter = trpc.router({
           });
         }
 
-        const token = jwt.sign({ id: user.id, username: user.name }, process.env.JWT_SECRET || 'secret', {
+        const token = sign({ id: user.id, username: user.name }, process.env.JWT_SECRET || 'secret', {
           expiresIn: '7d',
         });
 

@@ -1,13 +1,24 @@
-import { ArticleCard, Text } from 'design';
-import { dummyArticles } from 'fixtures';
-import { Footer } from '../../components/Footer';
+import { Layout } from '@/components/layout';
+import { ArticleCard, DropdownMenu } from 'design';
+
 import { trpcNext } from '../../lib/trpc';
-import { Header } from './components/Header';
 
 export default function Home() {
+  const utils = trpcNext.useContext();
+
   const { data: articles, isLoading, error } = trpcNext.articles.getAll.useQuery();
 
-  const { mutate } = trpcNext.articles.create.useMutation();
+  const { mutate: deleteMutation } = trpcNext.articles.deleteById.useMutation({
+    onSuccess: () => {
+      utils.articles.getAll.invalidate();
+    },
+  });
+
+  const { mutate: updateMutation } = trpcNext.articles.updateById.useMutation({
+    onSuccess: () => {
+      utils.articles.getAll.invalidate();
+    },
+  });
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -17,29 +28,46 @@ export default function Home() {
     return <div>{error.message}</div>;
   }
 
-  const handleCreateArticle = (url: string) => {
-    mutate({url}, {
-      onSuccess: () => {
-        console.log('article created');
-      }
-    })
-  }
+  const handleDeleteArticle = (articleId: string) => deleteMutation({ id: articleId });
+
+  const handleFavoriteArticle = (articleId: string, isFavorite: boolean) =>
+    updateMutation({ id: articleId, isFavorite: !isFavorite });
+
+  const openArticle = (url: string) => window.open(url, '_blank');
 
   return (
-    <div className="flex w-full min-h-screen flex-col items-center gap-8">
-      <Header handleCreateArticle={handleCreateArticle} />
-      <main className="w-full px-4 py-4 flex flex-col max-w-6xl mb-auto">
-        <section className="grid gap-4 grid-cols-fit-16">
-          {articles.length > 0 ? articles.map((article) => (
-            <ArticleCard article={article} key={article.article.id} />
-          )) : (
-            <div className="text-center">
-              No articles found. Try creating one!
-            </div>
+    <Layout>
+      <div className="container space-y-4">
+        <h1 className="text-2xl font-medium">Your Findings</h1>
+        <section className="grid grid-flow-row gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {articles.length > 0 ? (
+            articles.map((article) => (
+              <ArticleCard
+                key={article.article.id}
+                article={article}
+                onClick={() => openArticle(article.article.urlDomain)}
+              >
+                <DropdownMenu
+                  xClassName="absolute top-2 right-2 z-10"
+                  items={[
+                    {
+                      name: 'View',
+                      onClick: () => openArticle(article.article.urlDomain),
+                    },
+                    { name: 'Remove', onClick: () => handleDeleteArticle(article.article.id) },
+                    {
+                      name: article.isFavorite ? 'Unfavorite' : 'Favorite',
+                      onClick: () => handleFavoriteArticle(article.article.id, article.isFavorite),
+                    },
+                  ]}
+                />
+              </ArticleCard>
+            ))
+          ) : (
+            <div className="text-center">No articles found. Try creating one!</div>
           )}
         </section>
-      </main>
-      <Footer />
-    </div>
+      </div>
+    </Layout>
   );
 }

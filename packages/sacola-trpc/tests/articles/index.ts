@@ -1,10 +1,10 @@
 require('dotenv').config();
 
 import { describe, it, expect } from 'vitest';
-import jwt from 'jsonwebtoken';
+import { sign } from 'jsonwebtoken';
 import { appRouter } from '../../index';
 
-const token = jwt.sign(
+const token = sign(
   { id: process.env.TONINHO_ID, username: process.env.TONINHO_USERNAME },
   process.env.JWT_SECRET || 'secret',
   {
@@ -12,7 +12,7 @@ const token = jwt.sign(
   },
 );
 
-const token2 = jwt.sign(
+const token2 = sign(
   { id: process.env.ALTERNATIVE_TONINHO_ID, username: process.env.TONINHO_USERNAME },
   process.env.JWT_SECRET || 'secret',
   {

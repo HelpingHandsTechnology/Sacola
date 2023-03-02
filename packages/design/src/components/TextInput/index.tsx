@@ -14,8 +14,12 @@ export const TextInput = React.forwardRef<InputRNW, TextInputP>(
         {...props}
         ref={ref}
         className={clsx(
-          'px-2 py-4 rounded-md',
-          props.hasError ? 'border-red-500 bg-red-100' : 'border border-black',
+          'flex h-10 w-full rounded-md border bg-transparent',
+          'py-2 px-3 text-sm',
+          'focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
+          'placeholder:text-neutral-400 focus:ring-neutral-400',
+          props.hasError ? 'border-red-500 bg-red-100' : 'border border-neutral-300',
+
           xClassName,
         )}
       />

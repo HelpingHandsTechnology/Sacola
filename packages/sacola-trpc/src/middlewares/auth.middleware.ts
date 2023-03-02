@@ -1,5 +1,5 @@
 import { TRPCError } from '@trpc/server';
-import jwt from 'jsonwebtoken';
+import { verify, decode } from 'jsonwebtoken';
 
 import { trpc } from '../trpc';
 import { prisma } from '../prisma'
@@ -14,7 +14,16 @@ export const authMiddleware = trpc.middleware(async ({ ctx, next }) => {
         });
     }
 
-    const jwtUser = jwt.decode(authorization, { json: true });
+    verify(authorization, process.env.JWT_SECRET || 'secret', (err) => {
+        if (err) {
+            throw new TRPCError({
+                code: 'UNAUTHORIZED',
+                message: 'Invalid JWT'
+            });
+        }
+    });
+
+    const jwtUser = decode(authorization, { json: true });
 
     if (!jwtUser || !jwtUser.id || !jwtUser.exp) {
         throw new TRPCError({
