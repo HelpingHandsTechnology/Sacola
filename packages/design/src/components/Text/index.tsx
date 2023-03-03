@@ -7,7 +7,7 @@ import { getSizeClassname, getTextAlignClassname, getWeightClassname } from './u
 export interface TextProps {
   children: React.ReactNode;
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span';
-  size?: 'xl' | 'lg' | 'md' | 'sm' | 'xs';
+  size?: '4xl' | '3xl' | '2xl' | 'xl' | 'lg' | 'md' | 'sm' | 'xs';
   weight?: 'thin' | 'normal' | 'medium' | 'bold' | 'extrabold';
   textAlign?: 'left' | 'center' | 'right';
   xClassName?: string;
