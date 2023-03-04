@@ -136,7 +136,7 @@ export const articleRouter = trpc.router({
   searchArticle: articleProcedure
     .input(
       z.object({
-        search: z.string(),
+        search: z.string().optional(),
         isDeepSearch: z.boolean(),
         isFavorite: z.boolean().optional(),
         tags: z.array(z.string()).optional(),
@@ -146,46 +146,49 @@ export const articleRouter = trpc.router({
     .query(async ({ ctx, input }) => {
       const search = input.search;
 
-      const tagsFilter = input?.tags
-        ? {
-            articleTags: {
-              some: {
-                OR: input.tags.map((item): Prisma.ArticleTagWhereInput => {
-                  return {
-                    tag: {
-                      name: {
-                        equals: item,
+      const tagsFilter =
+        input?.tags && input.tags.length > 0
+          ? {
+              articleTags: {
+                some: {
+                  OR: input.tags.map((item): Prisma.ArticleTagWhereInput => {
+                    return {
+                      tag: {
+                        name: {
+                          equals: item,
+                        },
                       },
-                    },
-                  };
-                }),
+                    };
+                  }),
+                },
               },
-            },
-          }
-        : {};
+            }
+          : {};
 
       try {
         if (input.isDeepSearch) {
           return await prisma.articleUser.findMany({
             where: {
               userId: ctx.user.id,
-              article: {
-                OR: [
-                  {
-                    title: {
-                      startsWith: search,
-                    },
-                  },
-                  {
-                    title: {
-                      contains: search,
-                    },
-                  },
-                  {
-                    AND: generateTitlePartialSearch(search),
-                  },
-                ],
-              },
+              article: search
+                ? {
+                    OR: [
+                      {
+                        title: {
+                          startsWith: search,
+                        },
+                      },
+                      {
+                        title: {
+                          contains: search,
+                        },
+                      },
+                      {
+                        AND: generateTitlePartialSearch(search),
+                      },
+                    ],
+                  }
+                : {},
               isFavorite: input.isFavorite,
               ...tagsFilter,
             },
@@ -226,11 +229,13 @@ export const articleRouter = trpc.router({
           const startWithQuery = await prisma.articleUser.findMany({
             where: {
               userId: ctx.user.id,
-              article: {
-                title: {
-                  startsWith: search,
-                },
-              },
+              article: search
+                ? {
+                    title: {
+                      startsWith: search,
+                    },
+                  }
+                : {},
               isFavorite: input.isFavorite,
               ...tagsFilter,
             },
@@ -273,11 +278,13 @@ export const articleRouter = trpc.router({
           const containsQuery = await prisma.articleUser.findMany({
             where: {
               userId: ctx.user.id,
-              article: {
-                title: {
-                  contains: search,
-                },
-              },
+              article: search
+                ? {
+                    title: {
+                      contains: search,
+                    },
+                  }
+                : {},
               isFavorite: input.isFavorite,
               ...tagsFilter,
             },
@@ -320,9 +327,11 @@ export const articleRouter = trpc.router({
           return await prisma.articleUser.findMany({
             where: {
               userId: ctx.user.id,
-              article: {
-                AND: generateTitlePartialSearch(search),
-              },
+              article: search
+                ? {
+                    AND: generateTitlePartialSearch(search),
+                  }
+                : {},
               isFavorite: input.isFavorite,
               ...tagsFilter,
             },

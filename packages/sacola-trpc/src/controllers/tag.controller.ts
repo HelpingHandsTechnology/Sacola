@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { authMiddleware } from '../middlewares/auth.middleware';
 import { trpc } from '../trpc';
 import { catchTrpcError } from '../utils/catchTrpcError';
+import { tagSchema } from '../schemas';
 
 const tagProcedure = trpc.procedure.use(authMiddleware);
 
@@ -24,16 +25,15 @@ export const tagRouter = trpc.router({
         throw catchTrpcError(e);
       }
     }),
-  getTags: tagProcedure.output(z.array(z.object({ id: z.string(), name: z.string() }))).query(async ({ ctx }) => {
-    return await prisma.tag.findMany({
-      where: {
-        userId: ctx.user.id,
-      },
-      select: {
-        id: true,
-        name: true,
-      },
-    });
+  getTags: tagProcedure.output(z.array(tagSchema)).query(async ({ ctx }) => {
+    try {
+      return await prisma.tag.findMany({
+        where: { userId: ctx.user.id },
+        select: { id: true, name: true, userId: true },
+      });
+    } catch (e) {
+      throw catchTrpcError(e);
+    }
   }),
   addTagToArticle: tagProcedure
     .input(z.object({ tagId: z.string(), articleId: z.string() }))
