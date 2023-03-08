@@ -4,7 +4,8 @@ export default function middleware(req: NextRequest) {
   const token = req.cookies.get('token');
   const url = req.nextUrl.pathname;
 
-  if (url === '/') {
+  // TODO: Refactor this to a better way
+  if (url === '/' || url === '/profile') {
     if (!token) {
       return NextResponse.redirect(req.nextUrl.origin + '/login');
     }

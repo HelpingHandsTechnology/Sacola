@@ -9,11 +9,21 @@ export default function Header() {
   const [url, setUrl] = useState<string>('');
   const router = useRouter();
   const utils = trpcNext.useContext();
+
   const { mutate: createMutation } = trpcNext.articles.create.useMutation({
     onSuccess: () => {
       utils.articles.getAll.invalidate();
+      setUrl('');
     },
   });
+
+  const handleAddArticle = () => {
+    //TODO: add validation for url
+    if (url) {
+      createMutation({ url });
+    }
+    setShowAddUrlInput(!showAddUrlInput);
+  };
 
   return (
     <header className="mb-4 flex w-full justify-center shadow-md">
@@ -49,13 +59,7 @@ export default function Header() {
               placeholder="Save a URL https://..."
             />
             <div className="flex justify-end">
-              <button
-                className="rounded-lg bg-black px-4 py-2 text-white"
-                onClick={() => {
-                  createMutation({ url });
-                  setShowAddUrlInput(!showAddUrlInput);
-                }}
-              >
+              <button className="rounded-lg bg-black px-4 py-2 text-white" onClick={handleAddArticle}>
                 Add
               </button>
             </div>

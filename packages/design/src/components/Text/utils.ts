@@ -14,6 +14,9 @@ export const getWeightClassname = (weight: TextProps['weight']): TFontWeight => 
 
 export const getSizeClassname = (size: TextProps['size']): TFontSize => {
   const options: { [key in Exclude<TextProps['size'], undefined>]: TFontSize } = {
+    '4xl': 'text-4xl',
+    '3xl': 'text-3xl',
+    '2xl': 'text-2xl',
     xl: 'text-xl',
     lg: 'text-lg',
     md: 'text-base',
