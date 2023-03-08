@@ -39,7 +39,7 @@ export default function Home() {
     <Layout>
       <div className="container space-y-4">
         <h1 className="text-2xl font-medium">Your Findings</h1>
-        <section className="sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid grid-flow-row gap-4">
+        <section className="grid grid-flow-row grid-cols-1 gap-4 tablet:grid-cols-2 desktop:grid-cols-4">
           {articles.length > 0 ? (
             articles.map((article) => (
               <ArticleCard
