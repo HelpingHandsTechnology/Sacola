@@ -6,6 +6,11 @@ import Image from 'next/image';
 
 const Profile = () => {
   const { data: user } = trpcNext.user.getUserInfo.useQuery();
+  const { mutate: logout } = trpcNext.auth.invalidateToken.useMutation();
+
+  const handleLogout = () => {
+    logout();
+  };
 
   return (
     <Layout>
@@ -29,7 +34,7 @@ const Profile = () => {
               {user?.email}
             </Text>
             <Text size="md" xClassName="sm:text-2xl text-slate-700">
-              {user?.username || 'Set your username e.g. @username'}
+              {user?.username || 'No username set'}
             </Text>
           </div>
         </div>
@@ -68,6 +73,12 @@ const Profile = () => {
               )}
             </div>
           </fieldset>
+        </div>
+
+        <div className="mt-4 w-full">
+          <button className="w-full rounded-md bg-red-500 px-4 py-2 text-white desktop:w-24" onClick={handleLogout}>
+            Logout
+          </button>
         </div>
       </div>
     </Layout>
