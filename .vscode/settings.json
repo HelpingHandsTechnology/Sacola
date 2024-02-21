@@ -1,5 +1,0 @@
-{
-  "tailwindCSS.classAttributes": ["className", "class", "xClassName"],
-  "editor.formatOnSave": true,
-  "todohighlight.keywords": ["NOTE:"]
-}
