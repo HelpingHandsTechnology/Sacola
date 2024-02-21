@@ -1,42 +1,35 @@
+# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+
 # dependencies
-node_modules
-tsconfig.tsbuildinfo
-.pnp
-.pnp.js
+node_modules/
 
-# builds
-build
-dist
-.rpt2_cache
+# Expo
+.expo/
+dist/
+web-build/
 
-# testing
-coverage
+# Native
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
 
-# misc
-.DS_Store
-*.pem
-upload_s3.sh
+# Metro
+.metro-health-check*
 
 # debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
-package-lock.json
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# macOS
+.DS_Store
+*.pem
 
 # local env files
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env*.local
 
-# turbo
-.turbo
-
-# spine-threejs
-assetOutput
-spine-output*
-
-# parcel (build tool)
-.parcel-cache
+# typescript
+*.tsbuildinfo
