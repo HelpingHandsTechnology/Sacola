@@ -31,8 +31,9 @@ module.exports = function (api) {
       },
     ])
   }
+
   return {
     plugins,
-    presets: [["babel-preset-expo", { jsxImportSource: "nativewind" }], "nativewind/babel"],
+    presets: ["babel-preset-expo"],
   }
 }

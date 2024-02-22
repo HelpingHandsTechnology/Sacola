@@ -1,10 +1,8 @@
 {
   "expo": {
-    "name": "some",
-    "slug": "some",
+    "name": "sacola",
+    "slug": "sacola",
     "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
+    "assetBundlePatterns": ["**/*"]
   }
 }

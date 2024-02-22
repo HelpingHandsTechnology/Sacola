@@ -1,4 +1,4 @@
-rootProject.name = 'some'
+rootProject.name = 'sacola'
 
 dependencyResolutionManagement {
   versionCatalogs {

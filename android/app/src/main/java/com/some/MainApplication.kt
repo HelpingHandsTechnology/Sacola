@@ -1,4 +1,4 @@
-package com.some
+package com.sacola
 
 import android.app.Application
 import android.content.res.Configuration

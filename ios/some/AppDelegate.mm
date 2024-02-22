@@ -41,19 +41,19 @@
   return [super application:application continueUserActivity:userActivity restorationHandler:restorationHandler] || result;
 }
 
-// Explicitly define remote notification delegates to ensure compatibility with some third-party libraries
+// Explicitly define remote notification delegates to ensure compatibility with sacola third-party libraries
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
   return [super application:application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
 }
 
-// Explicitly define remote notification delegates to ensure compatibility with some third-party libraries
+// Explicitly define remote notification delegates to ensure compatibility with sacola third-party libraries
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
   return [super application:application didFailToRegisterForRemoteNotificationsWithError:error];
 }
 
-// Explicitly define remote notification delegates to ensure compatibility with some third-party libraries
+// Explicitly define remote notification delegates to ensure compatibility with sacola third-party libraries
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
   return [super application:application didReceiveRemoteNotification:userInfo fetchCompletionHandler:completionHandler];
